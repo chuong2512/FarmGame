@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 3b0554b6fe92d1647982ae93ef165b87
+timeCreated: 1517973929
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - seeds: {fileID: 11400000, guid: 2f4893df702a4e54fb31e7efffc7cd6d, type: 2}
+  - cages: {fileID: 11400000, guid: eef216d1598f46548a9beeea8780cc54, type: 2}
+  - pets: {fileID: 11400000, guid: 02e3b656095fc3d40b63d78a1b755bc7, type: 2}
+  - breadFeeds: {fileID: 11400000, guid: ff55181ec7d42234c9eb30aa702de48d, type: 2}
+  - facetorys: {fileID: 11400000, guid: 79a29cd76cebba94e90840b8204f8488, type: 2}
+  - facetoryItems: {fileID: 11400000, guid: 826a5787bcf1f52429e7f32a0ea4bfea, type: 2}
+  - houses: {fileID: 11400000, guid: 3b14365838dfebc4db165737a3c6b084, type: 2}
+  - tower: {fileID: 11400000, guid: 4a05f35195dffff489a26168c406f624, type: 2}
+  - depot: {fileID: 11400000, guid: e1019d4068771aa4c9d2247f66279236, type: 2}
+  - lands: {fileID: 11400000, guid: 975a670f7d42af543aa6b982a1fb0de1, type: 2}
+  - trees: {fileID: 11400000, guid: 33d965d438e030942b8e40e27af00c31, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
