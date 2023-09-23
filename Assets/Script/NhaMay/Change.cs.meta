@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1619795299ddaf24a9b0bc242702875f
+timeCreated: 1529554088
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - DotYellow: {fileID: 21300000, guid: 7a1fc24ffa23e8a4498eeebd4298bbf2, type: 3}
+  - DotBlack: {fileID: 21300000, guid: 74bbf83111696b84d8e74cf48414aa0e, type: 3}
+  - sprRenderer: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

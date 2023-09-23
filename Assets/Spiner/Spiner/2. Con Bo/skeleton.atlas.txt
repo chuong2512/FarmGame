@@ -1,0 +1,110 @@
+
+skeleton.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+chansau1
+  rotate: false
+  xy: 165, 27
+  size: 20, 39
+  orig: 20, 39
+  offset: 0, 0
+  index: -1
+chansau2
+  rotate: false
+  xy: 132, 63
+  size: 20, 45
+  orig: 20, 45
+  offset: 0, 0
+  index: -1
+chantrc1
+  rotate: false
+  xy: 143, 19
+  size: 20, 42
+  orig: 20, 42
+  offset: 0, 0
+  index: -1
+chantrc2
+  rotate: false
+  xy: 127, 10
+  size: 14, 44
+  orig: 14, 44
+  offset: 0, 0
+  index: -1
+dau
+  rotate: true
+  xy: 2, 2
+  size: 105, 93
+  orig: 105, 93
+  offset: 0, 0
+  index: -1
+duisau1
+  rotate: false
+  xy: 148, 157
+  size: 26, 39
+  orig: 26, 39
+  offset: 0, 0
+  index: -1
+duisau2
+  rotate: true
+  xy: 150, 229
+  size: 37, 36
+  orig: 37, 36
+  offset: 0, 0
+  index: -1
+duitrc1
+  rotate: false
+  xy: 97, 6
+  size: 28, 48
+  orig: 28, 48
+  offset: 0, 0
+  index: -1
+duitrc2
+  rotate: false
+  xy: 97, 56
+  size: 33, 51
+  orig: 33, 51
+  offset: 0, 0
+  index: -1
+duoi1
+  rotate: true
+  xy: 150, 201
+  size: 26, 34
+  orig: 26, 34
+  offset: 0, 0
+  index: -1
+duoi2
+  rotate: false
+  xy: 154, 68
+  size: 30, 40
+  orig: 30, 40
+  offset: 0, 0
+  index: -1
+mat
+  rotate: true
+  xy: 131, 147
+  size: 49, 15
+  orig: 49, 15
+  offset: 0, 0
+  index: -1
+mieng
+  rotate: true
+  xy: 131, 110
+  size: 35, 24
+  orig: 35, 24
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 2, 198
+  size: 146, 68
+  orig: 146, 68
+  offset: 0, 0
+  index: -1
+than
+  rotate: false
+  xy: 2, 109
+  size: 127, 87
+  orig: 127, 87
+  offset: 0, 0
+  index: -1

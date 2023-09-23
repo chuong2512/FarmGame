@@ -1,0 +1,68 @@
+
+skeleton.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dau
+  rotate: true
+  xy: 107, 2
+  size: 87, 85
+  orig: 87, 85
+  offset: 0, 0
+  index: -1
+duisau1
+  rotate: true
+  xy: 324, 14
+  size: 36, 66
+  orig: 36, 66
+  offset: 0, 0
+  index: -1
+duisau2
+  rotate: true
+  xy: 324, 52
+  size: 37, 69
+  orig: 37, 69
+  offset: 0, 0
+  index: -1
+duitrc1
+  rotate: true
+  xy: 255, 8
+  size: 28, 62
+  orig: 28, 62
+  offset: 0, 0
+  index: -1
+duitrc2
+  rotate: true
+  xy: 194, 5
+  size: 31, 59
+  orig: 31, 59
+  offset: 0, 0
+  index: -1
+duoi1
+  rotate: true
+  xy: 395, 64
+  size: 25, 15
+  orig: 25, 15
+  offset: 0, 0
+  index: -1
+mat
+  rotate: true
+  xy: 392, 10
+  size: 40, 21
+  orig: 40, 21
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 194, 38
+  size: 128, 51
+  orig: 128, 51
+  offset: 0, 0
+  index: -1
+than
+  rotate: false
+  xy: 2, 13
+  size: 103, 76
+  orig: 103, 76
+  offset: 0, 0
+  index: -1

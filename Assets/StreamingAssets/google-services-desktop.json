@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "404589061798",
+    "project_id": "royal-farm-70e86",
+    "storage_bucket": "royal-farm-70e86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404589061798:android:1f75cf2fdd65fb84f6b667",
+        "android_client_info": {
+          "package_name": "com.royal.farming"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "404589061798-63e7jsnm84q3nck3o6nj4av8fbul0fej.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVTW9_IAyKhcXkcoZDXxtpcOy7l2Y8UzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "404589061798-63e7jsnm84q3nck3o6nj4av8fbul0fej.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "404589061798-6rphjeavajbg46f5m3mia1ff0r52i39b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.royal.farming"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
