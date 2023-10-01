@@ -1,4 +1,4 @@
-// Author: Daniele Giardini - http://www.demigiant.com
+﻿// Author: Daniele Giardini - http://www.demigiant.com
 // Created: 2018/07/13
 
 using System;
@@ -52,7 +52,7 @@ namespace DG.Tweening
 
         #endregion
 
-#if false // PHYSICS_MARKER
+#if true // PHYSICS_MARKER
         #region Rigidbody
 
         /// <summary>Tweens a Rigidbody's position in a spiral shape.
