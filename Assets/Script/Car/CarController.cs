@@ -1,26 +1,24 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class CarController : MonoBehaviour
 {
-    [SerializeField] private PassingCar passingCarMoneyPrefabs;
-    [SerializeField] private PassingCar passingCarTruckPrefabs;
+    [SerializeField] private PassingCar[] leftPassingCarPrefabs;
+    [SerializeField] private PassingCar[] rightPassingCarPrefabs;
 
     [SerializeField] private float minTimeSpawn, rangeTimeSpawn;
 
     private PassingCar _carSpawn;
-    private CarState _carState, _currentCarState;
     private bool _isBlockSpawn;
     private float _timeSpawn;
     
     private void Start()
     {
-        ManagerCar.instance.OnCarGo += SetMainRoad;
-        _carState = CarState.Empty;
-        _currentCarState = _carState;
-        _carSpawn = passingCarMoneyPrefabs;
+        ManagerCar.instance.OnCarGo += BlockCar;
+        _timeSpawn = minTimeSpawn;
         _isBlockSpawn = false;
     }
 
@@ -37,16 +35,8 @@ public class CarController : MonoBehaviour
         SpawnCar();
     }
 
-    private void SetMainRoad(CarState carState)
+    private void BlockCar()
     {
-        _currentCarState = _carState;
-        _carState = carState;
-        _carSpawn = carState switch
-        {
-            CarState.Money => passingCarMoneyPrefabs,
-            CarState.Truck => passingCarTruckPrefabs,
-            _ => passingCarMoneyPrefabs
-        };
         StartCoroutine(IEBlockSpawn());
     }
 
@@ -59,9 +49,21 @@ public class CarController : MonoBehaviour
 
     private void SpawnCar()
     {
-        var passingCar = Instantiate(_carSpawn);
+        _carSpawn = Random.Range(0, 10) > 5 ? GetRandomRightCar() : GetRandomLeftCar();
+        Instantiate(_carSpawn);
     }
 
     private float GetRandomTime() => Random.Range(minTimeSpawn, minTimeSpawn + rangeTimeSpawn);
 
+    private PassingCar GetRandomLeftCar()
+    { 
+        var carIndex = Random.Range(0, leftPassingCarPrefabs.Length);
+        return leftPassingCarPrefabs[carIndex];
+    }
+    
+    private PassingCar GetRandomRightCar()
+    { 
+        var carIndex = Random.Range(0, rightPassingCarPrefabs.Length);
+        return rightPassingCarPrefabs[carIndex];
+    }
 }

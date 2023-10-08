@@ -4,11 +4,10 @@ using System.Collections;
 public class MoneyCar : MonoBehaviour
 {
 
-    VisualWaypoint visuaWP;
+    [SerializeField] private VisualWaypoint visuaWP;
     Animator Ani;
     Transform targetVector;
     [SerializeField] int wayIndex, status;
-    [SerializeField] GameObject path;
     [SerializeField] GameObject body;
     [SerializeField] GameObject smokeOne;
     [SerializeField] GameObject smokeTwo;
@@ -16,10 +15,7 @@ public class MoneyCar : MonoBehaviour
     [SerializeField] ParticleSystemRenderer psRendererSmokeOne;
     [SerializeField] ParticleSystemRenderer psRendererSmokeTow;
     // Use this for initialization
-    void Awake()
-    {
-        visuaWP = path.GetComponent<VisualWaypoint>();
-    }
+
     void OnEnable()
     {
         smokeOne.SetActive(true);

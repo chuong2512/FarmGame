@@ -11,7 +11,7 @@ public class ManagerCar : MonoBehaviour
     [SerializeField] GameObject TruckCar;
     [SerializeField] GameObject MoneyCar;
 
-    public event Action<CarState> OnCarGo;
+    public event Action OnCarGo;
     
     private void Awake()
     {
@@ -42,7 +42,6 @@ public class ManagerCar : MonoBehaviour
         TruckCar.SetActive(false);
         MoneyCar.SetActive(false);
         PlayerPrefs.SetInt("StatusCar", 0);
-        OnCarGo?.Invoke(CarState.Empty);
     }
     
     public void startCargo(int coin, int exp)
@@ -56,7 +55,7 @@ public class ManagerCar : MonoBehaviour
         CarEmpty.SetActive(false);
         TruckCar.SetActive(true);
         MoneyCar.SetActive(false);
-        OnCarGo?.Invoke(CarState.Truck);
+        OnCarGo?.Invoke();
     }
 
     [ContextMenu("moneyGo")]
@@ -67,7 +66,7 @@ public class ManagerCar : MonoBehaviour
         MoneyCar.SetActive(true);
         TruckCar.SetActive(false);
         CarEmpty.SetActive(false);
-        OnCarGo?.Invoke(CarState.Money);
+        OnCarGo?.Invoke();
     }
 
 }

@@ -14,9 +14,9 @@ public class PassingCar : MonoBehaviour
 	void OnEnable ()
 	{
 		transform.position = visuaWP.node[0].position;
-		StartCoroutine (carStart());
+		StartCoroutine (moveCarOne());
 	}
-	void Start()
+	void Awake()
 	{
 		sprRenderer = body.GetComponent<SpriteRenderer> ();
 	}
@@ -46,11 +46,7 @@ public class PassingCar : MonoBehaviour
     {
         OrderCar();
     }
-	IEnumerator carStart()
-	{
-		yield return new WaitForSeconds(0.5f);
-		StartCoroutine (moveCarOne());
-	}
+
 	IEnumerator moveCarOne()
 	{
 		iTween.MoveTo(gameObject, iTween.Hash("position", visuaWP.node [1].position, "time", 18f, "easetype", iTween.EaseType.linear, "islocal", true));
@@ -61,3 +57,4 @@ public class PassingCar : MonoBehaviour
 	}
 
 }
+
