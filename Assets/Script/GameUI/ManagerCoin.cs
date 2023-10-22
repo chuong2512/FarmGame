@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.UI;
 
+
+[DefaultExecutionOrder(-99)]
 public class ManagerCoin : MonoBehaviour
 {
     public static ManagerCoin instance;
@@ -22,11 +25,13 @@ public class ManagerCoin : MonoBehaviour
     {
         ShowGoldText.text = "" + Coin;
     }
+    [Button]
     public void reciveGold(int value)
     {
         Coin += value;
         ShowGoldText.text = "" + Coin;
     }
+    [Button]
     public void MunisGold(int value)
     {
         Coin -= value;

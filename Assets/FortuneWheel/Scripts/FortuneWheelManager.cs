@@ -67,6 +67,8 @@ public class FortuneWheelManager : MonoBehaviour
 
 	private void Awake ()
 	{
+		_currentCoinsAmount = ManagerCoin.instance.Coin;
+		
 		_previousCoinsAmount = _currentCoinsAmount;
 		// Show our current coins amount
 		CurrentCoinsText.text = _currentCoinsAmount.ToString ();
@@ -136,10 +138,13 @@ public class FortuneWheelManager : MonoBehaviour
 		// Stop the wheel
 		_isStarted = true;
 
+		_currentCoinsAmount = ManagerCoin.instance.Coin;
+		
 		_previousCoinsAmount = _currentCoinsAmount;
 
 		// Decrease money for the turn if it is not free turn
 		if (!isFree) {
+			ManagerCoin.instance.MunisGold(TurnCost);
 			_currentCoinsAmount -= TurnCost;
 
 			// Show wasted coins
@@ -261,6 +266,7 @@ public class FortuneWheelManager : MonoBehaviour
 	/// <param name="awardCoins">Coins for user</param>
 	public void RewardCoins (int awardCoins)
 	{
+		ManagerCoin.instance.Coin += awardCoins;
 		_currentCoinsAmount += awardCoins;
 		// Show animated delta coins
 		DeltaCoinsText.text = String.Format("+{0}", awardCoins);
@@ -288,6 +294,8 @@ public class FortuneWheelManager : MonoBehaviour
 			yield return new WaitForEndOfFrame ();
 		}
 
+		_currentCoinsAmount = ManagerCoin.instance.Coin;
+		
 		_previousCoinsAmount = _currentCoinsAmount;
 
 		CurrentCoinsText.text = _currentCoinsAmount.ToString ();
