@@ -4,20 +4,17 @@ using System.Collections;
 public class TruckCar : MonoBehaviour 
 {
 	
-	VisualWaypoint visuaWP;
+	[SerializeField] private VisualWaypoint visuaWP;
 	SpriteRenderer sprRenderer;
 	Transform targetVector;
-	[SerializeField] GameObject path, body;
+	[SerializeField] GameObject body;
     [SerializeField] GameObject smokeOne;
     [SerializeField] GameObject smokeTwo;
     [SerializeField] OrderPro[] oderCar;
     [SerializeField] ParticleSystemRenderer psRendererSmokeOne;
     [SerializeField] ParticleSystemRenderer psRendererSmokeTow;
     // Use this for initialization
-    void Awake()
-	{
-		visuaWP = path.GetComponent<VisualWaypoint> ();
-	}
+
 	void OnEnable () 
 	{
 		StartCoroutine (carStart());

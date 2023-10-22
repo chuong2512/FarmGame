@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ManagerCar : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class ManagerCar : MonoBehaviour
     [SerializeField] GameObject CarEmpty;
     [SerializeField] GameObject TruckCar;
     [SerializeField] GameObject MoneyCar;
+
+    public event Action OnCarGo;
+    
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -31,6 +35,7 @@ public class ManagerCar : MonoBehaviour
             PlayerPrefs.SetInt("ExpCar", Exp);
         } 
     }
+    [ContextMenu("truckgo")]
     public void startEmpty()
     {
         CarEmpty.SetActive(true);
@@ -38,7 +43,7 @@ public class ManagerCar : MonoBehaviour
         MoneyCar.SetActive(false);
         PlayerPrefs.SetInt("StatusCar", 0);
     }
-
+    
     public void startCargo(int coin, int exp)
     {
         status = 1;
@@ -50,8 +55,10 @@ public class ManagerCar : MonoBehaviour
         CarEmpty.SetActive(false);
         TruckCar.SetActive(true);
         MoneyCar.SetActive(false);
+        OnCarGo?.Invoke();
     }
 
+    [ContextMenu("moneyGo")]
     public void startMoneygo()
     {
         status = 2;
@@ -59,6 +66,14 @@ public class ManagerCar : MonoBehaviour
         MoneyCar.SetActive(true);
         TruckCar.SetActive(false);
         CarEmpty.SetActive(false);
+        OnCarGo?.Invoke();
     }
 
+}
+
+public enum CarState
+{
+    Truck, 
+    Money,
+    Empty
 }
