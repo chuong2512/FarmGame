@@ -1,5 +1,5 @@
 ﻿using System;
-using TimDoVat;
+using NongTrai;
 using UnityEngine;
 
 namespace Script.GameUI

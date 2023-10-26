@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TimDoVat
+namespace NongTrai
 {
 	/// <summary>
 	/// Persistent singleton. Destroy the new one if exists and keep the older.
