@@ -21,7 +21,7 @@ public class FortuneWheelManager : MonoBehaviour
 	public Text NextFreeTurnTimerText;			// Text element that contains remaining time to next free turn
 
 	[Header("How much currency one paid turn costs")]
-	public int TurnCost = 300;					// How much coins user waste when turn whe wheel
+	public int TurnCost = 100;					// How much coins user waste when turn whe wheel
 
 	private bool _isStarted;					// Flag that the wheel is spinning
 
@@ -144,7 +144,7 @@ public class FortuneWheelManager : MonoBehaviour
 
 		// Decrease money for the turn if it is not free turn
 		if (!isFree) {
-			ManagerCoin.instance.MunisGold(TurnCost);
+			Gem.instance.MunisGem(TurnCost);
 			_currentCoinsAmount -= TurnCost;
 
 			// Show wasted coins
@@ -266,12 +266,24 @@ public class FortuneWheelManager : MonoBehaviour
 	/// <param name="awardCoins">Coins for user</param>
 	public void RewardCoins (int awardCoins)
 	{
-		ManagerCoin.instance.Coin += awardCoins;
+		ManagerCoin.instance.reciveGold(awardCoins);
 		_currentCoinsAmount += awardCoins;
 		// Show animated delta coins
 		DeltaCoinsText.text = String.Format("+{0}", awardCoins);
 		DeltaCoinsText.gameObject.SetActive (true);
 		StartCoroutine (UpdateCoinsAmount ());
+	}
+	
+	public void RewardGems (int awardCoins)
+	{
+		Gem.instance.ReciveGem(awardCoins);
+		// Show animated delta coins
+	}
+	
+	public void RewardSeeds (int awardCoins)
+	{
+		ManagerShop.instance.AddSeeds(awardCoins);
+		// Show animated delta coins
 	}
 
 	// Hide coins delta text after animation

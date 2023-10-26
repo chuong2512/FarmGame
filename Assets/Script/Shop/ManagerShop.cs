@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ManagerShop : MonoBehaviour
@@ -455,6 +456,18 @@ public class ManagerShop : MonoBehaviour
         ManagerMarket.instance.ReciveItem(2, id, ManagerData.instance.facetoryItems.FacetoryItem[id].donate, false);
     }
     void updateSeeds(int id)
+    {
+        infoSeeds.info[id].status = 1;
+        PlayerPrefs.SetInt("updateSeeds" + id, 1);
+        infoSeeds.info[id].quantity.SetActive(true);
+        infoSeeds.info[id].sprRenderer.sprite = ManagerData.instance.seeds.Seed[id].iconStore;
+        ManagerMarket.instance.ReciveItem(0, id, ManagerData.instance.seeds.Seed[id].quantityOpen, false);
+        ManagerItem.instance.UpdateItem(0, id);
+        Experience.instance.registerItemOpen(ManagerData.instance.seeds.Seed[id].iconStore);
+    }
+    
+    [Button]
+    public void AddSeeds(int id)
     {
         infoSeeds.info[id].status = 1;
         PlayerPrefs.SetInt("updateSeeds" + id, 1);

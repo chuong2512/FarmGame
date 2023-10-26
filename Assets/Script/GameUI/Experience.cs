@@ -131,7 +131,6 @@ public class Experience : MonoBehaviour
     }
     void LeveUp()
     {
-        MobileFullVideo.instance.ShowFullNormal();
         if (Application.systemLanguage == SystemLanguage.Vietnamese)
             txtShowLevelUp.text = "LÊN CẤP " + (level + 1);
         else if (Application.systemLanguage == SystemLanguage.Indonesian)

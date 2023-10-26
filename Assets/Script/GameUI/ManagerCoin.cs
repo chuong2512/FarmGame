@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using Script.GameUI;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,11 @@ public class ManagerCoin : MonoBehaviour
     public int Coin
     {
         get { if (PlayerPrefs.HasKey("Coin") == false) PlayerPrefs.SetInt("Coin", 250); return PlayerPrefs.GetInt("Coin"); }
-        set { PlayerPrefs.SetInt("Coin", value); }
+        set
+        {
+            PlayerPrefs.SetInt("Coin", value); 
+            GameManager.OnChangeCoin?.Invoke();
+        }
     }
     // Use this for initialization
     void Awake()

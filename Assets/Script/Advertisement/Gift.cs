@@ -8,6 +8,7 @@ public class Gift : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        gameObject.SetActive(false);
         Order();
     }
 
@@ -42,7 +43,6 @@ public class Gift : MonoBehaviour
         if (Vector3.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) < 0.2f)
         {
             orderGift[0].SprRenderer[0].color = Color.white;
-            MobileRewardVideoAd.instance.ButtonGift();
         }
     }
 }

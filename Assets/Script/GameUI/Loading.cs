@@ -66,8 +66,6 @@ public class Loading : MonoBehaviour
             temp++;
             showText.text = temp + "%";
             yield return new WaitForSeconds(time / 100);
-            if (temp == 98)
-                AdsAppOpen.Instance.ShowAdIfAvailable();
         }
         asyncOperation.allowSceneActivation = true;
         transform.GetChild(0).gameObject.SetActive(false);

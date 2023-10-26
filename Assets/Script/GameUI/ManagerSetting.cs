@@ -119,7 +119,6 @@ public class ManagerSetting : MonoBehaviour
         ManagerAudio.instance.PlayAudio(Audio.Click);
         ExitGame.SetActive(false);
         StartCoroutine(WaitExit());
-        MobileFullVideo.instance.ShowFullNormal();
     }
 
     IEnumerator WaitExit()

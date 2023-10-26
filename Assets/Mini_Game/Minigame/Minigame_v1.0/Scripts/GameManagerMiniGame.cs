@@ -272,7 +272,6 @@ public class GameManagerMiniGame : MonoBehaviour
                 effectWin[i].transform.position.y, 0);
             effectWin[i].SetActive(true);
         }
-        MobileFullVideo.instance?.ShowFullNormal();
         StartCoroutine(DelayShowWin());
     }
 

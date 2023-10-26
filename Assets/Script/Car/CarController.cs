@@ -50,7 +50,8 @@ public class CarController : MonoBehaviour
     private void SpawnCar()
     {
         _carSpawn = Random.Range(0, 10) > 5 ? GetRandomRightCar() : GetRandomLeftCar();
-        Instantiate(_carSpawn);
+
+        PoolingSystem.Instance.InstantiateAPS(_carSpawn.name);
     }
 
     private float GetRandomTime() => Random.Range(minTimeSpawn, minTimeSpawn + rangeTimeSpawn);
