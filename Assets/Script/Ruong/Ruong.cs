@@ -382,7 +382,7 @@ public class Ruong : MonoBehaviour
     }
     public void UseGemBuySeeds()
     {
-        if (Gem.instance.GemLive >= 2)
+        if (ManagerGem.instance.GemLive >= 2)
         {
             status = 1;
             PlayerPrefs.SetInt("StatusField" + idRuong, 1);
@@ -396,7 +396,7 @@ public class Ruong : MonoBehaviour
             IETimeLive = countTime();
             StartCoroutine(IETimeLive);
             ManagerTool.instance.RegisterEatOne(1, ManagerData.instance.seeds.Seed[idSeed].item, transform.position);
-            Gem.instance.MunisGem(2);
+            ManagerGem.instance.MunisGem(2);
         }
         else
         {

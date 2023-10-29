@@ -144,7 +144,7 @@ public class FortuneWheelManager : MonoBehaviour
 
 		// Decrease money for the turn if it is not free turn
 		if (!isFree) {
-			Gem.instance.MunisGem(TurnCost);
+			ManagerGem.instance.MunisGem(TurnCost);
 			_currentCoinsAmount -= TurnCost;
 
 			// Show wasted coins
@@ -276,7 +276,7 @@ public class FortuneWheelManager : MonoBehaviour
 	
 	public void RewardGems (int awardCoins)
 	{
-		Gem.instance.ReciveGem(awardCoins);
+		ManagerGem.instance.ReciveGem(awardCoins);
 		// Show animated delta coins
 	}
 	

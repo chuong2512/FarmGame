@@ -19,7 +19,7 @@ public class GemFly : MonoBehaviour
 
     void OnEnable()
     {
-        pointerGem = Gem.instance.PoiterGem;
+        pointerGem = ManagerGem.instance.PoiterGem;
     }
 
     void Start()
@@ -76,7 +76,7 @@ public class GemFly : MonoBehaviour
         {
             if (Vector3.Distance(objGem.transform.position, positionGem[numberPointsGem - 1]) < 0.1f)
             {
-                Gem.instance.ReciveGem(numberGem);
+                ManagerGem.instance.ReciveGem(numberGem);
                 Destroy(gameObject);
             }
         }

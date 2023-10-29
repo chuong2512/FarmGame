@@ -255,13 +255,13 @@ public class ManagerDepot : MonoBehaviour
                 count = 0;
                 int TotalMiss = DataUpdate.metarial[id].QuantityItem - ManagerMarket.instance.QuantityItemBuilding[DataUpdate.metarial[id].IdItem];
                 int TotalGem = TotalMiss * ManagerData.instance.itemBuilding.Data[DataUpdate.metarial[id].IdItem].Purchase;
-                if (Gem.instance.GemLive >= TotalGem)
+                if (ManagerGem.instance.GemLive >= TotalGem)
                 {
                     ManagerMarket.instance.ReciveItem(4, DataUpdate.metarial[id].IdItem, TotalMiss, false);
                     CheckEligible();
-                    Gem.instance.MunisGem(TotalGem);
+                    ManagerGem.instance.MunisGem(TotalGem);
                 }
-                else if (Gem.instance.GemLive < TotalGem)
+                else if (ManagerGem.instance.GemLive < TotalGem)
                 {
                     string str;
                     if (Application.systemLanguage == SystemLanguage.Vietnamese)

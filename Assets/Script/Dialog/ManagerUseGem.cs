@@ -70,7 +70,7 @@ public class ManagerUseGem : MonoBehaviour
     }
     public void BtnAgree()
     {
-        if (Gem.instance.GemLive >= amountDiamond)
+        if (ManagerGem.instance.GemLive >= amountDiamond)
         {
             if (stypeUseGem == StypeUseGem.DecorateTree) objUseGem.GetComponent<DecorateTree>().ConditionEnough();
             else if (stypeUseGem == StypeUseGem.DecorateRockSmall) objUseGem.GetComponent<DecorateRockSmall>().ConditionEnough();
@@ -78,10 +78,10 @@ public class ManagerUseGem : MonoBehaviour
             else if (stypeUseGem == StypeUseGem.DecoratePond) objUseGem.GetComponent<DecorateRockBig>().ConditionEnough();
             else if (stypeUseGem == StypeUseGem.TreePOL) objUseGem.GetComponent<TreePlotOfLand>().ConditionEnough();
             else if (stypeUseGem == StypeUseGem.RockBigPOL) objUseGem.GetComponent<RockPlotOfLand>().ConditionEnough();
-            Gem.instance.MunisGem(amountDiamond);
+            ManagerGem.instance.MunisGem(amountDiamond);
             btnDisAgree();
         }
-        else if (Gem.instance.GemLive < amountDiamond)
+        else if (ManagerGem.instance.GemLive < amountDiamond)
         {
             string str;
             if (Application.systemLanguage == SystemLanguage.Vietnamese)

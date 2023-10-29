@@ -32,9 +32,9 @@ public class Lighting : MonoBehaviour
                 break;
             case 1:
                 status = 0;
-                if (Gem.instance.GemLive >= quantityGem)
+                if (ManagerGem.instance.GemLive >= quantityGem)
                 {
-                    Gem.instance.MunisGem(quantityGem);
+                    ManagerGem.instance.MunisGem(quantityGem);
                     switch (idStype)
                     {
                         case 0: objUseGem.GetComponent<Ruong>().UseDiamond(); break;
@@ -44,7 +44,7 @@ public class Lighting : MonoBehaviour
                         case 4: objUseGem.GetComponent<RuongHoa>().UseDiamond(); break;
                     }
                 }
-                else if (Gem.instance.GemLive < quantityGem)
+                else if (ManagerGem.instance.GemLive < quantityGem)
                 {
                     string strOne;
                     if (Application.systemLanguage == SystemLanguage.Vietnamese)

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Gem : MonoBehaviour
+public class ManagerGem : MonoBehaviour
 {
-    public static Gem instance = null;
+    public static ManagerGem instance = null;
     [SerializeField] Text ShowDiamondText;
     [SerializeField] GameObject GemFly;
     public Transform PoiterGem;

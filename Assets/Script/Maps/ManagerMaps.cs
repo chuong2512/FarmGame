@@ -62,7 +62,7 @@ public class ManagerMaps : MonoBehaviour
             {
                 Purchase[i] = Instantiate(PurchaseGem, ContentBuy);
                 Text NumberGem = Purchase[i].transform.GetChild(0).GetComponent<Text>();
-                NumberGem.text = Gem.instance.GemLive + "/" + ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase;
+                NumberGem.text = ManagerGem.instance.GemLive + "/" + ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase;
                 if (ManagerCoin.instance.Coin < ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase) NumberGem.color = new Color(1f, 127f / 255, 127f / 255, 1f);
             }
         }
@@ -99,7 +99,7 @@ public class ManagerMaps : MonoBehaviour
                 else if (ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].isGem == true)
                 {
                     int numberGemPurchase = ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase;
-                    Gem.instance.MunisGem(numberGemPurchase);
+                    ManagerGem.instance.MunisGem(numberGemPurchase);
                 }
             }
             StartCoroutine(CreateEffectUnlock());
@@ -171,7 +171,7 @@ public class ManagerMaps : MonoBehaviour
             }
             else if (ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].isGem == true)
             {
-                if (Gem.instance.GemLive < ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase)
+                if (ManagerGem.instance.GemLive < ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase)
                     isCheck = false;
             }
         }

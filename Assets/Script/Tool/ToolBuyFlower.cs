@@ -36,9 +36,9 @@ public class ToolBuyFlower : MonoBehaviour
             }
             else if (ManagerTool.instance.ClickUseGemBuyFlower == 1)
             {
-                if (Gem.instance.GemLive >= 2)
+                if (ManagerGem.instance.GemLive >= 2)
                 {
-                    Gem.instance.MunisGem(2);
+                    ManagerGem.instance.MunisGem(2);
                     ManagerTool.instance.ClickUseGemBuyFlower = 0;
                     Vector3 target = new Vector3(transform.position.x, transform.position.y, 0);
                     ManagerMarket.instance.BuySeeds(idFlower, target);

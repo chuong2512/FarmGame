@@ -565,9 +565,9 @@ public class NhaMay : MonoBehaviour
         else if (CountConfirmMFT == 1)
         {
             CountConfirmMFT = 0;
-            if (Gem.instance.GemLive >= NumberMFTFinal * 3)
+            if (ManagerGem.instance.GemLive >= NumberMFTFinal * 3)
             {
-                Gem.instance.MunisGem(NumberMFTFinal * 3);
+                ManagerGem.instance.MunisGem(NumberMFTFinal * 3);
                 if (NumberMFTFinal < NumberMFT - 1)
                 {
                     ButtonItemMTF[NumberMFTFinal].SetActive(false);
@@ -582,7 +582,7 @@ public class NhaMay : MonoBehaviour
                     IconItemMFTImage[NumberMFTFinal].gameObject.SetActive(true);
                 }
             }
-            else if (Gem.instance.GemLive < NumberMFTFinal * 3)
+            else if (ManagerGem.instance.GemLive < NumberMFTFinal * 3)
             {
                 string str;
                 if (Application.systemLanguage == SystemLanguage.Vietnamese)
@@ -613,10 +613,10 @@ public class NhaMay : MonoBehaviour
             Debug.Log(ManagerTool.instance.idTypeFactory);
             Debug.Log(ManagerTool.instance.idFactory);
             CountConfirmGem = 0;
-            if (Gem.instance.GemLive >= GemWU)
+            if (ManagerGem.instance.GemLive >= GemWU)
             {
                 StopCoroutine(IETime);
-                Gem.instance.MunisGem(GemWU);
+                ManagerGem.instance.MunisGem(GemWU);
                 status = 2;
                 PlayerPrefs.SetInt("StatusFactory" + idNhaMay + "" + idSoNhaMay, status);
                 idItemDone[CountDone] = IdItemMFT[0];
@@ -684,7 +684,7 @@ public class NhaMay : MonoBehaviour
                     if (idNhaMay == 1 || idNhaMay == 5 || idNhaMay == 6) Ani.SetTrigger("IsFinish");
                 }
             }
-            else if (Gem.instance.GemLive < GemWU)
+            else if (ManagerGem.instance.GemLive < GemWU)
             {
                 string str;
                 if (Application.systemLanguage == SystemLanguage.Vietnamese)

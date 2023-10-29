@@ -148,7 +148,7 @@ public class Experience : MonoBehaviour
         }
         dem = 2;
         upLevel.SetActive(false);
-        Gem.instance.ReciveGem(2);
+        ManagerGem.instance.ReciveGem(2);
         ManagerMarket.instance.ReciveItem(5, 0, 2, false);
         MainCamera.instance.UnlockCamLevelUp();
         ManagerAudio.instance.PlayAudio(Audio.Click);

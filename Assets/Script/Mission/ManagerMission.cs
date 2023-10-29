@@ -868,7 +868,7 @@ public class ManagerMission : MonoBehaviour
                 if (i == statusOrder[OrderSelected]) StatusMission[i].SetActive(true);
                 else if (i != statusOrder[OrderSelected]) StatusMission[i].SetActive(false);
             }
-            Gem.instance.MunisGem(3);
+            ManagerGem.instance.MunisGem(3);
         }
     }
 

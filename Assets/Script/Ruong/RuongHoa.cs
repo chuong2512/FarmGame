@@ -284,7 +284,7 @@ public class RuongHoa : MonoBehaviour
 
     public void UseGemBuySeeds()
     {
-        if (Gem.instance.GemLive >= 3)
+        if (ManagerGem.instance.GemLive >= 3)
         {
             status = 1;
             PlayerPrefs.SetInt("StatusFieldFlower" + idPOL + "" + idRuongHoa, 1);
@@ -298,9 +298,9 @@ public class RuongHoa : MonoBehaviour
             IETimeLive = countTime();
             StartCoroutine(IETimeLive);
             ManagerTool.instance.RegisterEatOne(1, ManagerData.instance.flowers.Data[idFlower].detailFlower.iconStore, transform.position);
-            Gem.instance.MunisGem(3);
+            ManagerGem.instance.MunisGem(3);
         }
-        else if (Gem.instance.GemLive < 3)
+        else if (ManagerGem.instance.GemLive < 3)
         {
             string str;
             if (Application.systemLanguage == SystemLanguage.Vietnamese)

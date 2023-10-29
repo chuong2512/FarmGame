@@ -279,7 +279,7 @@ public class ManagerCargo : MonoBehaviour
         Wave.SetActive(true);
         StopCoroutine(IENewShip);
         PlayerPrefs.SetInt("TimeLiveNewShip", 0);
-        Gem.instance.MunisGem(5);
+        ManagerGem.instance.MunisGem(5);
         ButtonNewShip.SetActive(false);
         TimeNewBroadText.text = Application.systemLanguage == SystemLanguage.Vietnamese ? "Tàu đang đến!" : "Ship is coming!";
         WaitNewBroad.SetActive(false);

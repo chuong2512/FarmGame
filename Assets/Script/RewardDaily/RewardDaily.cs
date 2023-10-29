@@ -54,7 +54,7 @@ public class RewardDaily : MonoBehaviour
         }
         else if (idStype[IdReward] >= 6)
         {
-            Gem.instance.RegisterGemSingle(AmountReward[IdReward], Reward.transform.position);
+            ManagerGem.instance.RegisterGemSingle(AmountReward[IdReward], Reward.transform.position);
         }
         Reward.SetActive(false);
         DayGotDailyLast = System.DateTime.Now.Day;
