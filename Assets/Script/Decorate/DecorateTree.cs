@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Script.Decorate;
 
-public class DecorateTree : MonoBehaviour
+public class DecorateTree : DecorateObject
 {
-    [SerializeField] int idDecorate;
-    [SerializeField] int idSerial;
     private int status;
     bool dragging;
     GameObject obj;

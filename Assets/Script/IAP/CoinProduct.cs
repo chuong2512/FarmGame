@@ -12,7 +12,7 @@ namespace Script.IAP
 
         private void BuyCoin()
         {
-            ManagerGem.instance.ReciveGem(_amount);
+            ManagerCoin.instance.reciveGold(_amount);
         }
     }
 }

@@ -67,7 +67,7 @@ public class FortuneWheelManager : MonoBehaviour
 
 	private void Awake ()
 	{
-		_currentCoinsAmount = ManagerCoin.instance.Coin;
+		_currentCoinsAmount = ManagerGem.instance.GemLive;
 		
 		_previousCoinsAmount = _currentCoinsAmount;
 		// Show our current coins amount
@@ -138,7 +138,7 @@ public class FortuneWheelManager : MonoBehaviour
 		// Stop the wheel
 		_isStarted = true;
 
-		_currentCoinsAmount = ManagerCoin.instance.Coin;
+		_currentCoinsAmount = ManagerGem.instance.GemLive;
 		
 		_previousCoinsAmount = _currentCoinsAmount;
 
@@ -306,7 +306,7 @@ public class FortuneWheelManager : MonoBehaviour
 			yield return new WaitForEndOfFrame ();
 		}
 
-		_currentCoinsAmount = ManagerCoin.instance.Coin;
+		_currentCoinsAmount = ManagerGem.instance.GemLive;
 		
 		_previousCoinsAmount = _currentCoinsAmount;
 

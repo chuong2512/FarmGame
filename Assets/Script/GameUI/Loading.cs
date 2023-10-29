@@ -11,28 +11,23 @@ public class Loading : MonoBehaviour
     [SerializeField] Text showText;
 
     [SerializeField] float time;
+
     // Use this for initialization
     void Start()
     {
         instance = this;
         DontDestroyOnLoad(gameObject);
-        if (!PlayerPrefs.HasKey("firstplay"))
-        {
-            PlayerPrefs.SetInt("firstplay", 1);
-            FirstLoad(2);
-        }
-        else
-        {
-            FirstLoad(1);
-        }
 
+        FirstLoad(1);
     }
+
     public void LoadScene(int id)
     {
         showLoad.fillAmount = 0;
         transform.GetChild(0).gameObject.SetActive(true);
         StartCoroutine(SuperLoading(id));
     }
+
     IEnumerator SuperLoading(int idScene)
     {
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(idScene);
@@ -45,18 +40,19 @@ public class Loading : MonoBehaviour
                 asyncOperation.allowSceneActivation = true;
             yield return null;
         }
+
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
     void FirstLoad(int id)
     {
-      
         showLoad.fillAmount = 0;
         showLoad.DOFillAmount(1, time).SetEase(Ease.Linear);
         StartCoroutine(DelayTime(id));
-       
     }
+
     int temp = 0;
+
     IEnumerator DelayTime(int idScene)
     {
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(idScene);
@@ -67,6 +63,7 @@ public class Loading : MonoBehaviour
             showText.text = temp + "%";
             yield return new WaitForSeconds(time / 100);
         }
+
         asyncOperation.allowSceneActivation = true;
         transform.GetChild(0).gameObject.SetActive(false);
     }

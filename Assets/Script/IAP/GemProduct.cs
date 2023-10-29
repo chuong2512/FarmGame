@@ -12,7 +12,7 @@ namespace Script.IAP
 
         private void BuyGem()
         {
-            
+            ManagerGem.instance.ReciveGem(_amount);
         }
     }
 }

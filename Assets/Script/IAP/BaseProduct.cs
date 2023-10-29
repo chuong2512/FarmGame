@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +10,11 @@ namespace Script.IAP
         [SerializeField] private Button _button;
 
         [Space] [SerializeField] protected int _amount;
-        [SerializeField] protected int _price;
+        [SerializeField] protected float _price;
         [SerializeField] protected string _packName;
+
+        [SerializeField] private Text _priceText;
+        [SerializeField] private Text _amountText;
 
         private void OnValidate()
         {
@@ -20,6 +24,14 @@ namespace Script.IAP
         private void Start()
         {
             _button.onClick.AddListener(OnClickButton);
+            SetInfo();
+        }
+
+        [Button]
+        private void SetInfo()
+        {
+            _priceText.text = $"{_price:F1} $";
+            _amountText.text = $"{_amount} <sprite=0>";
         }
 
         protected abstract void OnClickButton();

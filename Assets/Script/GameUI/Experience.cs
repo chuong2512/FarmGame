@@ -152,6 +152,5 @@ public class Experience : MonoBehaviour
         ManagerMarket.instance.ReciveItem(5, 0, 2, false);
         MainCamera.instance.UnlockCamLevelUp();
         ManagerAudio.instance.PlayAudio(Audio.Click);
-        Loading.instance.LoadScene(2);
     }
 }

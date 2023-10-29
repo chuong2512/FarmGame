@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Script.Decorate;
 
-public class DecorateRockBig : MonoBehaviour
+public class DecorateRockBig : DecorateObject
 {
-    [SerializeField] int idDecorate;
-    [SerializeField] int idSerial;
     private int status;
     private bool dragging;
     private GameObject obj;
