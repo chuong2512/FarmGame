@@ -501,6 +501,13 @@ public class ManagerShop : MonoBehaviour
         inforDecorate.info[id].icon.sprite = ManagerData.instance.decorate.Data[id].IconStore;
         Experience.instance.registerItemOpen(inforDecorate.info[id].icon.sprite);
     }
+    
+    [Button]
+    public void AddToolDecorate(int id, int amount)
+    {
+        ManagerMarket.instance.ReciveItem(5, id, amount, true);
+    }
+    
     public void buyDecorate(int id)
     {
         ManagerCoin.instance.MunisGold(inforDecorate.info[id].goldPrice);

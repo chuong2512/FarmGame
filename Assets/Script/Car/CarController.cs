@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class CarController : MonoBehaviour
 {
-    [SerializeField] private PassingCar[] leftPassingCarPrefabs;
-    [SerializeField] private PassingCar[] rightPassingCarPrefabs;
+    [InlineEditor()][SerializeField] private PassingCar[] leftPassingCarPrefabs;
+    [InlineEditor()][SerializeField] private PassingCar[] rightPassingCarPrefabs;
 
     [SerializeField] private float minTimeSpawn, rangeTimeSpawn;
 
@@ -51,7 +52,8 @@ public class CarController : MonoBehaviour
     {
         _carSpawn = Random.Range(0, 10) > 5 ? GetRandomRightCar() : GetRandomLeftCar();
 
-        PoolingSystem.Instance.InstantiateAPS(_carSpawn.name);
+        var obj = PoolingSystem.Instance.InstantiateAPS(_carSpawn.name);
+        obj.GetComponent<PassingCar>()?.GetVisualWay();
     }
 
     private float GetRandomTime() => Random.Range(minTimeSpawn, minTimeSpawn + rangeTimeSpawn);
