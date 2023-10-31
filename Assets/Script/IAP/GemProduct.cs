@@ -4,7 +4,7 @@ namespace Script.IAP
 {
     public class GemProduct : BaseProduct
     {
-        protected override void OnClickButton()
+        protected override void OnClickButtonBuy()
         {
             IAPManager.OnPurchaseSuccess += BuyGem;
             IAPManager.Instance.BuyProductID(_packName);

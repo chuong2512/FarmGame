@@ -23,7 +23,7 @@ namespace Script.IAP
 
         private void Start()
         {
-            _button.onClick.AddListener(OnClickButton);
+            _button.onClick.AddListener(OnClickButtonBuy);
             SetInfo();
         }
 
@@ -34,6 +34,6 @@ namespace Script.IAP
             _amountText.text = $"{_amount} <sprite=0>";
         }
 
-        protected abstract void OnClickButton();
+        protected abstract void OnClickButtonBuy();
     }
 }

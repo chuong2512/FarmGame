@@ -4,7 +4,7 @@ namespace Script.IAP
 {
     public class CoinProduct : BaseProduct
     {
-        protected override void OnClickButton()
+        protected override void OnClickButtonBuy()
         {
             IAPManager.OnPurchaseSuccess += BuyCoin;
             IAPManager.Instance.BuyProductID(_packName);
