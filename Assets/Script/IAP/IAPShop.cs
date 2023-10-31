@@ -10,16 +10,16 @@ public class IAPShop : MonoBehaviour
 
     public void OpenGemShop()
     {
-        _blur.gameObject.SetActive(true);
+        /*_blur.gameObject.SetActive(true);
         _gemShop.gameObject.SetActive(true);
-        _coinShop.gameObject.SetActive(false);
+        _coinShop.gameObject.SetActive(false);*/
     }
 
     public void OpenCoinShop()
     {
-        _blur.gameObject.SetActive(true);
+        /*_blur.gameObject.SetActive(true);
         _coinShop.gameObject.SetActive(true);
-        _gemShop.gameObject.SetActive(false);
+        _gemShop.gameObject.SetActive(false);*/
     }
     
     public void Close()

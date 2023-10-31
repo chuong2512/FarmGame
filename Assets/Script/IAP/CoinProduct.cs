@@ -6,8 +6,8 @@ namespace Script.IAP
     {
         protected override void OnClickButtonBuy()
         {
-            IAPManager.OnPurchaseSuccess += BuyCoin;
-            IAPManager.Instance.BuyProductID(_packName);
+            /*IAPManager.OnPurchaseSuccess += BuyCoin;
+            IAPManager.Instance.BuyProductID(_packName);*/
         }
 
         private void BuyCoin()
