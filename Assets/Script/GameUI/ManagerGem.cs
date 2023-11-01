@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(-99)]
 public class ManagerGem : MonoBehaviour
 {
     public static ManagerGem instance = null;
