@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "393712079051",
-    "project_id": "green-farm-3d86a",
-    "storage_bucket": "green-farm-3d86a.appspot.com"
+    "project_number": "1072072248008",
+    "project_id": "green-farm-24c73",
+    "storage_bucket": "green-farm-24c73.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:393712079051:android:590f6b5fdd79a7b2e60b4e",
+        "mobilesdk_app_id": "1:1072072248008:android:650c1eb579f1dcd267b3fd",
         "android_client_info": {
           "package_name": "com.SamiCompany.GreenFarmFarmingBuilding"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCelwHgN69oi2c8AnWWu6vopPpQVzdY8Ys"
+          "current_key": "AIzaSyCYllx0xEwIR6tEnQJY_BvHVwMBYimUpmk"
         }
       ],
       "services": {

@@ -18,7 +18,7 @@ public class Loading : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
-        FirstLoad(1);
+        LoadScene(1);
     }
 
     public void LoadScene(int id)
@@ -32,10 +32,17 @@ public class Loading : MonoBehaviour
     {
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(idScene);
         asyncOperation.allowSceneActivation = false;
+        
+        for (int i = 0; i < 100; i++)
+        {
+            temp++;
+            showText.text = temp + "%";
+            showLoad.fillAmount = temp / 100f;
+            yield return new WaitForSeconds(time / 100);
+        }
+
         while (!asyncOperation.isDone)
         {
-            showText.text = (asyncOperation.progress * 100).ToString() + "%";
-            showLoad.fillAmount = /*(float)i / 100*/asyncOperation.progress;
             if (asyncOperation.progress >= 0.9f)
                 asyncOperation.allowSceneActivation = true;
             yield return null;
@@ -55,8 +62,6 @@ public class Loading : MonoBehaviour
 
     IEnumerator DelayTime(int idScene)
     {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(idScene);
-        asyncOperation.allowSceneActivation = false;
         for (int i = 0; i < 100; i++)
         {
             temp++;
@@ -64,7 +69,6 @@ public class Loading : MonoBehaviour
             yield return new WaitForSeconds(time / 100);
         }
 
-        asyncOperation.allowSceneActivation = true;
-        transform.GetChild(0).gameObject.SetActive(false);
+        LoadScene(idScene);
     }
 }

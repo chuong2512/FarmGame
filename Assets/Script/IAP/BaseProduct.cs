@@ -22,17 +22,26 @@ namespace Script.IAP
 
     public abstract class BaseProduct : MonoBehaviour
     {
-        [SerializeField] private Button _button;
+        [SerializeField] protected string _packName;
+        [SerializeField] protected float _price;
+        [SerializeField] private int _bonus;
 
         [Space] [SerializeField] protected ProductInfo[] _products;
-        [SerializeField] protected float _price;
-        [SerializeField] protected string _packName;
 
-        [SerializeField] private int _bonus;
-        [SerializeField] private GameObject _bonusObj;
-        [SerializeField] private Text _bonusText;
+        [Space] [FoldoutGroup("Visual")] [SerializeField]
+        private Button _button;
 
-        [SerializeField] private Text _priceText;
+        [FoldoutGroup("Visual")] [SerializeField]
+        private GameObject _bonusObj;
+
+        [FoldoutGroup("Visual")] [SerializeField]
+        private Text _bonusText;
+
+        [FoldoutGroup("Visual")] [SerializeField]
+        private Text _priceText;
+
+        [FoldoutGroup("Visual")] [SerializeField]
+        private Text _amountText;
 
         private void OnValidate()
         {
@@ -48,15 +57,21 @@ namespace Script.IAP
         [Button]
         private void SetInfo()
         {
-            _priceText.text = $"{_price:F1} $";
+            _priceText.text = $"{_price:F} $";
 
             _bonusObj.SetActive(_bonus > 0);
             _bonusText.text = $"{_bonus}%";
+            _amountText.text = $"{_products[0].amount}";
         }
 
         protected virtual void OnClickButtonBuy()
         {
-            IAPShop.Instance.BuyProducts(_products);
+            IAPManager.OnPurchaseSuccess = () =>
+            {
+                IAPShop.Instance.BuyProducts(_products);
+                ToastManager.Instance.Show("Buy Successfully!!");
+            };
+            IAPManager.Instance.BuyProductID(_packName);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using NongTrai;
 using Script.IAP;
 using Sirenix.OdinInspector;
@@ -8,6 +9,11 @@ public class IAPShop : Singleton<IAPShop>
     [SerializeField] private GameObject _blur;
 
     [InlineEditor()] [SerializeField] private BaseShop _coinShop, _gemShop;
+
+    private void Start()
+    {
+        Close();
+    }
 
     public void OpenGemShop()
     {
@@ -26,7 +32,7 @@ public class IAPShop : Singleton<IAPShop>
     public void Close()
     {
         _blur.gameObject.SetActive(false);
-        _gemShop.gameObject.SetActive(false);
+        _gemShop?.gameObject.SetActive(false);
         _coinShop.gameObject.SetActive(false);
     }
 

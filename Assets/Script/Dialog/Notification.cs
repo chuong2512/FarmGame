@@ -6,7 +6,7 @@ public class Notification : MonoBehaviour
 {
     public static Notification instance;
     private bool checkOn, checkBetween, checkBelow, checkTower, checkDepot;
-    [SerializeField] Text txtOn, txtBetween, txtBelow, txtDialogTower, txtDialogDepot;
+    [SerializeField] Text txtOn, txtBetween, txtBelow, txtDialogTower, txtDialogDepot, txtDialog;
     IEnumerator IEBelow, IEBetween, IEOn, IETower, IEDepot;
 
     //--------------------------------------------------------------
@@ -19,10 +19,14 @@ public class Notification : MonoBehaviour
     public void dialogTower()
     {
         if (Application.systemLanguage == SystemLanguage.Vietnamese)
-            txtDialogTower.text = "Sức Chứa Nông Sản " + ManagerMarket.instance.QuantityItemTower + "/" + ManagerMarket.instance.QuantityTotalItemTower;
+            txtDialogTower.text = "Sức Chứa Nông Sản " + ManagerMarket.instance.QuantityItemTower + "/" +
+                                  ManagerMarket.instance.QuantityTotalItemTower;
         else if (Application.systemLanguage == SystemLanguage.Indonesian)
-            txtDialogTower.text = "Penyimpanan Silo " + ManagerMarket.instance.QuantityItemTower + "/" + ManagerMarket.instance.QuantityTotalItemTower;
-        else txtDialogTower.text = "Capacity Farm " + ManagerMarket.instance.QuantityItemTower + "/" + ManagerMarket.instance.QuantityTotalItemTower;
+            txtDialogTower.text = "Penyimpanan Silo " + ManagerMarket.instance.QuantityItemTower + "/" +
+                                  ManagerMarket.instance.QuantityTotalItemTower;
+        else
+            txtDialogTower.text = "Capacity Farm " + ManagerMarket.instance.QuantityItemTower + "/" +
+                                  ManagerMarket.instance.QuantityTotalItemTower;
 
         if (checkTower == false)
         {
@@ -39,6 +43,26 @@ public class Notification : MonoBehaviour
         }
     }
 
+    public void dialogComingSoon()
+    {
+        dialog("This feature is coming soon!");
+    }
+
+    public void dialog(string text)
+    {
+        txtDialog.text = text;
+
+        txtDialog.gameObject.SetActive(false);
+        StartCoroutine(showDialog());
+
+        IEnumerator showDialog()
+        {
+            txtDialog.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2f);
+            txtDialog.gameObject.SetActive(false);
+        }
+    }
+
     IEnumerator showDialogTower()
     {
         checkTower = true;
@@ -51,10 +75,14 @@ public class Notification : MonoBehaviour
     public void dialogDepot()
     {
         if (Application.systemLanguage == SystemLanguage.Vietnamese)
-            txtDialogDepot.text = "Sức Chứa Vật Phẩm " + ManagerMarket.instance.QuantityItemDepot + "/" + ManagerMarket.instance.QuantityTotalItemDepot;
+            txtDialogDepot.text = "Sức Chứa Vật Phẩm " + ManagerMarket.instance.QuantityItemDepot + "/" +
+                                  ManagerMarket.instance.QuantityTotalItemDepot;
         else if (Application.systemLanguage == SystemLanguage.Vietnamese)
-            txtDialogDepot.text = "Penyimpanan Lumbung " + ManagerMarket.instance.QuantityItemDepot + "/" + ManagerMarket.instance.QuantityTotalItemDepot;
-        else txtDialogDepot.text = "Capacity Depot Item " + ManagerMarket.instance.QuantityItemDepot + "/" + ManagerMarket.instance.QuantityTotalItemDepot;
+            txtDialogDepot.text = "Penyimpanan Lumbung " + ManagerMarket.instance.QuantityItemDepot + "/" +
+                                  ManagerMarket.instance.QuantityTotalItemDepot;
+        else
+            txtDialogDepot.text = "Capacity Depot Item " + ManagerMarket.instance.QuantityItemDepot + "/" +
+                                  ManagerMarket.instance.QuantityTotalItemDepot;
 
         if (checkDepot == false)
         {
@@ -88,8 +116,7 @@ public class Notification : MonoBehaviour
             IEOn = showDialogOn();
             StartCoroutine(IEOn);
         }
-        else
-            if (checkOn == true)
+        else if (checkOn == true)
         {
             checkOn = false;
             txtOn.gameObject.SetActive(false);
@@ -116,8 +143,7 @@ public class Notification : MonoBehaviour
             IEBetween = showDialogBetween();
             StartCoroutine(IEBetween);
         }
-        else
-            if (checkBetween == true)
+        else if (checkBetween == true)
         {
             checkBetween = false;
             txtBetween.gameObject.SetActive(false);
@@ -144,8 +170,7 @@ public class Notification : MonoBehaviour
             IEBelow = showDialogBelow();
             StartCoroutine(IEBelow);
         }
-        else
-            if (checkBelow == true)
+        else if (checkBelow == true)
         {
             checkBelow = false;
             txtBelow.gameObject.SetActive(false);
