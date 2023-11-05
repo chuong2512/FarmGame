@@ -5,16 +5,34 @@ using UnityEngine.UI;
 
 namespace Script.IAP
 {
+    public enum IAPType
+    {
+        Coin,
+        Gem,
+        Cua,
+        Min
+    }
+
+    [Serializable]
+    public struct ProductInfo
+    {
+        public IAPType type;
+        public int amount;
+    }
+
     public abstract class BaseProduct : MonoBehaviour
     {
         [SerializeField] private Button _button;
 
-        [Space] [SerializeField] protected int _amount;
+        [Space] [SerializeField] protected ProductInfo[] _products;
         [SerializeField] protected float _price;
         [SerializeField] protected string _packName;
 
+        [SerializeField] private int _bonus;
+        [SerializeField] private GameObject _bonusObj;
+        [SerializeField] private Text _bonusText;
+
         [SerializeField] private Text _priceText;
-        [SerializeField] private Text _amountText;
 
         private void OnValidate()
         {
@@ -31,9 +49,14 @@ namespace Script.IAP
         private void SetInfo()
         {
             _priceText.text = $"{_price:F1} $";
-            _amountText.text = $"{_amount} <sprite=0>";
+
+            _bonusObj.SetActive(_bonus > 0);
+            _bonusText.text = $"{_bonus}%";
         }
 
-        protected abstract void OnClickButtonBuy();
+        protected virtual void OnClickButtonBuy()
+        {
+            IAPShop.Instance.BuyProducts(_products);
+        }
     }
 }
