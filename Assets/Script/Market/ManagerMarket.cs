@@ -25,14 +25,12 @@ public class ManagerMarket : MonoBehaviour
     [HideInInspector] public int QuantityItemDepot;
     [HideInInspector] public int QuantityTotalItemDepot;
 
-    [Header("Warning")]
-    [SerializeField] Text TitleWarningText;
+    [Header("Warning")] [SerializeField] Text TitleWarningText;
     [SerializeField] Text NotificationWaringText;
     [SerializeField] Image NotificationWarningImage;
     [SerializeField] GameObject Warning;
 
-    [Header("Market")]
-    [SerializeField] Sprite DepotNormal;
+    [Header("Market")] [SerializeField] Sprite DepotNormal;
     [SerializeField] Sprite DepotChoose;
     [SerializeField] Text NameMarketText;
     [SerializeField] Text NameDepotText;
@@ -44,15 +42,13 @@ public class ManagerMarket : MonoBehaviour
     [SerializeField] Image[] DepotImage;
     [SerializeField] GameObject[] TypeDepot;
 
-    [Header("Sale")]
-    [SerializeField] Sprite CoinSprite;
+    [Header("Sale")] [SerializeField] Sprite CoinSprite;
     [SerializeField] Image ItemSaleImage;
     [SerializeField] Text NameItemSaleText;
     [SerializeField] Text QuantityItemSaleText;
     [SerializeField] Text QuantityGoldGotSaleItemText;
 
-    [Header("Shalves")]
-    private int[] StatusShalves = new int[6];
+    [Header("Shalves")] private int[] StatusShalves = new int[6];
     private int[] CoinShalves = new int[6];
     private int[] IdStypeShalves = new int[6];
     private int[] idItemShaleves = new int[6];
@@ -64,18 +60,15 @@ public class ManagerMarket : MonoBehaviour
     [SerializeField] Image[] ItemShalvesImage;
     [SerializeField] Image[] CoinImage;
 
-    [Header("Seeds")]
-    [SerializeField] int[] CropSeeds = new int[16];
+    [Header("Seeds")] [SerializeField] int[] CropSeeds = new int[16];
     [SerializeField] GameObject[] SeedsCrop;
     [SerializeField] GameObject[] SeedsBuy;
 
-    [Header("Flowers")]
-    [SerializeField] int[] CropFlowers = new int[10];
+    [Header("Flowers")] [SerializeField] int[] CropFlowers = new int[10];
     [SerializeField] GameObject[] FlowersCrop;
     [SerializeField] GameObject[] FlowersBuy;
 
-    [Header("ObjItem")]
-    [SerializeField] GameObject[] itemPet;
+    [Header("ObjItem")] [SerializeField] GameObject[] itemPet;
     [SerializeField] GameObject[] itemSeeds;
     [SerializeField] GameObject[] itemFactory;
     [SerializeField] GameObject[] itemOldTree;
@@ -83,8 +76,7 @@ public class ManagerMarket : MonoBehaviour
     [SerializeField] GameObject[] itemToolDecorate;
     [SerializeField] GameObject[] itemFlower;
 
-    [Header("TextItem")]
-    [SerializeField] Text[] txtQuantityItemSeeds;
+    [Header("TextItem")] [SerializeField] Text[] txtQuantityItemSeeds;
     [SerializeField] Text[] txtQuantitySeedsCrop;
     [SerializeField] Text[] txtQuantityItemPet;
     [SerializeField] Text[] txtQuantityItemFactory;
@@ -96,14 +88,15 @@ public class ManagerMarket : MonoBehaviour
     [SerializeField] Text[] txtQuantityFlowerCrop;
     [SerializeField] Text[] txtQuantityItemFlower;
 
-    [Header("Quantity")]
-    public int[] QuantityItemSeeds;
+    [Header("Quantity")] public int[] QuantityItemSeeds;
     public int[] QuantityItemFlower;
     public int[] QuantityItemPets;
     public int[] QuantityItemFactory;
     public int[] QuantityItemOldTree;
     public int[] QuantityItemBuilding;
+
     public int[] QuantityToolDecorate;
+
     //------------------------------------------
     void Awake()
     {
@@ -174,6 +167,7 @@ public class ManagerMarket : MonoBehaviour
             else
                 NameDepotText.text = "Barn Storage " + QuantityItemDepot + "/" + QuantityTotalItemDepot;
         }
+
         Market.SetActive(true);
     }
 
@@ -219,7 +213,8 @@ public class ManagerMarket : MonoBehaviour
             case 2:
                 StatusShalves[id] = 0;
                 PlayerPrefs.SetInt("StatusShalves" + id, StatusShalves[id]);
-                GameObject obj = Instantiate(ManagerCoin.instance.goldFly, CoinImage[id].transform.position, Quaternion.identity);
+                GameObject obj = Instantiate(ManagerCoin.instance.goldFly, CoinImage[id].transform.position,
+                    Quaternion.identity);
                 obj.GetComponent<GoldFly>().numberGold = CoinShalves[id];
                 CoinImage[id].color = new Color(1f, 1f, 1f, 0f);
                 PriceItemShalvesText[id].text = "";
@@ -227,7 +222,6 @@ public class ManagerMarket : MonoBehaviour
                 if (couterItemSell == 0) HaveItem.SetActive(false);
                 break;
         }
-
     }
 
     public void ButtonCloseDepot()
@@ -266,6 +260,7 @@ public class ManagerMarket : MonoBehaviour
                     NameDepotText.text = "Penyimpanan Lumbung " + QuantityItemDepot + "/" + QuantityTotalItemDepot;
                 else NameDepotText.text = "Barn Storage " + QuantityItemDepot + "/" + QuantityTotalItemDepot;
             }
+
             if (ItemSaleImage.color == Color.white) ItemSaleImage.color = new Color(1f, 1f, 1f, 0f);
         }
     }
@@ -363,14 +358,30 @@ public class ManagerMarket : MonoBehaviour
     {
         switch (idTypeItemSale)
         {
-            case 0: GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.seeds.Seed[idItemSale].sell; break;
-            case 1: GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.pets.Pet[idItemSale].itemPet.sell; break;
-            case 2: GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.facetoryItems.FacetoryItem[idItemSale].sell; break;
-            case 3: GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.trees.data[idItemSale].ItemTree.sell; break;
-            case 4: GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.itemBuilding.Data[idItemSale].Sell; break;
-            case 5: GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.toolDecorate.Data[idItemSale].Sell; break;
-            case 6: GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.flowers.Data[idItemSale].DetailItemFlower.Sell; break;
+            case 0:
+                GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.seeds.Seed[idItemSale].sell;
+                break;
+            case 1:
+                GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.pets.Pet[idItemSale].itemPet.sell;
+                break;
+            case 2:
+                GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.facetoryItems.FacetoryItem[idItemSale].sell;
+                break;
+            case 3:
+                GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.trees.data[idItemSale].ItemTree.sell;
+                break;
+            case 4:
+                GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.itemBuilding.Data[idItemSale].Sell;
+                break;
+            case 5:
+                GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.toolDecorate.Data[idItemSale].Sell;
+                break;
+            case 6:
+                GoldGotSaleItem =
+                    QuantitySaleItem * ManagerData.instance.flowers.Data[idItemSale].DetailItemFlower.Sell;
+                break;
         }
+
         QuantityGoldGotSaleItemText.text = "" + GoldGotSaleItem;
         QuantityItemSaleText.text = "x" + QuantitySaleItem;
     }
@@ -460,14 +471,30 @@ public class ManagerMarket : MonoBehaviour
         PlayerPrefs.SetInt("CoinShalves" + idShelves, CoinShalves[idShelves]);
         switch (idTypeItemSale)
         {
-            case 0: ItemShalvesImage[idShelves].sprite = ManagerData.instance.seeds.Seed[idItemSale].item; break;
-            case 1: ItemShalvesImage[idShelves].sprite = ManagerData.instance.pets.Pet[idItemSale].itemPet.item; break;
-            case 2: ItemShalvesImage[idShelves].sprite = ManagerData.instance.facetoryItems.FacetoryItem[idItemSale].item; break;
-            case 3: ItemShalvesImage[idShelves].sprite = ManagerData.instance.trees.data[idItemSale].ItemTree.item; break;
-            case 4: ItemShalvesImage[idShelves].sprite = ManagerData.instance.itemBuilding.Data[idItemSale].Icon; break;
-            case 5: ItemShalvesImage[idShelves].sprite = ManagerData.instance.toolDecorate.Data[idItemSale].Icon; break;
-            case 6: ItemShalvesImage[idShelves].sprite = ManagerData.instance.flowers.Data[idItemSale].DetailItemFlower.item; break;
+            case 0:
+                ItemShalvesImage[idShelves].sprite = ManagerData.instance.seeds.Seed[idItemSale].item;
+                break;
+            case 1:
+                ItemShalvesImage[idShelves].sprite = ManagerData.instance.pets.Pet[idItemSale].itemPet.item;
+                break;
+            case 2:
+                ItemShalvesImage[idShelves].sprite = ManagerData.instance.facetoryItems.FacetoryItem[idItemSale].item;
+                break;
+            case 3:
+                ItemShalvesImage[idShelves].sprite = ManagerData.instance.trees.data[idItemSale].ItemTree.item;
+                break;
+            case 4:
+                ItemShalvesImage[idShelves].sprite = ManagerData.instance.itemBuilding.Data[idItemSale].Icon;
+                break;
+            case 5:
+                ItemShalvesImage[idShelves].sprite = ManagerData.instance.toolDecorate.Data[idItemSale].Icon;
+                break;
+            case 6:
+                ItemShalvesImage[idShelves].sprite =
+                    ManagerData.instance.flowers.Data[idItemSale].DetailItemFlower.item;
+                break;
         }
+
         ItemShalvesImage[idShelves].color = Color.white;
         QuantityItemShalvesText[idShelves].text = "x" + QuantityItemShalves[idShelves];
         PriceItemShalvesText[idShelves].text = CoinShalves[idShelves].ToString();
@@ -518,6 +545,7 @@ public class ManagerMarket : MonoBehaviour
                         QuantitySaleItem += 1;
                         ShowGoldGotSale();
                     }
+
                     break;
                 case 1:
                     if (QuantitySaleItem < QuantityItemPets[idItemSale])
@@ -525,6 +553,7 @@ public class ManagerMarket : MonoBehaviour
                         QuantitySaleItem += 1;
                         ShowGoldGotSale();
                     }
+
                     break;
                 case 2:
                     if (QuantitySaleItem < QuantityItemFactory[idItemSale])
@@ -532,6 +561,7 @@ public class ManagerMarket : MonoBehaviour
                         QuantitySaleItem += 1;
                         ShowGoldGotSale();
                     }
+
                     break;
                 case 3:
                     if (QuantitySaleItem < QuantityItemOldTree[idItemSale])
@@ -539,6 +569,7 @@ public class ManagerMarket : MonoBehaviour
                         QuantitySaleItem += 1;
                         ShowGoldGotSale();
                     }
+
                     break;
                 case 4:
                     if (QuantitySaleItem < QuantityItemBuilding[idItemSale])
@@ -546,6 +577,7 @@ public class ManagerMarket : MonoBehaviour
                         QuantitySaleItem += 1;
                         ShowGoldGotSale();
                     }
+
                     break;
                 case 5:
                     if (QuantitySaleItem < QuantityToolDecorate[idItemSale])
@@ -553,6 +585,7 @@ public class ManagerMarket : MonoBehaviour
                         QuantitySaleItem += 1;
                         ShowGoldGotSale();
                     }
+
                     break;
                 case 6:
                     if (QuantitySaleItem < QuantityItemFlower[idItemSale])
@@ -560,6 +593,7 @@ public class ManagerMarket : MonoBehaviour
                         QuantitySaleItem += 1;
                         ShowGoldGotSale();
                     }
+
                     break;
             }
         }
@@ -579,6 +613,8 @@ public class ManagerMarket : MonoBehaviour
 
     public void ReciveItem(int idstype, int iditem, int amount, bool show)
     {
+        Firebase.Analytics.FirebaseAnalytics.LogEvent("Resource", $"Add Item Type {idstype}, id : {iditem}", amount);
+
         switch (idstype)
         {
             case 0:
@@ -590,7 +626,8 @@ public class ManagerMarket : MonoBehaviour
                 txtQuantityItemSeeds[iditem].text = "" + QuantityItemSeeds[iditem];
                 txtQuantitySeedsCrop[iditem].text = "" + QuantityItemSeeds[iditem];
                 ManagerTower.instance.ShowQuantity(idstype, iditem, QuantityItemSeeds[iditem]);
-                if (QuantityItemSeeds[iditem] > 0 && itemSeeds[iditem].activeSelf == false) itemSeeds[iditem].SetActive(true);
+                if (QuantityItemSeeds[iditem] > 0 && itemSeeds[iditem].activeSelf == false)
+                    itemSeeds[iditem].SetActive(true);
                 ManagerMission.instance.CheckDoneOrder();
                 break;
             case 1:
@@ -601,7 +638,8 @@ public class ManagerMarket : MonoBehaviour
                 if (show == true) Notification.instance.dialogDepot();
                 txtQuantityItemPet[iditem].text = "" + QuantityItemPets[iditem];
                 ManagerDepot.instance.ShowQuantity(idstype, iditem, QuantityItemPets[iditem]);
-                if (QuantityItemPets[iditem] > 0 && itemPet[iditem].activeSelf == false) itemPet[iditem].SetActive(true);
+                if (QuantityItemPets[iditem] > 0 && itemPet[iditem].activeSelf == false)
+                    itemPet[iditem].SetActive(true);
                 ManagerMission.instance.CheckDoneOrder();
                 break;
             case 2:
@@ -612,7 +650,8 @@ public class ManagerMarket : MonoBehaviour
                 if (show == true) Notification.instance.dialogDepot();
                 txtQuantityItemFactory[iditem].text = "" + QuantityItemFactory[iditem];
                 ManagerDepot.instance.ShowQuantity(idstype, iditem, QuantityItemFactory[iditem]);
-                if (QuantityItemFactory[iditem] > 0 && itemFactory[iditem].activeSelf == false) itemFactory[iditem].SetActive(true);
+                if (QuantityItemFactory[iditem] > 0 && itemFactory[iditem].activeSelf == false)
+                    itemFactory[iditem].SetActive(true);
                 CheckItemFeed(iditem);
                 ManagerMission.instance.CheckDoneOrder();
                 break;
@@ -624,7 +663,8 @@ public class ManagerMarket : MonoBehaviour
                 if (show == true) Notification.instance.dialogTower();
                 txtQuantityItemOldTree[iditem].text = "" + QuantityItemOldTree[iditem];
                 ManagerTower.instance.ShowQuantity(idstype, iditem, QuantityItemOldTree[iditem]);
-                if (QuantityItemOldTree[iditem] > 0 && itemOldTree[iditem].activeSelf == false) itemOldTree[iditem].SetActive(true);
+                if (QuantityItemOldTree[iditem] > 0 && itemOldTree[iditem].activeSelf == false)
+                    itemOldTree[iditem].SetActive(true);
                 ManagerMission.instance.CheckDoneOrder();
                 break;
             case 4:
@@ -635,7 +675,8 @@ public class ManagerMarket : MonoBehaviour
                 if (show == true) Notification.instance.dialogDepot();
                 txtQuantityItemBuilding[iditem].text = "" + QuantityItemBuilding[iditem];
                 ManagerDepot.instance.ShowQuantity(idstype, iditem, QuantityItemBuilding[iditem]);
-                if (QuantityItemBuilding[iditem] > 0 && itemItemBuilding[iditem].activeSelf == false) itemItemBuilding[iditem].SetActive(true);
+                if (QuantityItemBuilding[iditem] > 0 && itemItemBuilding[iditem].activeSelf == false)
+                    itemItemBuilding[iditem].SetActive(true);
                 break;
             case 5:
                 QuantityToolDecorate[iditem] += amount;
@@ -646,7 +687,8 @@ public class ManagerMarket : MonoBehaviour
                 txtQuantityToolDecorate[iditem].text = "" + QuantityToolDecorate[iditem];
                 txtQuantityToolDecorateWS[iditem].text = "" + QuantityToolDecorate[iditem];
                 ManagerDepot.instance.ShowQuantity(idstype, iditem, QuantityToolDecorate[iditem]);
-                if (QuantityToolDecorate[iditem] > 0 && itemToolDecorate[iditem].activeSelf == false) itemToolDecorate[iditem].SetActive(true);
+                if (QuantityToolDecorate[iditem] > 0 && itemToolDecorate[iditem].activeSelf == false)
+                    itemToolDecorate[iditem].SetActive(true);
                 break;
             case 6:
                 QuantityItemFlower[iditem] += amount;
@@ -657,7 +699,8 @@ public class ManagerMarket : MonoBehaviour
                 txtQuantityItemFlower[iditem].text = "" + QuantityItemFlower[iditem];
                 txtQuantityFlowerCrop[iditem].text = "" + QuantityItemFlower[iditem];
                 ManagerTower.instance.ShowQuantity(idstype, iditem, QuantityItemFlower[iditem]);
-                if (QuantityItemFlower[iditem] > 0 && itemFlower[iditem].activeSelf == false) itemFlower[iditem].SetActive(true);
+                if (QuantityItemFlower[iditem] > 0 && itemFlower[iditem].activeSelf == false)
+                    itemFlower[iditem].SetActive(true);
                 break;
         }
     }
@@ -674,7 +717,8 @@ public class ManagerMarket : MonoBehaviour
                 txtQuantityItemSeeds[iditem].text = "" + QuantityItemSeeds[iditem];
                 txtQuantitySeedsCrop[iditem].text = "" + QuantityItemSeeds[iditem];
                 ManagerTower.instance.ShowQuantity(idstype, iditem, QuantityItemSeeds[iditem]);
-                if (QuantityItemSeeds[iditem] == 0 && itemSeeds[iditem].activeSelf == true) itemSeeds[iditem].SetActive(false);
+                if (QuantityItemSeeds[iditem] == 0 && itemSeeds[iditem].activeSelf == true)
+                    itemSeeds[iditem].SetActive(false);
                 ManagerMission.instance.CheckDoneOrder();
                 break;
             case 1:
@@ -685,7 +729,8 @@ public class ManagerMarket : MonoBehaviour
                 txtQuantityItemPet[iditem].text = "" + QuantityItemPets[iditem];
                 txtQuantitySeedsCrop[iditem].text = "" + QuantityItemSeeds[iditem];
                 ManagerDepot.instance.ShowQuantity(idstype, iditem, QuantityItemPets[iditem]);
-                if (QuantityItemPets[iditem] == 0 && itemPet[iditem].activeSelf == true) itemPet[iditem].SetActive(false);
+                if (QuantityItemPets[iditem] == 0 && itemPet[iditem].activeSelf == true)
+                    itemPet[iditem].SetActive(false);
                 ManagerMission.instance.CheckDoneOrder();
                 break;
             case 2:
@@ -695,7 +740,8 @@ public class ManagerMarket : MonoBehaviour
                 ManagerDepot.instance.ShowNameDepot();
                 txtQuantityItemFactory[iditem].text = "" + QuantityItemFactory[iditem];
                 ManagerDepot.instance.ShowQuantity(idstype, iditem, QuantityItemFactory[iditem]);
-                if (QuantityItemFactory[iditem] == 0 && itemFactory[iditem].activeSelf == true) itemFactory[iditem].SetActive(false);
+                if (QuantityItemFactory[iditem] == 0 && itemFactory[iditem].activeSelf == true)
+                    itemFactory[iditem].SetActive(false);
                 CheckItemFeed(iditem);
                 ManagerMission.instance.CheckDoneOrder();
                 break;
@@ -706,7 +752,8 @@ public class ManagerMarket : MonoBehaviour
                 ManagerTower.instance.ShowNameTower();
                 txtQuantityItemOldTree[iditem].text = "" + QuantityItemOldTree[iditem];
                 ManagerTower.instance.ShowQuantity(idstype, iditem, QuantityItemOldTree[iditem]);
-                if (QuantityItemOldTree[iditem] == 0 && itemOldTree[iditem].activeSelf == true) itemOldTree[iditem].SetActive(false);
+                if (QuantityItemOldTree[iditem] == 0 && itemOldTree[iditem].activeSelf == true)
+                    itemOldTree[iditem].SetActive(false);
                 ManagerMission.instance.CheckDoneOrder();
                 break;
             case 4:
@@ -716,7 +763,8 @@ public class ManagerMarket : MonoBehaviour
                 ManagerDepot.instance.ShowNameDepot();
                 txtQuantityItemBuilding[iditem].text = "" + QuantityItemBuilding[iditem];
                 ManagerDepot.instance.ShowQuantity(idstype, iditem, QuantityItemBuilding[iditem]);
-                if (QuantityItemBuilding[iditem] == 0 && itemItemBuilding[iditem].activeSelf == true) itemItemBuilding[iditem].SetActive(false);
+                if (QuantityItemBuilding[iditem] == 0 && itemItemBuilding[iditem].activeSelf == true)
+                    itemItemBuilding[iditem].SetActive(false);
                 break;
             case 5:
                 QuantityToolDecorate[iditem] -= amount;
@@ -727,7 +775,8 @@ public class ManagerMarket : MonoBehaviour
                 txtQuantityToolDecorate[iditem].text = "" + QuantityToolDecorate[iditem];
                 txtQuantityToolDecorateWS[iditem].text = "" + QuantityToolDecorate[iditem];
                 ManagerDepot.instance.ShowQuantity(idstype, iditem, QuantityToolDecorate[iditem]);
-                if (QuantityToolDecorate[iditem] == 0 && itemToolDecorate[iditem].activeSelf == true) itemToolDecorate[iditem].SetActive(false);
+                if (QuantityToolDecorate[iditem] == 0 && itemToolDecorate[iditem].activeSelf == true)
+                    itemToolDecorate[iditem].SetActive(false);
                 break;
             case 6:
                 QuantityItemFlower[iditem] -= amount;
@@ -738,7 +787,8 @@ public class ManagerMarket : MonoBehaviour
                 txtQuantityItemFlower[iditem].text = "" + QuantityItemFlower[iditem];
                 txtQuantityFlowerCrop[iditem].text = "" + QuantityItemFlower[iditem];
                 ManagerTower.instance.ShowQuantity(idstype, iditem, QuantityItemFlower[iditem]);
-                if (QuantityItemFlower[iditem] == 0 && itemFlower[iditem].activeSelf == true) itemFlower[iditem].SetActive(false);
+                if (QuantityItemFlower[iditem] == 0 && itemFlower[iditem].activeSelf == true)
+                    itemFlower[iditem].SetActive(false);
                 break;
         }
     }
@@ -747,13 +797,27 @@ public class ManagerMarket : MonoBehaviour
     {
         switch (iditem)
         {
-            case 3: txtQuantityFoodAnimal[0].text = QuantityItemFactory[iditem].ToString(); break;
-            case 4: txtQuantityFoodAnimal[0].text = QuantityItemFactory[iditem].ToString(); break;
-            case 5: txtQuantityFoodAnimal[1].text = QuantityItemFactory[iditem].ToString(); break;
-            case 6: txtQuantityFoodAnimal[2].text = QuantityItemFactory[iditem].ToString(); break;
-            case 53: txtQuantityFoodAnimal[3].text = QuantityItemFactory[iditem].ToString(); break;
-            case 54: txtQuantityFoodAnimal[4].text = QuantityItemFactory[iditem].ToString(); break;
-            case 55: txtQuantityFoodAnimal[5].text = QuantityItemFactory[iditem].ToString(); break;
+            case 3:
+                txtQuantityFoodAnimal[0].text = QuantityItemFactory[iditem].ToString();
+                break;
+            case 4:
+                txtQuantityFoodAnimal[0].text = QuantityItemFactory[iditem].ToString();
+                break;
+            case 5:
+                txtQuantityFoodAnimal[1].text = QuantityItemFactory[iditem].ToString();
+                break;
+            case 6:
+                txtQuantityFoodAnimal[2].text = QuantityItemFactory[iditem].ToString();
+                break;
+            case 53:
+                txtQuantityFoodAnimal[3].text = QuantityItemFactory[iditem].ToString();
+                break;
+            case 54:
+                txtQuantityFoodAnimal[4].text = QuantityItemFactory[iditem].ToString();
+                break;
+            case 55:
+                txtQuantityFoodAnimal[5].text = QuantityItemFactory[iditem].ToString();
+                break;
         }
     }
 
@@ -802,14 +866,29 @@ public class ManagerMarket : MonoBehaviour
         Sprite sprItem = null;
         switch (stype)
         {
-            case 0: sprItem = ManagerData.instance.seeds.Seed[id].item; break;
-            case 1: sprItem = ManagerData.instance.pets.Pet[id].itemPet.item; break;
-            case 2: sprItem = ManagerData.instance.facetoryItems.FacetoryItem[id].item; break;
-            case 3: sprItem = ManagerData.instance.trees.data[id].ItemTree.item; break;
-            case 4: sprItem = ManagerData.instance.itemBuilding.Data[id].Icon; break;
-            case 5: sprItem = ManagerData.instance.toolDecorate.Data[id].Icon; break;
-            case 6: sprItem = ManagerData.instance.flowers.Data[id].DetailItemFlower.item; break;
+            case 0:
+                sprItem = ManagerData.instance.seeds.Seed[id].item;
+                break;
+            case 1:
+                sprItem = ManagerData.instance.pets.Pet[id].itemPet.item;
+                break;
+            case 2:
+                sprItem = ManagerData.instance.facetoryItems.FacetoryItem[id].item;
+                break;
+            case 3:
+                sprItem = ManagerData.instance.trees.data[id].ItemTree.item;
+                break;
+            case 4:
+                sprItem = ManagerData.instance.itemBuilding.Data[id].Icon;
+                break;
+            case 5:
+                sprItem = ManagerData.instance.toolDecorate.Data[id].Icon;
+                break;
+            case 6:
+                sprItem = ManagerData.instance.flowers.Data[id].DetailItemFlower.item;
+                break;
         }
+
         return sprItem;
     }
 
@@ -826,7 +905,11 @@ public class ManagerMarket : MonoBehaviour
                 ManagerTower.instance.ShowQuantity(0, i, QuantityItemSeeds[i]);
                 if (QuantityItemSeeds[i] > 0) itemSeeds[i].SetActive(true);
                 CropSeeds[i] = PlayerPrefs.GetInt("CropSeeds" + i);
-                if (PlayerPrefs.GetInt("StatusBuySeeds" + i) == 1) { SeedsCrop[i].SetActive(false); SeedsBuy[i].SetActive(true); }
+                if (PlayerPrefs.GetInt("StatusBuySeeds" + i) == 1)
+                {
+                    SeedsCrop[i].SetActive(false);
+                    SeedsBuy[i].SetActive(true);
+                }
             }
             else if (PlayerPrefs.HasKey("QuantityItemSeeds" + i) == false)
             {
@@ -933,7 +1016,6 @@ public class ManagerMarket : MonoBehaviour
                 txtQuantityToolDecorateWS[i].text = "" + QuantityToolDecorate[i];
                 ManagerDepot.instance.ShowQuantity(5, i, QuantityToolDecorate[i]);
                 if (QuantityToolDecorate[i] > 0) itemToolDecorate[i].SetActive(true);
-
             }
             else if (PlayerPrefs.HasKey("QuantityToolDecorate" + i) == false)
             {
@@ -944,9 +1026,8 @@ public class ManagerMarket : MonoBehaviour
                 ManagerDepot.instance.ShowQuantity(5, i, QuantityToolDecorate[i]);
                 PlayerPrefs.SetInt("QuantityToolDecorate" + i, QuantityToolDecorate[i]);
             }
-
-
         }
+
         for (int i = 0; i < QuantityItemFlower.Length; i++)
         {
             if (PlayerPrefs.HasKey("QuantityItemFlowers" + i) == true)
@@ -957,7 +1038,6 @@ public class ManagerMarket : MonoBehaviour
                 txtQuantityFlowerCrop[i].text = "" + QuantityItemFlower[i];
                 ManagerTower.instance.ShowQuantity(6, i, QuantityItemFlower[i]);
                 if (QuantityItemFlower[i] > 0) itemFlower[i].SetActive(true);
-
             }
             else if (PlayerPrefs.HasKey("QuantityItemFlowers" + i) == false)
             {
