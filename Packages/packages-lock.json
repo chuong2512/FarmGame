@@ -8,19 +8,19 @@
       "hash": "64445bb59f6d9d4d7f24be5eea45e7fdf2146546"
     },
     "com.google.firebase.analytics": {
-      "version": "file:com.google.firebase.analytics-11.6.0.tgz",
+      "version": "file:com.google.firebase.analytics-11.3.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "11.6.0"
+        "com.google.firebase.app": "11.3.0"
       }
     },
     "com.google.firebase.app": {
-      "version": "file:com.google.firebase.app-11.6.0.tgz",
+      "version": "file:com.google.firebase.app-11.3.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.external-dependency-manager": "1.2.177"
+        "com.google.external-dependency-manager": "1.2.176"
       }
     },
     "com.unity.2d.sprite": {

@@ -613,7 +613,11 @@ public class ManagerMarket : MonoBehaviour
 
     public void ReciveItem(int idstype, int iditem, int amount, bool show)
     {
-        Firebase.Analytics.FirebaseAnalytics.LogEvent("Resource", $"Add Item Type {idstype}, id : {iditem}", amount);
+    
+        FirebaseInit.Instance.LogFirebase(() =>
+        {
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("Resource", $"Add Item Type {idstype}, id : {iditem}", amount);
+        });
 
         switch (idstype)
         {

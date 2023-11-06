@@ -266,8 +266,12 @@ public class FortuneWheelManager : MonoBehaviour
 	/// <param name="awardCoins">Coins for user</param>
 	public void RewardCoins (int awardCoins)
 	{
-		Firebase.Analytics.FirebaseAnalytics.LogEvent("Resource", "Add Coin Wheel", awardCoins);
-		
+		FirebaseInit.Instance.LogFirebase(() =>
+		{
+			Firebase.Analytics.FirebaseAnalytics.LogEvent("Resource", "Add Coin Wheel", awardCoins);
+
+		});
+
 		ManagerCoin.instance.reciveGold(awardCoins);
 		_currentCoinsAmount += awardCoins;
 		// Show animated delta coins
@@ -278,8 +282,12 @@ public class FortuneWheelManager : MonoBehaviour
 	
 	public void RewardGems (int awardCoins)
 	{
-		Firebase.Analytics.FirebaseAnalytics.LogEvent("Resource", "Add Gem Wheel", awardCoins);
-		
+		FirebaseInit.Instance.LogFirebase(() =>
+		{
+			Firebase.Analytics.FirebaseAnalytics.LogEvent("Resource", "Add Gem Wheel", awardCoins);
+
+		});
+
 		ManagerGem.instance.ReciveGem(awardCoins);
 		// Show animated delta coins
 	}
