@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
-
+namespace NongTrai
+{
 public class PassingCar : MonoBehaviour
 {
     [SerializeField] private VisualWaypoint[] visuaWP;
@@ -64,4 +65,5 @@ public class PassingCar : MonoBehaviour
         transform.position = currentVisuaWP.node[0].position;
         StartCoroutine(moveCarOne());
     }
+}
 }

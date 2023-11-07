@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
+namespace NongTrai
+{
 public class ToolCrop : MonoBehaviour
 {
     
@@ -33,7 +34,7 @@ public class ToolCrop : MonoBehaviour
             ManagerTool.instance.idSeeds = idSeed;
             transform.position = new Vector3(oldPos.x, oldPos.y + 0.1f, oldPos.z);
             Quantity.transform.position = new Vector2(oldPos.x, oldPos.y + 0.7f);
-            if (idSeed == 0 && ManagerGuide.instance.GuideClickSeeds == 0) ManagerGuide.instance.CallArrowFieldEat();
+            if (idSeed == 0 && ManagerGuide.Instance.GuideClickSeeds == 0) ManagerGuide.Instance.CallArrowFieldEat();
         }
     }
 
@@ -58,13 +59,13 @@ public class ToolCrop : MonoBehaviour
             }
             else if (dragging == true)
             {
-                if (ManagerUseGem.instance.CheckUseGem == false)
+                if (ManagerUseGem.Instance.checkUseGem == false)
                 {
                     Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     target.z = oldPos.z;
                     obj.transform.position = target;
                 }
-                else if (ManagerUseGem.instance.CheckUseGem == true)
+                else if (ManagerUseGem.Instance.checkUseGem == true)
                 {
                     Destroy(obj);
                     dragging = false;
@@ -87,7 +88,7 @@ public class ToolCrop : MonoBehaviour
             {
                 transform.position = oldPos;
                 Quantity.transform.position = oldAmoutPos;
-                if (ManagerGuide.instance.GuideClickSeeds == 0) ManagerGuide.instance.CallArowSeedsRice();
+                if (ManagerGuide.Instance.GuideClickSeeds == 0) ManagerGuide.Instance.CallArowSeedsRice();
             }
             else if (dragging == true)
             {
@@ -98,7 +99,7 @@ public class ToolCrop : MonoBehaviour
                     ManagerTool.instance.ShowToolCrop();
                     ManagerTool.instance.dragging = false;
                     ManagerTool.instance.ShowToolCrop();
-                    if (ManagerGuide.instance.GuideClickSeeds == 0) ManagerGuide.instance.CallArowSeedsRice();
+                    if (ManagerGuide.Instance.GuideClickSeeds == 0) ManagerGuide.Instance.CallArowSeedsRice();
                 }
                 else if (ManagerTool.instance.checkCollider == true)
                 {
@@ -108,10 +109,11 @@ public class ToolCrop : MonoBehaviour
                     ManagerTool.instance.checkCollider = false;
                     ManagerTool.instance.dragging = false;
                     ManagerTool.instance.CloseToolCrop();
-                    if (ManagerGuide.instance.MoveCameraCageChicken == 0 && ManagerGuide.instance.GuideClickSeeds == 1) ManagerGuide.instance.CallMoveCameraCageChicken();
+                    if (ManagerGuide.Instance.MoveCameraCageChicken == 0 && ManagerGuide.Instance.GuideClickSeeds == 1) ManagerGuide.Instance.CallMoveCameraCageChicken();
                 }
             }
         }
     }
+}
 }
 

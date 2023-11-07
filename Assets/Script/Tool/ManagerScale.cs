@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-
+namespace NongTrai
+{
 public class ManagerScale : MonoBehaviour
 {
     float defaultOtherGrapSize = 2.7f;
@@ -14,5 +15,6 @@ public class ManagerScale : MonoBehaviour
     {
         float ratio = MainCamera.instance.mcam.orthographicSize / defaultOtherGrapSize;
         transform.localScale = defaultSize * ratio;
+    }
     }
 }

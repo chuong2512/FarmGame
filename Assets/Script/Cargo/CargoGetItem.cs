@@ -1,20 +1,33 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
+﻿using UnityEngine.Serialization;
 
-public class CargoGetItem : MonoBehaviour
+namespace NongTrai
 {
-    [SerializeField] float timeDestroy;
-    public Image ItemImage;
-    public Text QuantityItemText;
-    void Start()
-    {
-        StartCoroutine(DestroyMySeft());
-    }
+    using UnityEngine;
+    using UnityEngine.UI;
+    using System.Collections;
 
-    IEnumerator DestroyMySeft()
+    public class CargoGetItem : MonoBehaviour
     {
-        yield return new WaitForSeconds(timeDestroy);
-        Destroy(gameObject);
+        readonly float _timeDestroy;
+        [FormerlySerializedAs("ItemImage")] public Image itemImage;
+
+        [FormerlySerializedAs("QuantityItemText")]
+        public Text quantityItemText;
+
+        public CargoGetItem(float timeDestroy)
+        {
+            this._timeDestroy = timeDestroy;
+        }
+
+        void Start()
+        {
+            StartCoroutine(DestroyMySeft());
+        }
+
+        private IEnumerator DestroyMySeft()
+        {
+            yield return new WaitForSeconds(_timeDestroy);
+            Destroy(gameObject);
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Script.Decorate
+namespace NongTrai
 {
     public class DecorateObject : MonoBehaviour
     {

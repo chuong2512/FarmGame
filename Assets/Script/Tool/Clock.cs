@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Clock : MonoBehaviour
+namespace NongTrai
 {
-	public Image fillAmount;
-	public Text name;
-	public Text timeLive;
+    public class Clock : MonoBehaviour
+    {
+        public Image fillAmount;
+        public Text name;
+        public Text timeLive;
+    }
 }

@@ -1,42 +1,41 @@
-﻿using UnityEngine;
-
-
-public class ManagerBreads : MonoBehaviour
+﻿namespace NongTrai
 {
-    public static ManagerBreads instance;
-    private int[] NumberCage = new int[7];
+    using UnityEngine;
 
-    void Awake()
+    public class ManagerBreads : Singleton<ManagerBreads>
     {
-        instance = this;
-    }
-    void Start()
-    {
-        for (int i = 0; i < NumberCage.Length; i++)
+        private int[] NumberCage = new int[7];
+
+        void Start()
         {
-            if (PlayerPrefs.HasKey("NumberCage" + i) == false)
+            for (int i = 0; i < NumberCage.Length; i++)
             {
-                PlayerPrefs.SetInt("NumberCage" + i, 0);
-            }
-            else if (PlayerPrefs.HasKey("NumberCage" + i) == true)
-            {
-                if (PlayerPrefs.GetInt("NumberCage" + i) > 0)
+                if (PlayerPrefs.HasKey("NumberCage" + i) == false)
                 {
-                    NumberCage[i] = PlayerPrefs.GetInt("NumberCage" + i);
-                    for (int j = 0; j < NumberCage[i]; j++)
+                    PlayerPrefs.SetInt("NumberCage" + i, 0);
+                }
+                else if (PlayerPrefs.HasKey("NumberCage" + i) == true)
+                {
+                    if (PlayerPrefs.GetInt("NumberCage" + i) > 0)
                     {
-                        Vector2 target = new Vector2(PlayerPrefs.GetFloat("PosCageX" + i + "" + j), PlayerPrefs.GetFloat("PosCageY" + i + "" + j));
-                        GameObject obj = Instantiate(ManagerShop.instance.Cage[i], target, Quaternion.identity, ManagerShop.instance.parentCage[i]);
-                        obj.transform.GetChild(0).GetComponent<HomeAnimal>().idAmountHome = j;
+                        NumberCage[i] = PlayerPrefs.GetInt("NumberCage" + i);
+                        for (int j = 0; j < NumberCage[i]; j++)
+                        {
+                            Vector2 target = new Vector2(PlayerPrefs.GetFloat("PosCageX" + i + "" + j),
+                                PlayerPrefs.GetFloat("PosCageY" + i + "" + j));
+                            GameObject obj = Instantiate(ManagerShop.instance.Cage[i], target, Quaternion.identity,
+                                ManagerShop.instance.parentCage[i]);
+                            obj.transform.GetChild(0).GetComponent<HomeAnimal>().idAmountHome = j;
+                        }
                     }
                 }
             }
         }
-    }
-    public void UpdateNumberCage(int idCage)
-    {
-        NumberCage[idCage] += 1;
-        PlayerPrefs.SetInt("NumberCage" + idCage, NumberCage[idCage]);
+
+        public void UpdateNumberCage(int idCage)
+        {
+            NumberCage[idCage] += 1;
+            PlayerPrefs.SetInt("NumberCage" + idCage, NumberCage[idCage]);
+        }
     }
 }
-

@@ -1,44 +1,49 @@
 ﻿using NongTrai;
 using UnityEngine;
 
-public class ManagerMainHouse : MonoBehaviour
+namespace NongTrai
 {
-    public static ManagerMainHouse instance;
-    private int LevelMainHouse;
-    [SerializeField] GameObject MainHouse;
-
-    private void Awake()
+    public class ManagerMainHouse : MonoBehaviour
     {
-        if (instance == null) instance = this;
-        else if (instance != this) Destroy(gameObject);
-    }
+        public static ManagerMainHouse instance;
+        private int LevelMainHouse;
+        [SerializeField] GameObject MainHouse;
 
-    void Start()
-    {
-        if (PlayerPrefs.HasKey("LevelMainHouse") == false) PlayerPrefs.SetInt("LevelMainHouse", LevelMainHouse);
-        else
+        private void Awake()
         {
-            LevelMainHouse = PlayerPrefs.GetInt("LevelMainHouse");
-            if (LevelMainHouse > 0)
+            if (instance == null) instance = this;
+            else if (instance != this) Destroy(gameObject);
+        }
+
+        void Start()
+        {
+            if (PlayerPrefs.HasKey("LevelMainHouse") == false) PlayerPrefs.SetInt("LevelMainHouse", LevelMainHouse);
+            else
             {
-                Destroy(MainHouse);
-                Instantiate(ManagerData.instance.mainHouses.Home[LevelMainHouse].house, transform.position, Quaternion.identity, transform);
+                LevelMainHouse = PlayerPrefs.GetInt("LevelMainHouse");
+                if (LevelMainHouse > 0)
+                {
+                    Destroy(MainHouse);
+                    Instantiate(ManagerData.instance.mainHouses.Home[LevelMainHouse].house, transform.position,
+                        Quaternion.identity, transform);
+                }
             }
         }
-    }
 
-    private void UpdateMainHouse()
-    {
-        LevelMainHouse += 1;
-        PlayerPrefs.SetInt("LevelMainHouse", LevelMainHouse);
-        Destroy(MainHouse);
-        Instantiate(ManagerData.instance.mainHouses.Home[LevelMainHouse].house, transform.position, Quaternion.identity, transform);
-    }
+        private void UpdateMainHouse()
+        {
+            LevelMainHouse += 1;
+            PlayerPrefs.SetInt("LevelMainHouse", LevelMainHouse);
+            Destroy(MainHouse);
+            Instantiate(ManagerData.instance.mainHouses.Home[LevelMainHouse].house, transform.position,
+                Quaternion.identity, transform);
+        }
 
-    public void CheckUpdate(int level)
-    {
-        if (LevelMainHouse + 1 < ManagerData.instance.mainHouses.Home.Length - 1)
-            if (level == ManagerData.instance.mainHouses.Home[LevelMainHouse + 1].levelOpen)
-                UpdateMainHouse();
+        public void CheckUpdate(int level)
+        {
+            if (LevelMainHouse + 1 < ManagerData.instance.mainHouses.Home.Length - 1)
+                if (level == ManagerData.instance.mainHouses.Home[LevelMainHouse + 1].levelOpen)
+                    UpdateMainHouse();
+        }
     }
 }

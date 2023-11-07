@@ -1,16 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
-public class Information
+namespace NongTrai
 {
-	[System.Serializable]
-	public struct Info
-	{
-		public string name;
-		public int status, levelOpen, amount, total, goldPrice;
-		public Text txtName, txtInfo, txtGoldPrice, txtAmount;
-		public Image icon;
-	}
-	public Info [] info;
+    [Serializable]
+    public class Information
+    {
+        [Serializable]
+        public struct Info
+        {
+            public string name;
+            public int status, levelOpen, amount, total, goldPrice;
+            public Text txtName, txtInfo, txtGoldPrice, txtAmount;
+            public Image icon;
+        }
+
+        public Info[] info;
+    }
 }

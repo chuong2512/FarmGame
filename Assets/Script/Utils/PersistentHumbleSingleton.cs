@@ -8,7 +8,7 @@ namespace NongTrai
     /// </summary>
     public class PersistentHumbleSingleton<T> : MonoBehaviour where T : Component
     {
-        protected static T _instance;
+        private static T _instance;
         public float InitializationTime;
 
         /// <summary>
@@ -29,6 +29,7 @@ namespace NongTrai
                         _instance = obj.AddComponent<T>();
                     }
                 }
+
                 return _instance;
             }
         }

@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 
-public class InformationItem {
+namespace NongTrai
+{
+    public class InformationItem
+    {
+        public struct infoItem
+        {
+            public int[] stype, id;
+        }
 
-	public struct infoItem
-	{
-		public int[] stype, id;
-	}
-
-	public infoItem[] InfoItem;
+        public infoItem[] InfoItem;
+    }
 }

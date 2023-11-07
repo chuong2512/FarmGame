@@ -2,190 +2,186 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Notification : MonoBehaviour
+namespace NongTrai
 {
-    public static Notification instance;
-    private bool checkOn, checkBetween, checkBelow, checkTower, checkDepot;
-    [SerializeField] Text txtOn, txtBetween, txtBelow, txtDialogTower, txtDialogDepot, txtDialog;
-    IEnumerator IEBelow, IEBetween, IEOn, IETower, IEDepot;
-
-    //--------------------------------------------------------------
-
-    void Awake()
+    public class Notification : Singleton<Notification>
     {
-        instance = this;
-    }
+        private bool _checkOn, _checkBetween, _checkBelow, _checkTower, _checkDepot;
+        [SerializeField] Text txtOn, txtBetween, txtBelow, txtDialogTower, txtDialogDepot, txtDialog;
+        IEnumerator _ieBelow, _ieBetween, _ieOn, _ieTower, _ieDepot;
 
-    public void dialogTower()
-    {
-        if (Application.systemLanguage == SystemLanguage.Vietnamese)
-            txtDialogTower.text = "Sức Chứa Nông Sản " + ManagerMarket.instance.QuantityItemTower + "/" +
-                                  ManagerMarket.instance.QuantityTotalItemTower;
-        else if (Application.systemLanguage == SystemLanguage.Indonesian)
-            txtDialogTower.text = "Penyimpanan Silo " + ManagerMarket.instance.QuantityItemTower + "/" +
-                                  ManagerMarket.instance.QuantityTotalItemTower;
-        else
-            txtDialogTower.text = "Capacity Farm " + ManagerMarket.instance.QuantityItemTower + "/" +
-                                  ManagerMarket.instance.QuantityTotalItemTower;
 
-        if (checkTower == false)
+        public void dialogTower()
         {
-            IETower = showDialogTower();
-            StartCoroutine(IETower);
+            if (Application.systemLanguage == SystemLanguage.Vietnamese)
+                txtDialogTower.text = "Sức Chứa Nông Sản " + ManagerMarket.instance.QuantityItemTower + "/" +
+                                      ManagerMarket.instance.QuantityTotalItemTower;
+            else if (Application.systemLanguage == SystemLanguage.Indonesian)
+                txtDialogTower.text = "Penyimpanan Silo " + ManagerMarket.instance.QuantityItemTower + "/" +
+                                      ManagerMarket.instance.QuantityTotalItemTower;
+            else
+                txtDialogTower.text = "Capacity Farm " + ManagerMarket.instance.QuantityItemTower + "/" +
+                                      ManagerMarket.instance.QuantityTotalItemTower;
+
+            if (_checkTower == false)
+            {
+                _ieTower = showDialogTower();
+                StartCoroutine(_ieTower);
+            }
+            else if (_checkTower == true)
+            {
+                _checkTower = false;
+                txtDialogTower.gameObject.SetActive(false);
+                StopCoroutine(_ieTower);
+                _ieTower = showDialogTower();
+                StartCoroutine(_ieTower);
+            }
         }
-        else if (checkTower == true)
+
+        public void dialogComingSoon()
         {
-            checkTower = false;
-            txtDialogTower.gameObject.SetActive(false);
-            StopCoroutine(IETower);
-            IETower = showDialogTower();
-            StartCoroutine(IETower);
+            dialog("This feature is coming soon!");
         }
-    }
 
-    public void dialogComingSoon()
-    {
-        dialog("This feature is coming soon!");
-    }
-
-    public void dialog(string text)
-    {
-        txtDialog.text = text;
-
-        txtDialog.gameObject.SetActive(false);
-        StartCoroutine(showDialog());
-
-        IEnumerator showDialog()
+        public void dialog(string text)
         {
-            txtDialog.gameObject.SetActive(true);
-            yield return new WaitForSeconds(2f);
+            txtDialog.text = text;
+
             txtDialog.gameObject.SetActive(false);
+            StartCoroutine(showDialog());
+
+            IEnumerator showDialog()
+            {
+                txtDialog.gameObject.SetActive(true);
+                yield return new WaitForSeconds(2f);
+                txtDialog.gameObject.SetActive(false);
+            }
         }
-    }
 
-    IEnumerator showDialogTower()
-    {
-        checkTower = true;
-        txtDialogTower.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2f);
-        txtDialogTower.gameObject.SetActive(false);
-        checkTower = false;
-    }
-
-    public void dialogDepot()
-    {
-        if (Application.systemLanguage == SystemLanguage.Vietnamese)
-            txtDialogDepot.text = "Sức Chứa Vật Phẩm " + ManagerMarket.instance.QuantityItemDepot + "/" +
-                                  ManagerMarket.instance.QuantityTotalItemDepot;
-        else if (Application.systemLanguage == SystemLanguage.Vietnamese)
-            txtDialogDepot.text = "Penyimpanan Lumbung " + ManagerMarket.instance.QuantityItemDepot + "/" +
-                                  ManagerMarket.instance.QuantityTotalItemDepot;
-        else
-            txtDialogDepot.text = "Capacity Depot Item " + ManagerMarket.instance.QuantityItemDepot + "/" +
-                                  ManagerMarket.instance.QuantityTotalItemDepot;
-
-        if (checkDepot == false)
+        IEnumerator showDialogTower()
         {
-            IEDepot = showDialogDepot();
-            StartCoroutine(IEDepot);
+            _checkTower = true;
+            txtDialogTower.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2f);
+            txtDialogTower.gameObject.SetActive(false);
+            _checkTower = false;
         }
-        else if (checkDepot == true)
+
+        public void dialogDepot()
         {
-            checkDepot = false;
+            if (Application.systemLanguage == SystemLanguage.Vietnamese)
+                txtDialogDepot.text = "Sức Chứa Vật Phẩm " + ManagerMarket.instance.QuantityItemDepot + "/" +
+                                      ManagerMarket.instance.QuantityTotalItemDepot;
+            else if (Application.systemLanguage == SystemLanguage.Vietnamese)
+                txtDialogDepot.text = "Penyimpanan Lumbung " + ManagerMarket.instance.QuantityItemDepot + "/" +
+                                      ManagerMarket.instance.QuantityTotalItemDepot;
+            else
+                txtDialogDepot.text = "Capacity Depot Item " + ManagerMarket.instance.QuantityItemDepot + "/" +
+                                      ManagerMarket.instance.QuantityTotalItemDepot;
+
+            if (_checkDepot == false)
+            {
+                _ieDepot = showDialogDepot();
+                StartCoroutine(_ieDepot);
+            }
+            else if (_checkDepot == true)
+            {
+                _checkDepot = false;
+                txtDialogDepot.gameObject.SetActive(false);
+                StopCoroutine(_ieDepot);
+                _ieDepot = showDialogDepot();
+                StartCoroutine(_ieDepot);
+            }
+        }
+
+        IEnumerator showDialogDepot()
+        {
+            _checkDepot = true;
+            txtDialogDepot.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2f);
             txtDialogDepot.gameObject.SetActive(false);
-            StopCoroutine(IEDepot);
-            IEDepot = showDialogDepot();
-            StartCoroutine(IEDepot);
+            _checkDepot = false;
         }
-    }
 
-    IEnumerator showDialogDepot()
-    {
-        checkDepot = true;
-        txtDialogDepot.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2f);
-        txtDialogDepot.gameObject.SetActive(false);
-        checkDepot = false;
-    }
-
-    public void dialogOn(string textShow)
-    {
-        txtOn.text = textShow;
-        if (checkOn == false)
+        public void dialogOn(string textShow)
         {
-            IEOn = showDialogOn();
-            StartCoroutine(IEOn);
+            txtOn.text = textShow;
+            if (_checkOn == false)
+            {
+                _ieOn = showDialogOn();
+                StartCoroutine(_ieOn);
+            }
+            else if (_checkOn == true)
+            {
+                _checkOn = false;
+                txtOn.gameObject.SetActive(false);
+                StopCoroutine(_ieOn);
+                _ieOn = showDialogOn();
+                StartCoroutine(_ieOn);
+            }
         }
-        else if (checkOn == true)
+
+        IEnumerator showDialogOn()
         {
-            checkOn = false;
+            _checkOn = true;
+            txtOn.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2f);
             txtOn.gameObject.SetActive(false);
-            StopCoroutine(IEOn);
-            IEOn = showDialogOn();
-            StartCoroutine(IEOn);
+            _checkOn = false;
         }
-    }
 
-    IEnumerator showDialogOn()
-    {
-        checkOn = true;
-        txtOn.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2f);
-        txtOn.gameObject.SetActive(false);
-        checkOn = false;
-    }
-
-    public void dialogBetween(string textShow)
-    {
-        txtBetween.text = textShow;
-        if (checkBetween == false)
+        public void dialogBetween(string textShow)
         {
-            IEBetween = showDialogBetween();
-            StartCoroutine(IEBetween);
+            txtBetween.text = textShow;
+            if (_checkBetween == false)
+            {
+                _ieBetween = showDialogBetween();
+                StartCoroutine(_ieBetween);
+            }
+            else if (_checkBetween == true)
+            {
+                _checkBetween = false;
+                txtBetween.gameObject.SetActive(false);
+                StopCoroutine(_ieBetween);
+                _ieBetween = showDialogBetween();
+                StartCoroutine(_ieBetween);
+            }
         }
-        else if (checkBetween == true)
+
+        IEnumerator showDialogBetween()
         {
-            checkBetween = false;
+            _checkBetween = true;
+            txtBetween.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2f);
             txtBetween.gameObject.SetActive(false);
-            StopCoroutine(IEBetween);
-            IEBetween = showDialogBetween();
-            StartCoroutine(IEBetween);
+            _checkBetween = false;
         }
-    }
 
-    IEnumerator showDialogBetween()
-    {
-        checkBetween = true;
-        txtBetween.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2f);
-        txtBetween.gameObject.SetActive(false);
-        checkBetween = false;
-    }
-
-    public void dialogBelow(string textShow)
-    {
-        txtBelow.text = textShow;
-        if (checkBelow == false)
+        public void dialogBelow(string textShow)
         {
-            IEBelow = showDialogBelow();
-            StartCoroutine(IEBelow);
+            txtBelow.text = textShow;
+            if (_checkBelow == false)
+            {
+                _ieBelow = ShowDialogBelow();
+                StartCoroutine(_ieBelow);
+            }
+            else if (_checkBelow == true)
+            {
+                _checkBelow = false;
+                txtBelow.gameObject.SetActive(false);
+                StopCoroutine(_ieBelow);
+                _ieBelow = ShowDialogBelow();
+                StartCoroutine(_ieBelow);
+            }
         }
-        else if (checkBelow == true)
+
+        IEnumerator ShowDialogBelow()
         {
-            checkBelow = false;
+            _checkBelow = true;
+            txtBelow.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2f);
             txtBelow.gameObject.SetActive(false);
-            StopCoroutine(IEBelow);
-            IEBelow = showDialogBelow();
-            StartCoroutine(IEBelow);
+            _checkBelow = false;
         }
-    }
-
-    IEnumerator showDialogBelow()
-    {
-        checkBelow = true;
-        txtBelow.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2f);
-        txtBelow.gameObject.SetActive(false);
-        checkBelow = false;
     }
 }

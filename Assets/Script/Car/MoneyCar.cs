@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+namespace NongTrai
+{
 public class MoneyCar : MonoBehaviour
 {
 
@@ -106,4 +107,5 @@ public class MoneyCar : MonoBehaviour
         Destroy(GetComponent<iTween>());
         ManagerMission.instance.CargoBack();
     }
+}
 }

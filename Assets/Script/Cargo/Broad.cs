@@ -1,45 +1,46 @@
-﻿using UnityEngine;
-
-public class Broad : MonoBehaviour
+﻿namespace NongTrai
 {
-    private Vector3 camfirstPos;
-    [SerializeField] SpriteRenderer SprRenderer;
-    void Start()
-    {
+    using UnityEngine;
 
-    }
-
-    private void Order()
+    public class Broad : MonoBehaviour
     {
-        float order = transform.position.y * (-100);
-        SprRenderer.sortingOrder = (int)order;
-    }
+        private Vector3 _camPos;
 
-    private void ColorS(float r, float g, float b, float a)
-    {
-        SprRenderer.color = new Color(r, g, b, a);
-    }
+        [SerializeField] SpriteRenderer SprRenderer;
 
-    private void OnMouseDown()
-    {
-        ColorS(0.7f, 0.7f, 0.7f, 1f);
-        camfirstPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    }
 
-    void OnMouseDrag()
-    {
-        if (Vector3.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) >= 0.2f)
+        void OnMouseDrag()
         {
-            ColorS(1f, 1f, 1f, 1f);
+            if (Vector3.Distance(_camPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) >= 0.2f)
+            {
+                ColorS(1f, 1f, 1f, 1f);
+            }
         }
-    }
 
-    void OnMouseUp()
-    {
-        if (Vector3.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) < 0.2f)
+        void OnMouseUp()
         {
-            ColorS(1f, 1f, 1f, 1f);
-            ManagerCargo.instance.OpenLoadCargo();
+            if (Vector3.Distance(_camPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) < 0.2f)
+            {
+                ColorS(1f, 1f, 1f, 1f);
+                ManagerCargo.Instance.OpenLoadCargo();
+            }
+        }
+
+        private void Order()
+        {
+            float order = transform.position.y * (-100);
+            SprRenderer.sortingOrder = (int) order;
+        }
+
+        private void ColorS(float r, float g, float b, float a)
+        {
+            SprRenderer.color = new Color(r, g, b, a);
+        }
+
+        private void OnMouseDown()
+        {
+            ColorS(0.7f, 0.7f, 0.7f, 1f);
+            _camPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
     }
 }

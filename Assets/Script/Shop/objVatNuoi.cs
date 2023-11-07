@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-
+namespace NongTrai
+{
 public class objVatNuoi : MonoBehaviour {
 
 	[SerializeField] SpriteRenderer sprRenderer;
@@ -23,4 +24,5 @@ public class objVatNuoi : MonoBehaviour {
 	{
 		sprRenderer.color = new Color (1f, 0f, 0f, 1f);
 	}
+}
 }

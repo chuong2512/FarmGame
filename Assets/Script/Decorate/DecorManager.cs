@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
-
+namespace NongTrai
+{
 namespace Script.Decorate
 {
     public class DecorManager : MonoBehaviour
@@ -19,4 +20,5 @@ namespace Script.Decorate
             }
         }
     }
+}
 }

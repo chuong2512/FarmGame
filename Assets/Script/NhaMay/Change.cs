@@ -1,53 +1,55 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Change : MonoBehaviour
+namespace NongTrai
 {
-    [SerializeField] int dem;
-    [SerializeField] bool checkClick;
-    [SerializeField] Sprite DotYellow;
-    [SerializeField] Sprite DotBlack;
-    [SerializeField] SpriteRenderer sprRenderer;
-    [SerializeField] SpriteRenderer[] Dot;
-    [SerializeField] GameObject[] objChange;
-
-    // Use this for initialization
-    void Start()
+    public class Change : MonoBehaviour
     {
-        sprRenderer = this.GetComponent<SpriteRenderer>();
-    }
+        [SerializeField] int dem;
+        [SerializeField] bool checkClick;
+        [SerializeField] Sprite DotYellow;
+        [SerializeField] Sprite DotBlack;
+        [SerializeField] SpriteRenderer sprRenderer;
+        [SerializeField] SpriteRenderer[] Dot;
+        [SerializeField] GameObject[] objChange;
 
-    void OnMouseDown()
-    {
-        if (!EventSystem.current.IsPointerOverGameObject())
+        // Use this for initialization
+        void Start()
         {
-            checkClick = true;
-            sprRenderer.color = new Color(0.3f, 0.3f, 0.3f, 1f);
+            sprRenderer = this.GetComponent<SpriteRenderer>();
         }
-    }
 
-    void OnMouseUp()
-    {
-        if (checkClick == true)
+        void OnMouseDown()
         {
-            checkClick = false;
-            sprRenderer.color = Color.white;
-            if (dem < objChange.Length - 1)
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                Dot[dem].sprite = DotBlack;
-                objChange[dem].SetActive(false);
-                dem += 1;
-                Dot[dem].sprite = DotYellow;
-                objChange[dem].SetActive(true);
+                checkClick = true;
+                sprRenderer.color = new Color(0.3f, 0.3f, 0.3f, 1f);
             }
-            else
-            if (dem == objChange.Length - 1)
+        }
+
+        void OnMouseUp()
+        {
+            if (checkClick == true)
             {
-                Dot[dem].sprite = DotBlack;
-                objChange[dem].SetActive(false);
-                dem = 0;
-                Dot[dem].sprite = DotYellow;
-                objChange[dem].SetActive(true);
+                checkClick = false;
+                sprRenderer.color = Color.white;
+                if (dem < objChange.Length - 1)
+                {
+                    Dot[dem].sprite = DotBlack;
+                    objChange[dem].SetActive(false);
+                    dem += 1;
+                    Dot[dem].sprite = DotYellow;
+                    objChange[dem].SetActive(true);
+                }
+                else if (dem == objChange.Length - 1)
+                {
+                    Dot[dem].sprite = DotBlack;
+                    objChange[dem].SetActive(false);
+                    dem = 0;
+                    Dot[dem].sprite = DotYellow;
+                    objChange[dem].SetActive(true);
+                }
             }
         }
     }

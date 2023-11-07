@@ -2,71 +2,73 @@ using System;
 using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class CarController : MonoBehaviour
+namespace NongTrai
 {
-    [InlineEditor()][SerializeField] private PassingCar[] leftPassingCarPrefabs;
-    [InlineEditor()][SerializeField] private PassingCar[] rightPassingCarPrefabs;
-
-    [SerializeField] private float minTimeSpawn, rangeTimeSpawn;
-
-    private PassingCar _carSpawn;
-    private bool _isBlockSpawn;
-    private float _timeSpawn;
-    
-    private void Start()
+    public class CarController : MonoBehaviour
     {
-        ManagerCar.instance.OnCarGo += BlockCar;
-        _timeSpawn = minTimeSpawn;
-        _isBlockSpawn = false;
-    }
+        [InlineEditor()] [SerializeField] private PassingCar[] leftPassingCarPrefabs;
+        [InlineEditor()] [SerializeField] private PassingCar[] rightPassingCarPrefabs;
 
-    private void FixedUpdate()
-    {
-        if (_timeSpawn > 0)
+        [SerializeField] private float minTimeSpawn, rangeTimeSpawn;
+
+        private PassingCar _carSpawn;
+        private bool _isBlockSpawn;
+        private float _timeSpawn;
+
+        private void Start()
         {
-            _timeSpawn -= Time.fixedDeltaTime;
-            return;
+            ManagerCar.instance.OnCarGo += BlockCar;
+            _timeSpawn = minTimeSpawn;
+            _isBlockSpawn = false;
         }
-        
-        if (_isBlockSpawn) return;
-        _timeSpawn = GetRandomTime();
-        SpawnCar();
-    }
 
-    private void BlockCar()
-    {
-        StartCoroutine(IEBlockSpawn());
-    }
+        private void FixedUpdate()
+        {
+            if (_timeSpawn > 0)
+            {
+                _timeSpawn -= Time.fixedDeltaTime;
+                return;
+            }
 
-    private IEnumerator IEBlockSpawn()
-    {
-        _isBlockSpawn = true;
-        yield return new WaitForSeconds(8f);
-        _isBlockSpawn = false;
-    }
+            if (_isBlockSpawn) return;
+            _timeSpawn = GetRandomTime();
+            SpawnCar();
+        }
 
-    private void SpawnCar()
-    {
-        _carSpawn = Random.Range(0, 10) > 5 ? GetRandomRightCar() : GetRandomLeftCar();
+        private void BlockCar()
+        {
+            StartCoroutine(IEBlockSpawn());
+        }
 
-        var obj = PoolingSystem.Instance.InstantiateAPS(_carSpawn.name);
-        obj.GetComponent<PassingCar>()?.GetVisualWay();
-    }
+        private IEnumerator IEBlockSpawn()
+        {
+            _isBlockSpawn = true;
+            yield return new WaitForSeconds(8f);
+            _isBlockSpawn = false;
+        }
 
-    private float GetRandomTime() => Random.Range(minTimeSpawn, minTimeSpawn + rangeTimeSpawn);
+        private void SpawnCar()
+        {
+            _carSpawn = Random.Range(0, 10) > 5 ? GetRandomRightCar() : GetRandomLeftCar();
 
-    private PassingCar GetRandomLeftCar()
-    { 
-        var carIndex = Random.Range(0, leftPassingCarPrefabs.Length);
-        return leftPassingCarPrefabs[carIndex];
-    }
-    
-    private PassingCar GetRandomRightCar()
-    { 
-        var carIndex = Random.Range(0, rightPassingCarPrefabs.Length);
-        return rightPassingCarPrefabs[carIndex];
+            var obj = PoolingSystem.Instance.InstantiateAPS(_carSpawn.name);
+            obj.GetComponent<PassingCar>()?.GetVisualWay();
+        }
+
+        private float GetRandomTime() => Random.Range(minTimeSpawn, minTimeSpawn + rangeTimeSpawn);
+
+        private PassingCar GetRandomLeftCar()
+        {
+            var carIndex = Random.Range(0, leftPassingCarPrefabs.Length);
+            return leftPassingCarPrefabs[carIndex];
+        }
+
+        private PassingCar GetRandomRightCar()
+        {
+            var carIndex = Random.Range(0, rightPassingCarPrefabs.Length);
+            return rightPassingCarPrefabs[carIndex];
+        }
     }
 }

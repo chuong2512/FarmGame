@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NongTrai;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Lighting : MonoBehaviour
@@ -28,13 +29,13 @@ public class Lighting : MonoBehaviour
                 else if (Application.systemLanguage == SystemLanguage.Indonesian)
                     str = "Ketuk Sekali lagi untuk mengonfirmasi! ";
                 else str = "Press one more to confirm!";
-                Notification.instance.dialogBelow(str);
+                Notification.Instance.dialogBelow(str);
                 break;
             case 1:
                 status = 0;
-                if (ManagerGem.instance.GemLive >= quantityGem)
+                if (ManagerGem.Instance.GemLive >= quantityGem)
                 {
-                    ManagerGem.instance.MunisGem(quantityGem);
+                    ManagerGem.Instance.MunisGem(quantityGem);
                     switch (idStype)
                     {
                         case 0: objUseGem.GetComponent<Ruong>().UseDiamond(); break;
@@ -44,7 +45,7 @@ public class Lighting : MonoBehaviour
                         case 4: objUseGem.GetComponent<RuongHoa>().UseDiamond(); break;
                     }
                 }
-                else if (ManagerGem.instance.GemLive < quantityGem)
+                else if (ManagerGem.Instance.GemLive < quantityGem)
                 {
                     string strOne;
                     if (Application.systemLanguage == SystemLanguage.Vietnamese)
@@ -52,7 +53,7 @@ public class Lighting : MonoBehaviour
                     else if (Application.systemLanguage == SystemLanguage.Indonesian)
                         strOne = "Anda tidak memiliki cukup permata!";
                     else strOne = "You haven't enough gem!";
-                    Notification.instance.dialogBelow(strOne);
+                    Notification.Instance.dialogBelow(strOne);
                 }
                 break;
         }

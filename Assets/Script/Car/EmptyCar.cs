@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-
+namespace NongTrai
+{
 public class EmptyCar : MonoBehaviour
 {  
     [SerializeField] GameObject body;
@@ -42,4 +43,5 @@ public class EmptyCar : MonoBehaviour
     {
         ColorS(1f, 1f, 1f, 1f);
     }
+}
 }

@@ -2,21 +2,26 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ShopButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+namespace NongTrai
 {
-    [SerializeField] Image imageButton;
-    public void OnPointerDown(PointerEventData eventData)
+    public class ShopButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        imageButton.color = new Color(0.6f, 0.6f, 0.6f, 1f);
-    }
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        imageButton.color = new Color(1f, 1f, 1f, 1f);
-        ManagerShop.instance.ButtonShop();
-        if (ManagerGuide.instance.GuideClickShopBuyChicken == 0)
+        [SerializeField] Image imageButton;
+
+        public void OnPointerDown(PointerEventData eventData)
         {
-            ManagerGuide.instance.GuideClickShopBuyChicken = 1;
-            ManagerGuide.instance.DoneArrowShop();
+            imageButton.color = new Color(0.6f, 0.6f, 0.6f, 1f);
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            imageButton.color = new Color(1f, 1f, 1f, 1f);
+            ManagerShop.instance.ButtonShop();
+            if (ManagerGuide.Instance.GuideClickShopBuyChicken == 0)
+            {
+                ManagerGuide.Instance.GuideClickShopBuyChicken = 1;
+                ManagerGuide.Instance.DoneArrowShop();
+            }
         }
     }
 }

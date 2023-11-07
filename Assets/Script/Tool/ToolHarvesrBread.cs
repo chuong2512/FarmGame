@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-
+namespace NongTrai
+{
 public class ToolHarvesrBread : MonoBehaviour
 {
     Animator Ani;
@@ -72,4 +73,5 @@ public class ToolHarvesrBread : MonoBehaviour
             Destroy(obj);
         }
     }
+}
 }

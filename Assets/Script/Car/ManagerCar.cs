@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
-
+namespace NongTrai
+{
 public class ManagerCar : MonoBehaviour
 {
     public static ManagerCar instance;
@@ -76,4 +77,5 @@ public enum CarState
     Truck, 
     Money,
     Empty
+}
 }

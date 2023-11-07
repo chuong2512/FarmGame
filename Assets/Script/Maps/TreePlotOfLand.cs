@@ -2,141 +2,158 @@
 using System.Collections;
 using NongTrai;
 
-public class TreePlotOfLand : MonoBehaviour
+namespace NongTrai
 {
-    [SerializeField] int idPOL;
-    [SerializeField] int idSeri;
-    [SerializeField] int idDecorate;
-    private int status;
-    bool dragging;
-    GameObject obj;
-    [SerializeField] OrderPro[] OrderTree;
-    Animator Ani;
-    Vector3 firstCamPos;
-    // Use this for initialization
-    void Start()
+    public class TreePlotOfLand : MonoBehaviour
     {
-        InitData();
-        Ani = GetComponent<Animator>();
-        Order();
-    }
+        [SerializeField] int idPOL;
+        [SerializeField] int idSeri;
+        [SerializeField] int idDecorate;
+        private int status;
+        bool dragging;
+        GameObject obj;
+        [SerializeField] OrderPro[] OrderTree;
+        Animator Ani;
 
-    private void Order()
-    {
-        float order = transform.position.y * (-100);
-        for (int i = 0; i < OrderTree.Length; i++)
+        Vector3 firstCamPos;
+
+        // Use this for initialization
+        void Start()
         {
-            for (int k = 0; k < OrderTree[i].SprRenderer.Length; k++)
+            InitData();
+            Ani = GetComponent<Animator>();
+            Order();
+        }
+
+        private void Order()
+        {
+            float order = transform.position.y * (-100);
+            for (int i = 0; i < OrderTree.Length; i++)
             {
-                OrderTree[i].SprRenderer[k].sortingOrder = (int)order + OrderTree[i].order;
+                for (int k = 0; k < OrderTree[i].SprRenderer.Length; k++)
+                {
+                    OrderTree[i].SprRenderer[k].sortingOrder = (int) order + OrderTree[i].order;
+                }
             }
         }
-    }
-    private void ColorS(float r, float g, float b, float a)
-    {
-        for (int i = 0; i < OrderTree.Length; i++)
+
+        private void ColorS(float r, float g, float b, float a)
         {
-            for (int k = 0; k < OrderTree[i].SprRenderer.Length; k++)
+            for (int i = 0; i < OrderTree.Length; i++)
             {
-                OrderTree[i].SprRenderer[k].color = new Color(r, g, b, a);
+                for (int k = 0; k < OrderTree[i].SprRenderer.Length; k++)
+                {
+                    OrderTree[i].SprRenderer[k].color = new Color(r, g, b, a);
+                }
             }
         }
-    }
-    void OnMouseDown()
-    {
-        firstCamPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        ColorS(0.3f, 0.3f, 0.3f, 1f);
-    }
-    void OnMouseDrag()
-    {
-        if (dragging == false)
+
+        void OnMouseDown()
         {
-            if (Vector3.Distance(firstCamPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) > 0.1f)
+            firstCamPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            ColorS(0.3f, 0.3f, 0.3f, 1f);
+        }
+
+        void OnMouseDrag()
+        {
+            if (dragging == false)
             {
-                dragging = true;
+                if (Vector3.Distance(firstCamPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) > 0.1f)
+                {
+                    dragging = true;
+                    ColorS(1f, 1f, 1f, 1f);
+                }
+            }
+        }
+
+        void OnMouseUp()
+        {
+            if (dragging == false)
+            {
                 ColorS(1f, 1f, 1f, 1f);
+                switch (ManagerMaps.ins.GetStatusPOL(idPOL))
+                {
+                    case 0:
+                        string str;
+                        if (Application.systemLanguage == SystemLanguage.Vietnamese)
+                            str = "Ô đất được mở khóa khi bạn đạt cấp độ " +
+                                  (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
+                        else if (Application.systemLanguage == SystemLanguage.Indonesian)
+                            str = "Tanah terbuka di level " +
+                                  (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
+                        else
+                            str = "Land is unlocked when you reach the level " +
+                                  (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
+                        Notification.Instance.dialogBelow(str);
+                        break;
+                    case 1:
+                        ManagerMaps.ins.RegisterExpland(idPOL);
+                        break;
+                    case 2:
+                        Vector2 target = new Vector2(transform.position.x + 1f, transform.position.y + 1f);
+                        ManagerTool.instance.ShowToolPlotOfLand(idDecorate, idPOL, idSeri, target);
+                        break;
+                }
+            }
+            else dragging = false;
+        }
+
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.tag == "ToolDecorate" && ManagerTool.instance.dragging == true && status == 0
+                && idPOL == ManagerTool.instance.idPOL
+                && idSeri == ManagerTool.instance.idDecoratePOL
+                && idDecorate == ManagerTool.instance.idDecorate)
+            {
+                if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] > 0)
+                {
+                    ManagerTool.instance.checkCollider = true;
+                    ManagerMarket.instance.MinusItem(5, idDecorate, 1);
+                    ConditionEnough();
+                }
+                else if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] == 0)
+                {
+                    ManagerTool.instance.checkCollider = true;
+                    int Purchase = ManagerData.instance.toolDecorate.Datas[idDecorate].Purchare;
+                    ManagerUseGem.Instance.ShowDialogUseDiamond(idDecorate, StypeUseGem.TreePOL, Purchase, gameObject);
+                }
             }
         }
-    }
-    void OnMouseUp()
-    {
-        if (dragging == false)
+
+        public void ConditionEnough()
         {
-            ColorS(1f, 1f, 1f, 1f);
-            switch (ManagerMaps.ins.GetStatusPOL(idPOL))
-            {
-                case 0:
-                    string str;
-                    if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                        str = "Ô đất được mở khóa khi bạn đạt cấp độ " + (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
-                    else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                        str = "Tanah terbuka di level " + (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
-                    else str = "Land is unlocked when you reach the level " + (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
-                    Notification.instance.dialogBelow(str);
-                    break;
-                case 1:
-                    ManagerMaps.ins.RegisterExpland(idPOL);
-                    break;
-                case 2:
-                    Vector2 target = new Vector2(transform.position.x + 1f, transform.position.y + 1f);
-                    ManagerTool.instance.ShowToolPlotOfLand(idDecorate, idPOL, idSeri, target);
-                    break;
-            }
-        }
-        else dragging = false;
-    }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "ToolDecorate" && ManagerTool.instance.dragging == true && status == 0
-            && idPOL == ManagerTool.instance.idPOL
-            && idSeri == ManagerTool.instance.idDecoratePOL
-            && idDecorate == ManagerTool.instance.idDecorate)
-        {
-            if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] > 0)
-            {
-                ManagerTool.instance.checkCollider = true;
-                ManagerMarket.instance.MinusItem(5, idDecorate, 1);
-                ConditionEnough();
-            }
-            else if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] == 0)
-            {
-                ManagerTool.instance.checkCollider = true;
-                int Purchase = ManagerData.instance.toolDecorate.Datas[idDecorate].Purchare;
-                ManagerUseGem.instance.ShowDialogUseDiamond(idDecorate, StypeUseGem.TreePOL, Purchase, gameObject);
-            }
-        }
-    }
-    public void ConditionEnough()
-    {
-        status = 1;
-        PlayerPrefs.SetInt("StatusTreePOL" + idPOL + "" + idSeri, status);
-        Vector2 target = new Vector2(transform.position.x, transform.position.y + 0.2f);
-        obj = Instantiate(ManagerTool.instance.objSaw, target, Quaternion.identity);
-        ManagerMaps.ins.RegisterDestroyDecorate(idPOL);
-        StartCoroutine(DestroyDecorate());
-    }
-    IEnumerator DestroyDecorate()
-    {
-        yield return new WaitForSeconds(2f);
-        Destroy(obj);
-        Ani.SetTrigger("isCut");
-        yield return new WaitForSeconds(2f);
-        if (Experience.instance.level < 7) Experience.instance.registerExpSingle(1, transform.position);
-        else Experience.instance.registerExpSingle(5, transform.position);
-        ManagerMaps.ins.DestroyDone(idPOL);
-        Destroy(gameObject);
-    }
-    private void InitData()
-    {
-        if (PlayerPrefs.HasKey("StatusTreePOL" + idPOL + "" + idSeri) == false)
-        {
-            status = 0;
+            status = 1;
             PlayerPrefs.SetInt("StatusTreePOL" + idPOL + "" + idSeri, status);
+            Vector2 target = new Vector2(transform.position.x, transform.position.y + 0.2f);
+            obj = Instantiate(ManagerTool.instance.objSaw, target, Quaternion.identity);
+            ManagerMaps.ins.RegisterDestroyDecorate(idPOL);
+            StartCoroutine(DestroyDecorate());
         }
-        else if (PlayerPrefs.HasKey("StatusTreePOL" + idPOL + "" + idSeri) == true)
+
+        IEnumerator DestroyDecorate()
         {
-            status = PlayerPrefs.GetInt("StatusTreePOL" + idPOL + "" + idSeri);
-            if (status == 1) Destroy(gameObject);
+            yield return new WaitForSeconds(2f);
+            Destroy(obj);
+            Ani.SetTrigger("isCut");
+            yield return new WaitForSeconds(2f);
+            if (Experience.Instance.level < 7) Experience.Instance.registerExpSingle(1, transform.position);
+            else Experience.Instance.registerExpSingle(5, transform.position);
+            ManagerMaps.ins.DestroyDone(idPOL);
+            Destroy(gameObject);
+        }
+
+        private void InitData()
+        {
+            if (PlayerPrefs.HasKey("StatusTreePOL" + idPOL + "" + idSeri) == false)
+            {
+                status = 0;
+                PlayerPrefs.SetInt("StatusTreePOL" + idPOL + "" + idSeri, status);
+            }
+            else if (PlayerPrefs.HasKey("StatusTreePOL" + idPOL + "" + idSeri) == true)
+            {
+                status = PlayerPrefs.GetInt("StatusTreePOL" + idPOL + "" + idSeri);
+                if (status == 1) Destroy(gameObject);
+            }
         }
     }
 }

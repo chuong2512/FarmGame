@@ -1,44 +1,51 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
-public class DestroyMySeft : MonoBehaviour
+namespace NongTrai
 {
-    [SerializeField] float TimeDestroy;
-    [SerializeField] ParticleSystemRendererPro[] particleSystemRendererPros;
-    [SerializeField] OrderPro[] orderPro;
-    // -----------------------------------
-    void Start()
+    public class DestroyMySeft : MonoBehaviour
     {
-        int order = (int)(transform.position.y * (-100));
-        for (int i = 0; i < particleSystemRendererPros.Length; i++)
+        [SerializeField] float TimeDestroy;
+        [SerializeField] ParticleSystemRendererPro[] particleSystemRendererPros;
+
+        [SerializeField] OrderPro[] orderPro;
+
+        // -----------------------------------
+        void Start()
         {
-            for (int j = 0; j < particleSystemRendererPros[i].particleSystemRenderers.Length; j++)
+            int order = (int) (transform.position.y * (-100));
+            for (int i = 0; i < particleSystemRendererPros.Length; i++)
             {
-                particleSystemRendererPros[i].particleSystemRenderers[j].sortingOrder = order + particleSystemRendererPros[i].order;
-            }
-            
-        }
-        for (int i = 0; i < orderPro.Length; i++)
-        {
-            for (int j = 0; j < orderPro[i].SprRenderer.Length; j++)
-            {
-                orderPro[i].SprRenderer[j].sortingOrder = order + orderPro[i].order;
+                for (int j = 0; j < particleSystemRendererPros[i].particleSystemRenderers.Length; j++)
+                {
+                    particleSystemRendererPros[i].particleSystemRenderers[j].sortingOrder =
+                        order + particleSystemRendererPros[i].order;
+                }
             }
 
+            for (int i = 0; i < orderPro.Length; i++)
+            {
+                for (int j = 0; j < orderPro[i].SprRenderer.Length; j++)
+                {
+                    orderPro[i].SprRenderer[j].sortingOrder = order + orderPro[i].order;
+                }
+            }
+
+            StartCoroutine(StartDestroy());
         }
-        StartCoroutine(StartDestroy());
+
+        IEnumerator StartDestroy()
+        {
+            yield return new WaitForSeconds(TimeDestroy);
+            Destroy(gameObject);
+        }
     }
 
-    IEnumerator StartDestroy()
+    [Serializable]
+    public struct ParticleSystemRendererPro
     {
-        yield return new WaitForSeconds(TimeDestroy);
-        Destroy(gameObject);
+        public int order;
+        public ParticleSystemRenderer[] particleSystemRenderers;
     }
-}
-
-[System.Serializable]
-public struct ParticleSystemRendererPro
-{
-    public int order;
-    public ParticleSystemRenderer[] particleSystemRenderers;
 }

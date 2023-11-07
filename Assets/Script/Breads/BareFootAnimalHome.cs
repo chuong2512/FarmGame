@@ -1,15 +1,25 @@
-﻿using UnityEngine;
-
-public class BareFootAnimalHome : MonoBehaviour
+﻿namespace NongTrai
 {
+    using UnityEngine;
 
-    [SerializeField] HomeAnimal homeAnimal;
-    void OnTriggerEnter2D(Collider2D other)
+    public class BareFootAnimalHome : MonoBehaviour
     {
-        if (other.tag == "BeraFoot") homeAnimal.onTriggerStay2D();
-    }
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.tag == "BeraFoot")   homeAnimal.onTriggerExit2D();
+        [SerializeField] HomeAnimal homeAnimal;
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.tag == "BeraFoot")
+            {
+                homeAnimal.onTriggerExit2D();
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.tag == "BeraFoot")
+            {
+                homeAnimal.onTriggerStay2D();
+            }
+        }
     }
 }

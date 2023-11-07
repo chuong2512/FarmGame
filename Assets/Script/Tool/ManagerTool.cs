@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 using NongTrai;
-
+namespace NongTrai
+{
 public class ManagerTool : MonoBehaviour
 {
     public static ManagerTool instance;
@@ -352,8 +353,8 @@ public class ManagerTool : MonoBehaviour
         {
             clock.fillAmount.fillAmount = (float)(totalTime - timeLive) / totalTime;
             if (objLighting.activeSelf == false) objLighting.SetActive(true);
-            clock.timeLive.text = ManagerGame.instance.TimeText(timeLive);
-            lighting.quantityGem = ManagerGame.instance.CalcalutorGem(timeLive);
+            clock.timeLive.text = ManagerGame.Instance.TimeText(timeLive);
+            lighting.quantityGem = ManagerGame.Instance.CalcalutorGem(timeLive);
             lighting.GemText.text = "" + lighting.quantityGem;
         }
         else if (status == 2)
@@ -374,8 +375,8 @@ public class ManagerTool : MonoBehaviour
         if (timeLive > 0)
         {
             if (objLighting.activeSelf == false) objLighting.SetActive(true);
-            clock.timeLive.text = ManagerGame.instance.TimeText(timeLive);
-            lighting.quantityGem = ManagerGame.instance.CalcalutorGem(timeLive);
+            clock.timeLive.text = ManagerGame.Instance.TimeText(timeLive);
+            lighting.quantityGem = ManagerGame.Instance.CalcalutorGem(timeLive);
             lighting.GemText.text = "" + lighting.quantityGem;
         }
         else if (timeLive <= 0)
@@ -394,8 +395,8 @@ public class ManagerTool : MonoBehaviour
         if (timeLive > 0)
         {
             if (objLighting.activeSelf == false) objLighting.SetActive(true);
-            clock.timeLive.text = ManagerGame.instance.TimeText(timeLive);
-            lighting.quantityGem = ManagerGame.instance.CalcalutorGem(timeLive);
+            clock.timeLive.text = ManagerGame.Instance.TimeText(timeLive);
+            lighting.quantityGem = ManagerGame.Instance.CalcalutorGem(timeLive);
             lighting.GemText.text = "" + lighting.quantityGem;
         }
         else if (timeLive <= 0)
@@ -413,9 +414,9 @@ public class ManagerTool : MonoBehaviour
         clock.fillAmount.fillAmount = (float)(totalTime - timeLive) / totalTime;
         if (timeLive > 0)
         {
-            clock.timeLive.text = ManagerGame.instance.TimeText(timeLive);
+            clock.timeLive.text = ManagerGame.Instance.TimeText(timeLive);
             if (objLighting.activeSelf == false) objLighting.SetActive(true);
-            lighting.quantityGem = ManagerGame.instance.CalcalutorGem(timeLive);
+            lighting.quantityGem = ManagerGame.Instance.CalcalutorGem(timeLive);
             lighting.GemText.text = "" + lighting.quantityGem;
         }
         else if (timeLive <= 0)
@@ -463,7 +464,7 @@ public class ManagerTool : MonoBehaviour
             detailItemNhaMay.iconItem[i].gameObject.SetActive(true);
         }
         int time = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].time;
-        detailItemNhaMay.time.text = ManagerGame.instance.TimeText(time);
+        detailItemNhaMay.time.text = ManagerGame.Instance.TimeText(time);
         objDetailItemNhaMay.SetActive(true);
     }
 
@@ -510,8 +511,8 @@ public class ManagerTool : MonoBehaviour
         if (timeLive > 0)
         {
             clock.fillAmount.fillAmount = (float)(totalTime - timeLive) / totalTime;
-            clock.timeLive.text = ManagerGame.instance.TimeText(timeLive);
-            lighting.quantityGem = ManagerGame.instance.CalcalutorGem(timeLive);
+            clock.timeLive.text = ManagerGame.Instance.TimeText(timeLive);
+            lighting.quantityGem = ManagerGame.Instance.CalcalutorGem(timeLive);
             lighting.GemText.text = "" + lighting.quantityGem;
         }
         else if (timeLive <= 0)
@@ -571,4 +572,5 @@ public struct ShowClock
     public int IdShow;
     public bool CheckShow;
     public bool[] CheckStype;
+}
 }

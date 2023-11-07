@@ -1,62 +1,67 @@
 ﻿using UnityEngine;
 
-public class ToolHarvestOldTree : MonoBehaviour
+namespace NongTrai
 {
-    Vector3 oldPos, oldAmoutPos;
-    Vector3 camfirstPos;
-    GameObject obj;
-    [SerializeField] bool dragging;
-    [SerializeField] SpriteRenderer spriteRenderer;
-    // Use this for initialization
-    void Start()
+    public class ToolHarvestOldTree : MonoBehaviour
     {
-        
-    }
+        Vector3 oldPos, oldAmoutPos;
+        Vector3 camfirstPos;
+        GameObject obj;
+        [SerializeField] bool dragging;
 
-    void OnMouseDown()
-    {
-        MainCamera.instance.lockCam();
-        oldPos = transform.position;
-        camfirstPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector3(oldPos.x, oldPos.y + 0.1f, oldPos.z);
-    }
+        [SerializeField] SpriteRenderer spriteRenderer;
 
-    void OnMouseDrag()
-    {
-        if (dragging == false)
+        // Use this for initialization
+        void Start()
         {
-            if (Vector2.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) > 0.1f)
+
+        }
+
+        void OnMouseDown()
+        {
+            MainCamera.instance.lockCam();
+            oldPos = transform.position;
+            camfirstPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = new Vector3(oldPos.x, oldPos.y + 0.1f, oldPos.z);
+        }
+
+        void OnMouseDrag()
+        {
+            if (dragging == false)
             {
-                dragging = true;
-                transform.position = oldPos;
+                if (Vector2.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) > 0.1f)
+                {
+                    dragging = true;
+                    transform.position = oldPos;
+                    Vector2 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    obj = Instantiate(ManagerTool.instance.objRo, target, Quaternion.identity);
+                    spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+                    ManagerTool.instance.dragging = true;
+                }
+            }
+
+            if (dragging == true)
+            {
                 Vector2 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                obj = Instantiate(ManagerTool.instance.objRo, target, Quaternion.identity);
-                spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
-                ManagerTool.instance.dragging = true;
+                obj.transform.position = target;
             }
         }
-        if (dragging == true)
-        {
-            Vector2 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            obj.transform.position = target;
-        }
-    }
 
-    void OnMouseUp()
-    {
-        MainCamera.instance.unLockCam();
+        void OnMouseUp()
+        {
+            MainCamera.instance.unLockCam();
 
-        if (dragging == false)
-        {
-            transform.position = oldPos;
-        }
-        else
-        if (dragging == true)
-        {
-            dragging = false;
-            spriteRenderer.color = Color.white;
-            ManagerTool.instance.dragging = false;
-            Destroy(obj);
+            if (dragging == false)
+            {
+                transform.position = oldPos;
+            }
+            else if (dragging == true)
+            {
+                dragging = false;
+                spriteRenderer.color = Color.white;
+                ManagerTool.instance.dragging = false;
+                Destroy(obj);
+            }
         }
     }
 }

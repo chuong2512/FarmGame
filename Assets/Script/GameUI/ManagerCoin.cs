@@ -3,48 +3,54 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-[DefaultExecutionOrder(-99)]
-public class ManagerCoin : MonoBehaviour
+namespace NongTrai
 {
-    public static ManagerCoin instance;
-    [SerializeField] Text ShowGoldText;
-    public Transform pointerGold;
-    public GameObject goldFly;
-    public int Coin
+    [DefaultExecutionOrder(-99)]
+    public class ManagerCoin : Singleton<ManagerCoin>
     {
-        get { if (PlayerPrefs.HasKey("Coin") == false) PlayerPrefs.SetInt("Coin", 250); return PlayerPrefs.GetInt("Coin"); }
-        set
+        public static ManagerCoin Instance;
+        [SerializeField] Text ShowGoldText;
+        public Transform pointerGold;
+        public GameObject goldFly;
+
+        public int Coin
         {
-            PlayerPrefs.SetInt("Coin", value); 
-            GameManager.OnChangeCoin?.Invoke();
+            get
+            {
+                if (PlayerPrefs.HasKey("Coin") == false) PlayerPrefs.SetInt("Coin", 250);
+                return PlayerPrefs.GetInt("Coin");
+            }
+            set
+            {
+                PlayerPrefs.SetInt("Coin", value);
+                GameManager.OnChangeCoin?.Invoke();
+            }
         }
-    }
-    // Use this for initialization
-    void Awake()
-    {
-        if (instance == null) instance = this;
-        else if (instance != this) Destroy(gameObject);
-    }
-    void Start()
-    {
-        ShowGoldText.text = "" + Coin;
-    }
-    [Button]
-    public void reciveGold(int value)
-    {
-        Coin += value;
-        ShowGoldText.text = "" + Coin;
-    }
-    [Button]
-    public void MunisGold(int value)
-    {
-        Coin -= value;
-        ShowGoldText.text = "" + Coin;
-    }
-    public void RegisterGoldSingle(int value, Vector3 target)
-    {
-        GameObject obj = Instantiate(goldFly, target, Quaternion.identity);
-        obj.GetComponent<GoldFly>().numberGold = value;
+
+
+        void Start()
+        {
+            ShowGoldText.text = "" + Coin;
+        }
+
+        [Button]
+        public void ReciveGold(int value)
+        {
+            Coin += value;
+            ShowGoldText.text = "" + Coin;
+        }
+
+        [Button]
+        public void MunisGold(int value)
+        {
+            Coin -= value;
+            ShowGoldText.text = "" + Coin;
+        }
+
+        public void RegisterGoldSingle(int value, Vector3 target)
+        {
+            GameObject obj = Instantiate(goldFly, target, Quaternion.identity);
+            obj.GetComponent<GoldFly>().numberGold = value;
+        }
     }
 }

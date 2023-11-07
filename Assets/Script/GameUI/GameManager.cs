@@ -2,7 +2,7 @@
 using NongTrai;
 using UnityEngine;
 
-namespace Script.GameUI
+namespace NongTrai
 {
     public class GameManager : Singleton<GameManager>
     {

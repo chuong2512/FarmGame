@@ -1,28 +1,33 @@
 ﻿using UnityEngine;
 
-[System.Serializable]
-public class ManagerOldTree : MonoBehaviour
+namespace NongTrai
 {
-    public static ManagerOldTree instance;
-
-    // Use this for initialization
-    void Awake()
+    [System.Serializable]
+    public class ManagerOldTree : MonoBehaviour
     {
-        instance = this;
-    }
+        public static ManagerOldTree instance;
 
-    void Start()
-    {
-        for (int i = 0; i < ManagerShop.instance.Tree.Length; i++)
+        // Use this for initialization
+        void Awake()
         {
-            if (PlayerPrefs.GetInt("amountTree" + i) > 0)
+            instance = this;
+        }
+
+        void Start()
+        {
+            for (int i = 0; i < ManagerShop.instance.Tree.Length; i++)
             {
-                int amount = PlayerPrefs.GetInt("amountTree" + i);
-                for (int j = 0; j < amount; j++)
+                if (PlayerPrefs.GetInt("amountTree" + i) > 0)
                 {
-                    Vector3 target = new Vector3(PlayerPrefs.GetFloat("PosTreeX" + i + "" + j), PlayerPrefs.GetFloat("PosTreeY" + i + "" + j), (-0.5f));
-                    GameObject obj = Instantiate(ManagerShop.instance.Tree[i], target, Quaternion.identity, ManagerShop.instance.parentTree[i]);
-                    obj.GetComponent<OldTree>().idAmountOldTree = j;
+                    int amount = PlayerPrefs.GetInt("amountTree" + i);
+                    for (int j = 0; j < amount; j++)
+                    {
+                        Vector3 target = new Vector3(PlayerPrefs.GetFloat("PosTreeX" + i + "" + j),
+                            PlayerPrefs.GetFloat("PosTreeY" + i + "" + j), (-0.5f));
+                        GameObject obj = Instantiate(ManagerShop.instance.Tree[i], target, Quaternion.identity,
+                            ManagerShop.instance.parentTree[i]);
+                        obj.GetComponent<OldTree>().idAmountOldTree = j;
+                    }
                 }
             }
         }

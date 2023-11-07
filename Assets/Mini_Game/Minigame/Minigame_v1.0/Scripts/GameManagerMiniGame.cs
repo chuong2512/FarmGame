@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 using DG.Tweening;
+using NongTrai;
 
 public class GameManagerMiniGame : MonoBehaviour
 {
@@ -316,7 +317,7 @@ public class GameManagerMiniGame : MonoBehaviour
             tempLevel = UnityEngine.Random.Range(0, levels.Length);
         }
         //this.PostEvent((int)EventID.OnMG3Replay);
-        Loading.instance.LoadScene(1);
+        Loading.Instance.LoadScene(1);
     }
     void NextVersionMinigame()
     {

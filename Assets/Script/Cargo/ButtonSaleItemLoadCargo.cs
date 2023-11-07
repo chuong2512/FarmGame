@@ -1,16 +1,19 @@
-﻿using UnityEngine;
-using UnityEngine.EventSystems;
-
-public class ButtonSaleItemLoadCargo : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+﻿namespace NongTrai
 {
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-    }
+    using UnityEngine;
+    using UnityEngine.EventSystems;
 
-    public void OnPointerUp(PointerEventData eventData)
+    public class ButtonSaleItemLoadCargo : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        transform.localScale = new Vector3(1f, 1f, 1f);
-        ManagerCargo.instance.ButtonBuyItem();
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+            ManagerCargo.Instance.ButtonBuyItem();
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+        }
     }
 }

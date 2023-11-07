@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 
-public class Fruit : MonoBehaviour
+namespace NongTrai
 {
-    [SerializeField] int idFruit;
-    [SerializeField] OldTree oldTree;
-    // Use this for initialization
-    void OnTriggerEnter2D(Collider2D collision)
+    public class Fruit : MonoBehaviour
     {
-        if (collision.tag == "HarvestOldTree" && ManagerTool.instance.dragging == true)
+        [SerializeField] int idFruit;
+
+        [SerializeField] OldTree oldTree;
+
+        // Use this for initialization
+        void OnTriggerEnter2D(Collider2D collision)
         {
-            oldTree.HarvestFruit(idFruit);
+            if (collision.tag == "HarvestOldTree" && ManagerTool.instance.dragging == true)
+            {
+                oldTree.HarvestFruit(idFruit);
+            }
         }
     }
 }

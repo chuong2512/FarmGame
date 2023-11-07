@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NongTrai;
+using UnityEngine;
 
 namespace Script.IAP
 {
@@ -12,7 +13,7 @@ namespace Script.IAP
 
         private void BuyGem()
         {
-            ManagerGem.instance.ReciveGem(_amount);
+            ManagerGem.Instance.ReciveGem(_amount);
         }
     }
 }

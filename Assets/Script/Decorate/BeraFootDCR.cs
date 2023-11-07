@@ -1,21 +1,25 @@
-﻿using UnityEngine;
-
-public class BeraFootDCR : MonoBehaviour
+﻿namespace NongTrai
 {
+    using UnityEngine;
 
-    [SerializeField] Decorate decorate;
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class BeraFootDCR : MonoBehaviour
     {
-        if (collision.tag == "BeraFoot")
+        [SerializeField] Decorate decorate;
+
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            decorate.Overlap();
+            if (collision.tag == "BeraFoot")
+            {
+                decorate.Overlap();
+            }
         }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "BeraFoot")
+
+        private void OnTriggerExit2D(Collider2D collision)
         {
-            decorate.UnOverlap();
+            if (collision.tag == "BeraFoot")
+            {
+                decorate.UnOverlap();
+            }
         }
     }
 }

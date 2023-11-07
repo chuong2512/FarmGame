@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 
-public class BareFootField : MonoBehaviour
+namespace NongTrai
 {
-    [SerializeField] Ruong ruong;
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class BareFootField : MonoBehaviour
     {
-        if (collision.tag == "BeraFoot" ) ruong.onTriggerStay2D();
-    }
+        [SerializeField] Ruong ruong;
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "BeraFoot" ) ruong.onTriggerExit2D();
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.tag == "BeraFoot") ruong.onTriggerStay2D();
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.tag == "BeraFoot") ruong.onTriggerExit2D();
+        }
     }
 }

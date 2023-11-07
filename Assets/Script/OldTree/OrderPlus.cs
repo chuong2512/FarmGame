@@ -1,17 +1,21 @@
 ﻿using UnityEngine;
 
-public class OrderPlus : MonoBehaviour
+namespace NongTrai
 {
-    [SerializeField] OrderPro[] MyOrder;
-    // Use this for initialization
-    void Start()
+    public class OrderPlus : MonoBehaviour
     {
-        float order = transform.position.y * (-100);
-        for (int i = 0; i < MyOrder.Length; i++)
+        [SerializeField] OrderPro[] MyOrder;
+
+        // Use this for initialization
+        void Start()
         {
-            for (int k = 0; k < MyOrder[i].SprRenderer.Length; k++)
+            float order = transform.position.y * (-100);
+            for (int i = 0; i < MyOrder.Length; i++)
             {
-                MyOrder[i].SprRenderer[k].sortingOrder = (int)order + MyOrder[i].order;
+                for (int k = 0; k < MyOrder[i].SprRenderer.Length; k++)
+                {
+                    MyOrder[i].SprRenderer[k].sortingOrder = (int) order + MyOrder[i].order;
+                }
             }
         }
     }

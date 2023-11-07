@@ -1,17 +1,22 @@
 ﻿using UnityEngine;
 
-public class ManagerOrder : MonoBehaviour
+namespace NongTrai
 {
-    [SerializeField] OrderPro[] sprPro;
-    // Use this for initialization
-    void Start()
+    public class ManagerOrder : MonoBehaviour
     {
-        float order = transform.position.y * (-100);
-        for (int i = 0; i < sprPro.Length; i++)
+        [SerializeField] private OrderPro[] sprPro;
+
+        // Use this for initialization
+        void Start()
         {
-            for (int k = 0; k < sprPro[i].SprRenderer.Length; k++)
+            var order = transform.position.y * (-100);
+
+            for (int i = 0; i < sprPro.Length; i++)
             {
-                sprPro[i].SprRenderer[k].sortingOrder = (int)order + sprPro[i].order;
+                foreach (var spr in sprPro[i].SprRenderer)
+                {
+                    spr.sortingOrder = (int) order + sprPro[i].order;
+                }
             }
         }
     }

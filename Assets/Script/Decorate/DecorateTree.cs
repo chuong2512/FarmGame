@@ -1,100 +1,105 @@
 ﻿using UnityEngine;
 using System.Collections;
-using NongTrai;
-using Script.Decorate;
 
-public class DecorateTree : DecorateObject
+namespace NongTrai
 {
-    private int status;
-    bool dragging;
-    GameObject obj;
-    [SerializeField] OrderPro[] OrderTree;
-    Animator Ani;
-    Vector3 firstCamPos;
-    // Use this for initialization
-    void Start()
+    public class DecorateTree : DecorateObject
     {
-        Ani = this.GetComponent<Animator>();
+        private int status;
+        bool dragging;
+        GameObject obj;
 
-        if (PlayerPrefs.HasKey("StatusDecorate" + idDecorate + "" + idSerial))
-        {
-            if (PlayerPrefs.GetInt("StatusDecorate" + idDecorate + "" + idSerial) == 1) Destroy(gameObject);
-        }
-        else PlayerPrefs.SetInt("StatusDecorate" + idDecorate + "" + idSerial, 0);
-        Order();
-    }
+        [SerializeField] OrderPro[] OrderTree;
+        Animator Ani;
 
-    private void Order()
-    {
-        float order = transform.position.y * (-100);
-        for (int i = 0; i < OrderTree.Length; i++)
+        Vector3 _firstCamPos;
+        private static readonly int IsCut = Animator.StringToHash("isCut");
+
+        // Use this for initialization
+        void Start()
         {
-            for (int k = 0; k < OrderTree[i].SprRenderer.Length; k++)
+            Ani = GetComponent<Animator>();
+
+            if (PlayerPrefs.HasKey("StatusDecorate" + idDecorate + "" + idSerial))
             {
-                OrderTree[i].SprRenderer[k].sortingOrder = (int)order + OrderTree[i].order;
+                if (PlayerPrefs.GetInt("StatusDecorate" + idDecorate + "" + idSerial) == 1) Destroy(gameObject);
+            }
+            else PlayerPrefs.SetInt("StatusDecorate" + idDecorate + "" + idSerial, 0);
+
+            Order();
+        }
+
+        private void Order()
+        {
+            float order = transform.position.y * (-100);
+            for (int i = 0; i < OrderTree.Length; i++)
+            {
+                for (int k = 0; k < OrderTree[i].SprRenderer.Length; k++)
+                {
+                    OrderTree[i].SprRenderer[k].sortingOrder = (int) order + OrderTree[i].order;
+                }
             }
         }
-    }
 
-    private void ColorS(float r, float g, float b, float a)
-    {
-        for (int i = 0; i < OrderTree.Length; i++)
+        private void ColorS(float r, float g, float b, float a)
         {
-            for (int k = 0; k < OrderTree[i].SprRenderer.Length; k++)
+            for (int i = 0; i < OrderTree.Length; i++)
             {
-                OrderTree[i].SprRenderer[k].color = new Color(r, g, b, a);
+                for (int k = 0; k < OrderTree[i].SprRenderer.Length; k++)
+                {
+                    OrderTree[i].SprRenderer[k].color = new Color(r, g, b, a);
+                }
             }
         }
-    }
 
-    void OnMouseDown()
-    {
-        firstCamPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        ColorS(0.3f, 0.3f, 0.3f, 1f);
-    }
 
-    void OnMouseDrag()
-    {
-        if (dragging == false)
+        void OnMouseUp()
         {
-            if (Vector3.Distance(firstCamPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) > 0.1f)
+            if (dragging == false)
             {
+                if (status == 0)
+                {
+                    ManagerAudio.Instance.PlayAudio(Audio.Click);
+                    MainCamera.instance.DisableAll();
+                    ColorS(1f, 1f, 1f, 1f);
+                    ManagerTool.instance.idDecorate = idDecorate;
+                    ManagerTool.instance.idSerialDecorate = idSerial;
+                    Vector2 target = new Vector2(transform.position.x + 1f, transform.position.y + 1f);
+                    ManagerTool.instance.ShowToolDecorate(idDecorate, target);
+                }
+                else
+                {
+                    ManagerAudio.Instance.PlayAudio(Audio.Click);
+                    MainCamera.instance.DisableAll();
+                    ColorS(1f, 1f, 1f, 1f);
+                }
+            }
+            else dragging = false;
+        }
+
+        void OnMouseDown()
+        {
+            if (Camera.main != null) _firstCamPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            ColorS(0.3f, 0.3f, 0.3f, 1f);
+        }
+
+        void OnMouseDrag()
+        {
+            if (dragging == false)
+            {
+                if (Camera.main == null ||
+                    !(Vector3.Distance(_firstCamPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) >
+                      0.1f)) return;
                 dragging = true;
                 ColorS(1f, 1f, 1f, 1f);
             }
         }
-    }
 
-    void OnMouseUp()
-    {
-        if (dragging == false)
+        void OnTriggerEnter2D(Collider2D other)
         {
-            if (status == 0)
-            {
-                ManagerAudio.instance.PlayAudio(Audio.Click);
-                MainCamera.instance.DisableAll();
-                ColorS(1f, 1f, 1f, 1f);
-                ManagerTool.instance.idDecorate = idDecorate;
-                ManagerTool.instance.idSerialDecorate = idSerial;
-                Vector2 target = new Vector2(transform.position.x + 1f, transform.position.y + 1f);
-                ManagerTool.instance.ShowToolDecorate(idDecorate, target);
-            }
-            else
-            {
-                ManagerAudio.instance.PlayAudio(Audio.Click);
-                MainCamera.instance.DisableAll();
-                ColorS(1f, 1f, 1f, 1f);
-            }
-        }
-        else dragging = false;
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "ToolDecorate" && ManagerTool.instance.dragging == true
-            && idDecorate == ManagerTool.instance.idDecorate
-            && idSerial == ManagerTool.instance.idSerialDecorate && status == 0)
-        {
+            if (other.tag != "ToolDecorate" || ManagerTool.instance.dragging != true
+                                            || idDecorate != ManagerTool.instance.idDecorate
+                                            || idSerial != ManagerTool.instance.idSerialDecorate || status != 0) return;
             if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] > 0)
             {
                 ManagerTool.instance.checkCollider = true;
@@ -104,29 +109,32 @@ public class DecorateTree : DecorateObject
             else if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] == 0)
             {
                 ManagerTool.instance.checkCollider = true;
-                int Purchase = ManagerData.instance.toolDecorate.Datas[idDecorate].Purchare;
-                ManagerUseGem.instance.ShowDialogUseDiamond(idDecorate, StypeUseGem.DecorateTree, Purchase, gameObject);
+                int purchase = ManagerData.instance.toolDecorate.Datas[idDecorate].Purchare;
+                ManagerUseGem.Instance.ShowDialogUseDiamond(idDecorate, StypeUseGem.DecorateTree, purchase,
+                    gameObject);
             }
         }
-    }
 
-    public void ConditionEnough()
-    {
-        status = 1;
-        PlayerPrefs.SetInt("StatusDecorate" + idDecorate + "" + idSerial, 1);
-        Vector2 target = new Vector2(transform.position.x, transform.position.y + 0.2f);
-        obj = Instantiate(ManagerTool.instance.objSaw, target, Quaternion.identity);
-        StartCoroutine(DestroyDecorate());
-    }
+        public void ConditionEnough()
+        {
+            status = 1;
+            PlayerPrefs.SetInt("StatusDecorate" + idDecorate + "" + idSerial, 1);
+            var transform1 = transform;
+            var target = new Vector2(transform1.position.x, transform1.position.y + 0.2f);
+            obj = Instantiate(ManagerTool.instance.objSaw, target, Quaternion.identity);
+            StartCoroutine(DestroyDecorate());
+        }
 
-    IEnumerator DestroyDecorate()
-    {
-        yield return new WaitForSeconds(2f);
-        Destroy(obj);
-        Ani.SetTrigger("isCut");
-        yield return new WaitForSeconds(2f);
-        if (Experience.instance.level < 7) Experience.instance.registerExpSingle(1, transform.position);
-        else Experience.instance.registerExpSingle(5, transform.position);
-        Destroy(gameObject);
+        // ReSharper disable Unity.PerformanceAnalysis
+        IEnumerator DestroyDecorate()
+        {
+            yield return new WaitForSeconds(2f);
+            Destroy(obj);
+            Ani.SetTrigger(IsCut);
+            yield return new WaitForSeconds(2f);
+            if (Experience.Instance.level < 7) Experience.Instance.registerExpSingle(1, transform.position);
+            else Experience.Instance.registerExpSingle(5, transform.position);
+            Destroy(gameObject);
+        }
     }
 }
