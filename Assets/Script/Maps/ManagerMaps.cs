@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using NongTrai;
 
 public class ManagerMaps : MonoBehaviour
 {
@@ -47,23 +48,23 @@ public class ManagerMaps : MonoBehaviour
     public void RegisterExpland(int idPOL)
     {
         idPOLNow = idPOL;
-        int numberRequest = ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy.Length;
+        int numberRequest = ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy.Length;
         Purchase = new GameObject[numberRequest];
         for (int i = 0; i < numberRequest; i++)
         {
-            if (ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].isGem == false)
+            if (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem == false)
             {
                 Purchase[i] = Instantiate(PurchaseCoin, ContentBuy);
                 Text NumberCoin = Purchase[i].transform.GetChild(0).GetComponent<Text>();
-                NumberCoin.text = ManagerCoin.instance.Coin + "/" + ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase;
-                if (ManagerCoin.instance.Coin < ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase) NumberCoin.color = new Color(1f, 127f / 255, 127f / 255, 1f);
+                NumberCoin.text = ManagerCoin.instance.Coin + "/" + ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase;
+                if (ManagerCoin.instance.Coin < ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase) NumberCoin.color = new Color(1f, 127f / 255, 127f / 255, 1f);
             }
-            else if (ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].isGem == true)
+            else if (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem == true)
             {
                 Purchase[i] = Instantiate(PurchaseGem, ContentBuy);
                 Text NumberGem = Purchase[i].transform.GetChild(0).GetComponent<Text>();
-                NumberGem.text = ManagerGem.instance.GemLive + "/" + ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase;
-                if (ManagerCoin.instance.Coin < ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase) NumberGem.color = new Color(1f, 127f / 255, 127f / 255, 1f);
+                NumberGem.text = ManagerGem.instance.GemLive + "/" + ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase;
+                if (ManagerCoin.instance.Coin < ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase) NumberGem.color = new Color(1f, 127f / 255, 127f / 255, 1f);
             }
         }
         ConfirmBuy.SetActive(true);
@@ -88,17 +89,17 @@ public class ManagerMaps : MonoBehaviour
             for (int i = 0; i < Purchase.Length; i++) Destroy(Purchase[i]);
             Purchase = new GameObject[0];
             POLs[idPOLNow].sprPOL.color = new Color(1f, 1f, 1f, 0f);
-            int numberRequest = ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy.Length;
+            int numberRequest = ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy.Length;
             for (int i = 0; i < numberRequest; i++)
             {
-                if (ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].isGem == false)
+                if (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem == false)
                 {
-                    int numberCoinPurchase = ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase;
+                    int numberCoinPurchase = ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase;
                     ManagerCoin.instance.MunisGold(numberCoinPurchase);
                 }
-                else if (ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].isGem == true)
+                else if (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem == true)
                 {
-                    int numberGemPurchase = ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase;
+                    int numberGemPurchase = ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase;
                     ManagerGem.instance.MunisGem(numberGemPurchase);
                 }
             }
@@ -150,7 +151,7 @@ public class ManagerMaps : MonoBehaviour
         {
             if (POLs[i].StatusPOL == 0)
             {
-                if (ManagerData.instance.plotOfLands.Data[i].LevelUnlock == level)
+                if (ManagerData.instance.plotOfLands.Datas[i].LevelUnlock == level)
                 {
                     POLs[i].StatusPOL = 1;
                     PlayerPrefs.SetInt("StatusPOL" + i, POLs[i].StatusPOL);
@@ -162,16 +163,16 @@ public class ManagerMaps : MonoBehaviour
     private bool CheckCondition()
     {
         bool isCheck = true;
-        for (int i = 0; i < ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy.Length; i++)
+        for (int i = 0; i < ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy.Length; i++)
         {
-            if (ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].isGem == false)
+            if (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem == false)
             {
-                if (ManagerCoin.instance.Coin < ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase)
+                if (ManagerCoin.instance.Coin < ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase)
                     isCheck = false;
             }
-            else if (ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].isGem == true)
+            else if (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem == true)
             {
-                if (ManagerGem.instance.GemLive < ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase)
+                if (ManagerGem.instance.GemLive < ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase)
                     isCheck = false;
             }
         }
@@ -183,13 +184,13 @@ public class ManagerMaps : MonoBehaviour
         {
             if (PlayerPrefs.HasKey("StatusPOL" + i) == false)
             {
-                if (ManagerData.instance.plotOfLands.Data[i].LevelUnlock == 0)
+                if (ManagerData.instance.plotOfLands.Datas[i].LevelUnlock == 0)
                 {
                     POLs[i].StatusPOL = 1;
                     PlayerPrefs.SetInt("StatusPOL" + i, POLs[i].StatusPOL);
                     PlayerPrefs.SetInt("NumberDCRDestroyPOL" + i, POLs[i].NumberDCRDestroy);
                 }
-                else if (ManagerData.instance.plotOfLands.Data[i].LevelUnlock != 0)
+                else if (ManagerData.instance.plotOfLands.Datas[i].LevelUnlock != 0)
                 {
                     PlayerPrefs.SetInt("StatusPOL" + i, POLs[i].StatusPOL);
                 }

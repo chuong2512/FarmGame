@@ -1,20 +1,26 @@
-﻿using UnityEngine;
+﻿using System;
+using Sirenix.OdinInspector;
 
-public class Lands : ScriptableObject 
+namespace NongTrai
 {
-	[System.Serializable]
-	public struct DetailLand
-	{
-        public string name;
-        public string engName;
-        public string nameINS;
-        public int purchase;
-        public int mutiGold;
-        public int levelOpen;
-        public int distanceLvOpen;
-        public int amountOpen;
-		public Sprite iconStore;
-	}
-	public DetailLand[] Land;
+    using UnityEngine;
 
+    public class Lands : ScriptableObject
+    {
+        [Serializable]
+        public struct DetailLand
+        {
+            public string name;
+            [FoldoutGroup("MoreData")] public string engName;
+            [FoldoutGroup("MoreData")] public string nameINS;
+            [FoldoutGroup("MoreData")] public int purchase;
+            [FoldoutGroup("MoreData")] public int mutiGold;
+            [FoldoutGroup("MoreData")] public int levelOpen;
+            [FoldoutGroup("MoreData")] public int distanceLvOpen;
+            [FoldoutGroup("MoreData")] public int amountOpen;
+            [FoldoutGroup("MoreData")] public Sprite iconStore;
+        }
+
+        public DetailLand[] Land;
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using NongTrai;
 using Script.Decorate;
 
 public class DecorateRockSmall : DecorateObject
@@ -14,7 +15,7 @@ public class DecorateRockSmall : DecorateObject
     {
         sprRenderer = this.GetComponent<SpriteRenderer>();
         float order = transform.position.y * (-100);
-        sprRenderer.sortingOrder = (int)order;
+        sprRenderer.sortingOrder = (int) order;
 
         if (PlayerPrefs.HasKey("StatusDecorate" + idDecorate + "" + idSerial))
         {
@@ -39,7 +40,6 @@ public class DecorateRockSmall : DecorateObject
                 sprRenderer.color = Color.white;
             }
         }
-
     }
 
     void OnMouseUp()
@@ -69,8 +69,8 @@ public class DecorateRockSmall : DecorateObject
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "ToolDecorate" && ManagerTool.instance.dragging == true
-            && idDecorate == ManagerTool.instance.idDecorate
-            && idSerial == ManagerTool.instance.idSerialDecorate && status == 0)
+                                        && idDecorate == ManagerTool.instance.idDecorate
+                                        && idSerial == ManagerTool.instance.idSerialDecorate && status == 0)
         {
             if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] > 0)
             {
@@ -81,8 +81,9 @@ public class DecorateRockSmall : DecorateObject
             else if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] == 0)
             {
                 ManagerTool.instance.checkCollider = true;
-                int Purchase = ManagerData.instance.toolDecorate.Data[idDecorate].Purchare;
-                ManagerUseGem.instance.ShowDialogUseDiamond(idDecorate, StypeUseGem.DecorateRockSmall, Purchase, gameObject);
+                int Purchase = ManagerData.instance.toolDecorate.Datas[idDecorate].Purchare;
+                ManagerUseGem.instance.ShowDialogUseDiamond(idDecorate, StypeUseGem.DecorateRockSmall, Purchase,
+                    gameObject);
             }
         }
     }

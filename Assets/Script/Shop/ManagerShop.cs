@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using NongTrai;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -276,10 +277,10 @@ public class ManagerShop : MonoBehaviour
         infoCage.info[id].status = 1;
         PlayerPrefs.SetInt("statusCageStore" + id, infoCage.info[id].status);
         if (Application.systemLanguage == SystemLanguage.Vietnamese)
-            infoCage.info[id].txtInfo.text = "Sức chứa " + ManagerData.instance.cages.Cage[id].amountPet + " " + ManagerData.instance.pets.Pet[id].detailPet.name;
+            infoCage.info[id].txtInfo.text = "Sức chứa " + ManagerData.instance.cages.Cage[id].amountPet + " " + ManagerData.instance.petCollection.Pet[id].detailPet.name;
         else if (Application.systemLanguage == SystemLanguage.Indonesian)
-            infoCage.info[id].txtInfo.text = "Menampung " + ManagerData.instance.cages.Cage[id].amountPet + " " + ManagerData.instance.pets.Pet[id].detailPet.nameINS;
-        else infoCage.info[id].txtInfo.text = "Capacity " + ManagerData.instance.cages.Cage[id].amountPet + " " + ManagerData.instance.pets.Pet[id].detailPet.engName;
+            infoCage.info[id].txtInfo.text = "Menampung " + ManagerData.instance.cages.Cage[id].amountPet + " " + ManagerData.instance.petCollection.Pet[id].detailPet.nameINS;
+        else infoCage.info[id].txtInfo.text = "Capacity " + ManagerData.instance.cages.Cage[id].amountPet + " " + ManagerData.instance.petCollection.Pet[id].detailPet.engName;
         infoCage.info[id].goldPrice = infoCage.info[id].goldPrice * ManagerData.instance.cages.Cage[id].mutiGold;
         PlayerPrefs.SetInt("goldPriceCage" + id, infoCage.info[id].goldPrice);
         infoCage.info[id].txtGoldPrice.text = "" + infoCage.info[id].goldPrice;
@@ -330,25 +331,25 @@ public class ManagerShop : MonoBehaviour
         infoPet.info[id].status = 1;
         PlayerPrefs.SetInt("statusPetStore" + id, infoPet.info[id].status);
         if (Application.systemLanguage == SystemLanguage.Vietnamese)
-            infoPet.info[id].txtInfo.text = "Thời gian thu hoạch " + ManagerGame.instance.TimeText(ManagerData.instance.pets.Pet[id].detailPet.time);
+            infoPet.info[id].txtInfo.text = "Thời gian thu hoạch " + ManagerGame.instance.TimeText(ManagerData.instance.petCollection.Pet[id].detailPet.time);
         else if (Application.systemLanguage == SystemLanguage.Indonesian)
-            infoPet.info[id].txtInfo.text = "Waktu panen" + ManagerGame.instance.TimeText(ManagerData.instance.pets.Pet[id].detailPet.time);
-        else infoPet.info[id].txtInfo.text = "Harvest Time " + ManagerGame.instance.TimeText(ManagerData.instance.pets.Pet[id].detailPet.time);
-        infoPet.info[id].goldPrice = infoPet.info[id].goldPrice * ManagerData.instance.pets.Pet[id].detailPet.mutiGold;
+            infoPet.info[id].txtInfo.text = "Waktu panen" + ManagerGame.instance.TimeText(ManagerData.instance.petCollection.Pet[id].detailPet.time);
+        else infoPet.info[id].txtInfo.text = "Harvest Time " + ManagerGame.instance.TimeText(ManagerData.instance.petCollection.Pet[id].detailPet.time);
+        infoPet.info[id].goldPrice = infoPet.info[id].goldPrice * ManagerData.instance.petCollection.Pet[id].detailPet.mutiGold;
         PlayerPrefs.SetInt("goldPricePet" + id, infoPet.info[id].goldPrice);
         infoPet.info[id].txtGoldPrice.text = "" + infoPet.info[id].goldPrice;
         infoPet.info[id].txtGoldPrice.gameObject.SetActive(true);
-        infoPet.info[id].levelOpen = infoPet.info[id].levelOpen + ManagerData.instance.pets.Pet[id].detailPet.distanceLvOpen;
+        infoPet.info[id].levelOpen = infoPet.info[id].levelOpen + ManagerData.instance.petCollection.Pet[id].detailPet.distanceLvOpen;
         PlayerPrefs.SetInt("levelOpenPet" + id, infoPet.info[id].levelOpen);
-        infoPet.info[id].total = infoPet.info[id].total + ManagerData.instance.pets.Pet[id].detailPet.quantityOpen;
+        infoPet.info[id].total = infoPet.info[id].total + ManagerData.instance.petCollection.Pet[id].detailPet.quantityOpen;
         PlayerPrefs.SetInt("totalPet" + id, infoPet.info[id].total);
         infoPet.info[id].txtAmount.text = "" + infoPet.info[id].amount + "/" + infoPet.info[id].total;
         if (PlayerPrefs.GetInt("iconPet" + id) == 0)
         {
-            infoPet.info[id].icon.sprite = ManagerData.instance.pets.Pet[id].detailPet.iconStore;
+            infoPet.info[id].icon.sprite = ManagerData.instance.petCollection.Pet[id].detailPet.iconStore;
             PlayerPrefs.SetInt("iconPet" + id, 1);
         }
-        Experience.instance.registerItemOpen(ManagerData.instance.pets.Pet[id].detailPet.iconStore);
+        Experience.instance.registerItemOpen(ManagerData.instance.petCollection.Pet[id].detailPet.iconStore);
     }
     public void buyFactory(int id)
     {
@@ -460,10 +461,10 @@ public class ManagerShop : MonoBehaviour
         infoSeeds.info[id].status = 1;
         PlayerPrefs.SetInt("updateSeeds" + id, 1);
         infoSeeds.info[id].quantity.SetActive(true);
-        infoSeeds.info[id].sprRenderer.sprite = ManagerData.instance.seeds.Seed[id].iconStore;
-        ManagerMarket.instance.ReciveItem(0, id, ManagerData.instance.seeds.Seed[id].quantityOpen, false);
+        infoSeeds.info[id].sprRenderer.sprite = ManagerData.instance.seeds.SeedDatas[id].iconStore;
+        ManagerMarket.instance.ReciveItem(0, id, ManagerData.instance.seeds.SeedDatas[id].quantityOpen, false);
         ManagerItem.instance.UpdateItem(0, id);
-        Experience.instance.registerItemOpen(ManagerData.instance.seeds.Seed[id].iconStore);
+        Experience.instance.registerItemOpen(ManagerData.instance.seeds.SeedDatas[id].iconStore);
     }
     
     [Button]
@@ -472,10 +473,10 @@ public class ManagerShop : MonoBehaviour
         infoSeeds.info[id].status = 1;
         PlayerPrefs.SetInt("updateSeeds" + id, 1);
         infoSeeds.info[id].quantity.SetActive(true);
-        infoSeeds.info[id].sprRenderer.sprite = ManagerData.instance.seeds.Seed[id].iconStore;
-        ManagerMarket.instance.ReciveItem(0, id, ManagerData.instance.seeds.Seed[id].quantityOpen, false);
+        infoSeeds.info[id].sprRenderer.sprite = ManagerData.instance.seeds.SeedDatas[id].iconStore;
+        ManagerMarket.instance.ReciveItem(0, id, ManagerData.instance.seeds.SeedDatas[id].quantityOpen, false);
         ManagerItem.instance.UpdateItem(0, id);
-        Experience.instance.registerItemOpen(ManagerData.instance.seeds.Seed[id].iconStore);
+        Experience.instance.registerItemOpen(ManagerData.instance.seeds.SeedDatas[id].iconStore);
     }
     void updateFlowers(int id)
     {
@@ -571,10 +572,10 @@ public class ManagerShop : MonoBehaviour
                 if (ManagerData.instance.facetoryItems.FacetoryItemDatas[i].levelOpen <= level)
                     updateItemFactory(i);
         }
-        for (int i = 0; i < ManagerData.instance.seeds.Seed.Length; i++)
+        for (int i = 0; i < ManagerData.instance.seeds.SeedDatas.Length; i++)
         {
             if (infoSeeds.info[i].status == 0)
-                if (ManagerData.instance.seeds.Seed[i].levelOpen <= level)
+                if (ManagerData.instance.seeds.SeedDatas[i].levelOpen <= level)
                     updateSeeds(i);
         }
         for (int i = 0; i < ManagerData.instance.flowers.Data.Length; i++)
@@ -706,10 +707,10 @@ public class ManagerShop : MonoBehaviour
                 else if (infoCage.info[i].status == 1)
                 {
                     if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                        infoCage.info[i].txtInfo.text = "Sức chứa " + ManagerData.instance.cages.Cage[i].amountPet + " " + ManagerData.instance.pets.Pet[i].detailPet.name;
+                        infoCage.info[i].txtInfo.text = "Sức chứa " + ManagerData.instance.cages.Cage[i].amountPet + " " + ManagerData.instance.petCollection.Pet[i].detailPet.name;
                     else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                        infoCage.info[i].txtInfo.text = "Menampung " + ManagerData.instance.cages.Cage[i].amountPet + " " + ManagerData.instance.pets.Pet[i].detailPet.nameINS;
-                    else infoCage.info[i].txtInfo.text = "Capacity " + ManagerData.instance.cages.Cage[i].amountPet + " " + ManagerData.instance.pets.Pet[i].detailPet.engName;
+                        infoCage.info[i].txtInfo.text = "Menampung " + ManagerData.instance.cages.Cage[i].amountPet + " " + ManagerData.instance.petCollection.Pet[i].detailPet.nameINS;
+                    else infoCage.info[i].txtInfo.text = "Capacity " + ManagerData.instance.cages.Cage[i].amountPet + " " + ManagerData.instance.petCollection.Pet[i].detailPet.engName;
                     infoCage.info[i].txtGoldPrice.text = "" + infoCage.info[i].goldPrice;
                 }
             }
@@ -726,10 +727,10 @@ public class ManagerShop : MonoBehaviour
                     infoCage.info[i].icon.sprite = ManagerData.instance.cages.Cage[i].iconStore;
                     PlayerPrefs.SetInt("iconCage" + i, 1);
                     if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                        infoCage.info[i].txtInfo.text = "Sức chứa " + ManagerData.instance.cages.Cage[i].amountPet + " " + ManagerData.instance.pets.Pet[i].detailPet.name;
+                        infoCage.info[i].txtInfo.text = "Sức chứa " + ManagerData.instance.cages.Cage[i].amountPet + " " + ManagerData.instance.petCollection.Pet[i].detailPet.name;
                     else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                        infoCage.info[i].txtInfo.text = "Menampung " + ManagerData.instance.cages.Cage[i].amountPet + " " + ManagerData.instance.pets.Pet[i].detailPet.nameINS;
-                    else infoCage.info[i].txtInfo.text = "Capacity " + ManagerData.instance.cages.Cage[i].amountPet + " " + ManagerData.instance.pets.Pet[i].detailPet.engName;
+                        infoCage.info[i].txtInfo.text = "Menampung " + ManagerData.instance.cages.Cage[i].amountPet + " " + ManagerData.instance.petCollection.Pet[i].detailPet.nameINS;
+                    else infoCage.info[i].txtInfo.text = "Capacity " + ManagerData.instance.cages.Cage[i].amountPet + " " + ManagerData.instance.petCollection.Pet[i].detailPet.engName;
                 }
                 else if (infoCage.info[i].levelOpen != Experience.instance.level)
                 {
@@ -757,14 +758,14 @@ public class ManagerShop : MonoBehaviour
         for (int i = 0; i < infoPet.info.Length; i++)
         {
             if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                infoPet.info[i].txtName.text = ManagerData.instance.pets.Pet[i].detailPet.name;
+                infoPet.info[i].txtName.text = ManagerData.instance.petCollection.Pet[i].detailPet.name;
             else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                infoPet.info[i].txtName.text = ManagerData.instance.pets.Pet[i].detailPet.nameINS;
-            else infoPet.info[i].txtName.text = ManagerData.instance.pets.Pet[i].detailPet.engName;
+                infoPet.info[i].txtName.text = ManagerData.instance.petCollection.Pet[i].detailPet.nameINS;
+            else infoPet.info[i].txtName.text = ManagerData.instance.petCollection.Pet[i].detailPet.engName;
             if (PlayerPrefs.HasKey("statusPetStore" + i) == true)
             {
                 if (PlayerPrefs.GetInt("iconPet" + i) == 1)
-                    infoPet.info[i].icon.sprite = ManagerData.instance.pets.Pet[i].detailPet.iconStore;
+                    infoPet.info[i].icon.sprite = ManagerData.instance.petCollection.Pet[i].detailPet.iconStore;
                 infoPet.info[i].status = PlayerPrefs.GetInt("statusPetStore" + i);
                 infoPet.info[i].levelOpen = PlayerPrefs.GetInt("levelOpenPet" + i);
                 infoPet.info[i].goldPrice = PlayerPrefs.GetInt("goldPricePet" + i);
@@ -783,32 +784,32 @@ public class ManagerShop : MonoBehaviour
                 else if (infoPet.info[i].status == 1)
                 {
                     if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                        infoPet.info[i].txtInfo.text = "Thời gian thu hoạch " + ManagerGame.instance.TimeText(ManagerData.instance.pets.Pet[i].detailPet.time);
+                        infoPet.info[i].txtInfo.text = "Thời gian thu hoạch " + ManagerGame.instance.TimeText(ManagerData.instance.petCollection.Pet[i].detailPet.time);
                     else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                        infoPet.info[i].txtInfo.text = "Waktu panen" + ManagerGame.instance.TimeText(ManagerData.instance.pets.Pet[i].detailPet.time);
-                    else infoPet.info[i].txtInfo.text = "Harvest Time " + ManagerGame.instance.TimeText(ManagerData.instance.pets.Pet[i].detailPet.time);
+                        infoPet.info[i].txtInfo.text = "Waktu panen" + ManagerGame.instance.TimeText(ManagerData.instance.petCollection.Pet[i].detailPet.time);
+                    else infoPet.info[i].txtInfo.text = "Harvest Time " + ManagerGame.instance.TimeText(ManagerData.instance.petCollection.Pet[i].detailPet.time);
                     infoPet.info[i].txtGoldPrice.text = "" + infoPet.info[i].goldPrice;
                 }
             }
             else if (PlayerPrefs.HasKey("statusPetStore" + i) == false)
             {
-                infoPet.info[i].levelOpen = ManagerData.instance.pets.Pet[i].detailPet.levelOpen;
+                infoPet.info[i].levelOpen = ManagerData.instance.petCollection.Pet[i].detailPet.levelOpen;
                 PlayerPrefs.SetInt("purchasePet" + i, infoPet.info[i].goldPrice);
                 if (infoPet.info[i].levelOpen == 0)
                 {
                     if (infoPet.info[i].total == 0) ManagerItem.instance.UpdateItem(1, i);
                     infoPet.info[i].status = 1;
-                    infoPet.info[i].levelOpen = infoPet.info[i].levelOpen + ManagerData.instance.pets.Pet[i].detailPet.distanceLvOpen;
-                    infoPet.info[i].total = infoPet.info[i].total + ManagerData.instance.pets.Pet[i].detailPet.quantityOpen;
-                    infoPet.info[i].goldPrice = infoPet.info[i].goldPrice * ManagerData.instance.pets.Pet[i].detailPet.purchase;
+                    infoPet.info[i].levelOpen = infoPet.info[i].levelOpen + ManagerData.instance.petCollection.Pet[i].detailPet.distanceLvOpen;
+                    infoPet.info[i].total = infoPet.info[i].total + ManagerData.instance.petCollection.Pet[i].detailPet.quantityOpen;
+                    infoPet.info[i].goldPrice = infoPet.info[i].goldPrice * ManagerData.instance.petCollection.Pet[i].detailPet.purchase;
                     infoPet.info[i].txtGoldPrice.text = "" + infoPet.info[i].goldPrice;
-                    infoPet.info[i].icon.sprite = ManagerData.instance.pets.Pet[i].detailPet.iconStore;
+                    infoPet.info[i].icon.sprite = ManagerData.instance.petCollection.Pet[i].detailPet.iconStore;
                     PlayerPrefs.SetInt("iconPet" + i, 1);
                     if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                        infoPet.info[i].txtInfo.text = "Thời gian thu hoạch " + ManagerGame.instance.TimeText(ManagerData.instance.pets.Pet[i].detailPet.time);
+                        infoPet.info[i].txtInfo.text = "Thời gian thu hoạch " + ManagerGame.instance.TimeText(ManagerData.instance.petCollection.Pet[i].detailPet.time);
                     else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                        infoPet.info[i].txtInfo.text = "Waktu panen" + ManagerGame.instance.TimeText(ManagerData.instance.pets.Pet[i].detailPet.time);
-                    else infoPet.info[i].txtInfo.text = "Harvest Time " + ManagerGame.instance.TimeText(ManagerData.instance.pets.Pet[i].detailPet.time);
+                        infoPet.info[i].txtInfo.text = "Waktu panen" + ManagerGame.instance.TimeText(ManagerData.instance.petCollection.Pet[i].detailPet.time);
+                    else infoPet.info[i].txtInfo.text = "Harvest Time " + ManagerGame.instance.TimeText(ManagerData.instance.petCollection.Pet[i].detailPet.time);
                 }
                 else if (infoPet.info[i].levelOpen != Experience.instance.level)
                 {
@@ -1047,17 +1048,17 @@ public class ManagerShop : MonoBehaviour
                 if (PlayerPrefs.GetInt("updateSeeds" + i) == 1)
                 {
                     infoSeeds.info[i].status = 1;
-                    infoSeeds.info[i].sprRenderer.sprite = ManagerData.instance.seeds.Seed[i].iconStore;
+                    infoSeeds.info[i].sprRenderer.sprite = ManagerData.instance.seeds.SeedDatas[i].iconStore;
                     infoSeeds.info[i].quantity.SetActive(true);
                 }
             }
             else if (!PlayerPrefs.HasKey("updateSeeds" + i))
             {
-                if (ManagerData.instance.seeds.Seed[i].levelOpen == Experience.instance.level)
+                if (ManagerData.instance.seeds.SeedDatas[i].levelOpen == Experience.instance.level)
                 {
                     infoSeeds.info[i].status = 1;
                     PlayerPrefs.SetInt("updateSeeds" + i, infoSeeds.info[i].status);
-                    infoSeeds.info[i].sprRenderer.sprite = ManagerData.instance.seeds.Seed[i].iconStore;
+                    infoSeeds.info[i].sprRenderer.sprite = ManagerData.instance.seeds.SeedDatas[i].iconStore;
                     infoSeeds.info[i].quantity.SetActive(true);
                     ManagerItem.instance.UpdateItem(0, i);
                 }

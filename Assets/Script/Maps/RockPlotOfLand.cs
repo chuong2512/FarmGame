@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using NongTrai;
 
 public class RockPlotOfLand : MonoBehaviour
 {
@@ -44,10 +45,10 @@ public class RockPlotOfLand : MonoBehaviour
                 case 0:
                     string str;
                     if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                        str = "Ô đất được mở khóa khi bạn đạt cấp độ " + (ManagerData.instance.plotOfLands.Data[idPOL].LevelUnlock + 1);
+                        str = "Ô đất được mở khóa khi bạn đạt cấp độ " + (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
                     else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                        str = "Tanah terbuka di level " + (ManagerData.instance.plotOfLands.Data[idPOL].LevelUnlock + 1);
-                    else str = "Land is unlocked when you reach the level " + (ManagerData.instance.plotOfLands.Data[idPOL].LevelUnlock + 1);
+                        str = "Tanah terbuka di level " + (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
+                    else str = "Land is unlocked when you reach the level " + (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
                     Notification.instance.dialogBelow(str);
                     break;
                 case 1:
@@ -77,7 +78,7 @@ public class RockPlotOfLand : MonoBehaviour
             else if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] == 0)
             {
                 ManagerTool.instance.checkCollider = true;
-                int Purchase = ManagerData.instance.toolDecorate.Data[idDecorate].Purchare;
+                int Purchase = ManagerData.instance.toolDecorate.Datas[idDecorate].Purchare;
                 ManagerUseGem.instance.ShowDialogUseDiamond(idDecorate, StypeUseGem.DecorateRockBig, Purchase, gameObject);
             }
         }

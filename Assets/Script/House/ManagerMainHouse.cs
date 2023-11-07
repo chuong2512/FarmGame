@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NongTrai;
+using UnityEngine;
 
 public class ManagerMainHouse : MonoBehaviour
 {

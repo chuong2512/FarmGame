@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using NongTrai;
 using Spine.Unity;
 public class Animal : MonoBehaviour
 {
@@ -76,8 +77,8 @@ public class Animal : MonoBehaviour
                 ManagerAudio.instance.PlayAudio(audio);
                 transform.localScale = new Vector3(transform.localScale.x - 0.0002f, transform.localScale.y - 0.0002f, 1f);
                 string nameItem = Application.systemLanguage == SystemLanguage.Vietnamese
-                        ? ManagerData.instance.pets.Pet[idBread].detailPet.name : ManagerData.instance.pets.Pet[idBread].detailPet.engName;
-                int totalTime = ManagerData.instance.pets.Pet[idBread].detailPet.time;
+                        ? ManagerData.instance.petCollection.Pet[idBread].detailPet.name : ManagerData.instance.petCollection.Pet[idBread].detailPet.engName;
+                int totalTime = ManagerData.instance.petCollection.Pet[idBread].detailPet.time;
                 Vector3 target = new Vector3(transform.position.x, transform.position.y - 0.2f, 0);
                 if (status == 0)
                 {
@@ -120,7 +121,7 @@ public class Animal : MonoBehaviour
                     PlayerPrefs.SetInt("StatusAnimal" + idBread + "" + idAmountBreads + "" + idAmountAnimal, 1);
                     ske.AnimationName = "an";
                     ManagerMarket.instance.MinusItem(2, ManagerMarket.instance.idItemFactoryAnimalUse, 1);
-                    timelive = ManagerData.instance.pets.Pet[idBread].detailPet.time;
+                    timelive = ManagerData.instance.petCollection.Pet[idBread].detailPet.time;
                     PlayerPrefs.SetInt("TimeLiveAnimal" + idBread + "" + idAmountBreads + "" + idAmountAnimal, timelive);
                     PlayerPrefs.SetInt("TimeLastAnimal" + idBread + "" + idAmountBreads + "" + idAmountAnimal, ManagerGame.instance.RealTime());
                     StartCoroutine(countTime());
@@ -148,10 +149,10 @@ public class Animal : MonoBehaviour
             {
                 status = 0;
                 PlayerPrefs.SetInt("StatusAnimal" + idBread + "" + idAmountBreads + "" + idAmountAnimal, 0);
-                ManagerMarket.instance.ReciveItem(1, idBread, ManagerData.instance.pets.Pet[idBread].detailPet.product, true);
-                Sprite spr = ManagerData.instance.pets.Pet[idBread].itemPet.item;
-                int exp = ManagerData.instance.pets.Pet[idBread].detailPet.exp;
-                int product = ManagerData.instance.pets.Pet[idBread].detailPet.product;
+                ManagerMarket.instance.ReciveItem(1, idBread, ManagerData.instance.petCollection.Pet[idBread].detailPet.product, true);
+                Sprite spr = ManagerData.instance.petCollection.Pet[idBread].itemPet.item;
+                int exp = ManagerData.instance.petCollection.Pet[idBread].detailPet.exp;
+                int product = ManagerData.instance.petCollection.Pet[idBread].detailPet.product;
                 Vector3 possition = transform.position;
                 Experience.instance.registerExp(spr, exp, product, possition);
                 ske.AnimationName = "doi";
@@ -162,7 +163,7 @@ public class Animal : MonoBehaviour
                             if (ManagerTool.instance.showClock.IdProduct == idAmountBreads)
                                 if (ManagerTool.instance.showClock.IdShow == idAmountAnimal)
                                 {
-                                    int totalTime = ManagerData.instance.pets.Pet[idBread].detailPet.time;
+                                    int totalTime = ManagerData.instance.petCollection.Pet[idBread].detailPet.time;
                                     ManagerTool.instance.ShowClockBread(status, timelive, totalTime);
                                 }
                 }
@@ -170,7 +171,7 @@ public class Animal : MonoBehaviour
                 {
                     int IdItemBuilding = Random.Range(0, 6);
                     ManagerMarket.instance.ReciveItem(4, IdItemBuilding, 1, false);
-                    Sprite sprIcon = ManagerData.instance.itemBuilding.Data[IdItemBuilding].Icon;
+                    Sprite sprIcon = ManagerData.instance.itemBuildings.Data[IdItemBuilding].Icon;
                     ManagerTool.instance.RegisterItemSingle(1, sprIcon, transform.position);
                 }
             }
@@ -206,7 +207,7 @@ public class Animal : MonoBehaviour
                         if (ManagerTool.instance.showClock.IdProduct == idAmountBreads)
                             if (ManagerTool.instance.showClock.IdShow == idAmountAnimal)
                             {
-                                int totalTime = ManagerData.instance.pets.Pet[idBread].detailPet.time;
+                                int totalTime = ManagerData.instance.petCollection.Pet[idBread].detailPet.time;
                                 ManagerTool.instance.ShowClockBread(status, timelive, totalTime);
                             }
             }
@@ -220,7 +221,7 @@ public class Animal : MonoBehaviour
                         if (ManagerTool.instance.showClock.IdProduct == idAmountBreads)
                             if (ManagerTool.instance.showClock.IdShow == idAmountAnimal)
                             {
-                                int totalTime = ManagerData.instance.pets.Pet[idBread].detailPet.time;
+                                int totalTime = ManagerData.instance.petCollection.Pet[idBread].detailPet.time;
                                 ManagerTool.instance.ShowClockBread(status, timelive, totalTime);
                             }
             }
@@ -235,7 +236,7 @@ public class Animal : MonoBehaviour
         status = 2;
         PlayerPrefs.SetInt("StatusAnimal" + idBread + "" + idAmountBreads + "" + idAmountAnimal, 2);
         ske.AnimationName = "lo";
-        int totalTime = ManagerData.instance.pets.Pet[idBread].detailPet.time;
+        int totalTime = ManagerData.instance.petCollection.Pet[idBread].detailPet.time;
         ManagerTool.instance.ShowClockBread(status, timelive, totalTime);
     }
 

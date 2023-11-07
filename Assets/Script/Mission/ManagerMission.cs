@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using NongTrai;
 
 public class ManagerMission : MonoBehaviour
 {
@@ -40,8 +41,7 @@ public class ManagerMission : MonoBehaviour
     [SerializeField] GameObject Mission;
     [SerializeField] Missions missions;
 
-    [Header("Order")]
-    [SerializeField] Sprite[] StatusSprite;
+    [Header("Order")] [SerializeField] Sprite[] StatusSprite;
     [SerializeField] Text[] ExpOrderText;
     [SerializeField] Text[] CoinOrderText;
     [SerializeField] Image[] OrderImage;
@@ -53,9 +53,7 @@ public class ManagerMission : MonoBehaviour
     [SerializeField] GameObject[] OrderWordSpace;
     [SerializeField] int[] LevelAddOrder;
 
-    [Header("Mission")]
-
-    [SerializeField] Text AddressText;
+    [Header("Mission")] [SerializeField] Text AddressText;
     [SerializeField] Text CoinMissionText;
     [SerializeField] Text ExpMissionText;
     [SerializeField] Text SuggestText;
@@ -67,8 +65,8 @@ public class ManagerMission : MonoBehaviour
     [SerializeField] GameObject[] MissionGO;
     [SerializeField] GameObject[] MissionTick;
 
-    [Header("InforOrder")]
-    [SerializeField] DeliveryAddress[] Address;
+    [Header("InforOrder")] [SerializeField]
+    DeliveryAddress[] Address;
 
     private void Awake()
     {
@@ -79,7 +77,9 @@ public class ManagerMission : MonoBehaviour
     void Start()
     {
         NameOrder.text = Application.systemLanguage == SystemLanguage.Vietnamese ? "Đơn Hàng" : "Order";
-        SuggestText.text = Application.systemLanguage == SystemLanguage.Vietnamese ? "Chọn một vào một đơn hàng bên trái" : "Select an order from the left";
+        SuggestText.text = Application.systemLanguage == SystemLanguage.Vietnamese
+            ? "Chọn một vào một đơn hàng bên trái"
+            : "Select an order from the left";
         idItemNow = new int[ManagerItem.instance.totalItem.Length - 1];
         idStypeNow = new int[ManagerItem.instance.totalItem.Length - 1];
         Invoke("InitData", 3f);
@@ -161,6 +161,7 @@ public class ManagerMission : MonoBehaviour
             }
         }
     }
+
     public void ClickOrder(int id)
     {
         OrderSelected = id;
@@ -219,6 +220,7 @@ public class ManagerMission : MonoBehaviour
                         }
                     }
                 }
+
                 break;
             case 1:
                 string str1;
@@ -226,7 +228,8 @@ public class ManagerMission : MonoBehaviour
                     str1 = "Xe của bạn đã có vật phẩm vui lòng chờ xe của bạn về!";
                 else if (Application.systemLanguage == SystemLanguage.Indonesian)
                     str1 = "Truk Anda penuh dengan barang, harap tunggu!";
-                else str1 = "Your truck is full of items, please wait!"; ;
+                else str1 = "Your truck is full of items, please wait!";
+                ;
                 Notification.instance.dialogBelow(str1);
                 break;
             case 2:
@@ -251,10 +254,12 @@ public class ManagerMission : MonoBehaviour
             if (i == statusOrder[OrderSelected]) StatusMission[i].SetActive(true);
             else if (i != statusOrder[OrderSelected]) StatusMission[i].SetActive(false);
         }
+
         for (int i = 0; i < MissionGO.Length; i++)
         {
             if (MissionGO[i].activeSelf == true) MissionGO[i].SetActive(false);
         }
+
         if (Application.systemLanguage == SystemLanguage.Vietnamese)
         {
             AddressText.text = "Vui lòng chờ...";
@@ -270,6 +275,7 @@ public class ManagerMission : MonoBehaviour
             AddressText.text = "Please wait...";
             SuggestText.text = "This is order isn't available \n Wait or speed up!";
         }
+
         if (SuggestGO.activeSelf == false) SuggestGO.SetActive(true);
         CheckShowTime = true;
         timeNewOrder[OrderSelected] = timeWait;
@@ -298,8 +304,10 @@ public class ManagerMission : MonoBehaviour
         {
             IETimeNewOrder[id] = CouterTimeNewOrder(id);
             StartCoroutine(IETimeNewOrder[id]);
-            if (CheckShowTime == true && id == OrderSelected) TimeLiveText.text = ManagerGame.instance.TimeText(timeNewOrder[id]);
+            if (CheckShowTime == true && id == OrderSelected)
+                TimeLiveText.text = ManagerGame.instance.TimeText(timeNewOrder[id]);
         }
+
         if (timeNewOrder[id] <= 0)
         {
             statusOrder[id] = 0;
@@ -345,10 +353,13 @@ public class ManagerMission : MonoBehaviour
                     if (i < missions.mission[idMissionOrder[id]].metarial.Length)
                     {
                         if (MissionGO[i].activeSelf == false) MissionGO[i].SetActive(true);
-                        int amout = AmountMarket(missions.mission[idMissionOrder[id]].metarial[i].stypeIDYC, missions.mission[idMissionOrder[id]].metarial[i].IdYc);
+                        int amout = AmountMarket(missions.mission[idMissionOrder[id]].metarial[i].stypeIDYC,
+                            missions.mission[idMissionOrder[id]].metarial[i].IdYc);
                         MissionText[i].text = amout + "/" + missions.mission[idMissionOrder[id]].metarial[i].Amount;
-                        MissionImage[i].sprite = SpriteItem(missions.mission[idMissionOrder[id]].metarial[i].stypeIDYC, missions.mission[idMissionOrder[id]].metarial[i].IdYc);
-                        if (amout >= missions.mission[idMissionOrder[id]].metarial[i].Amount) MissionTick[i].SetActive(true);
+                        MissionImage[i].sprite = SpriteItem(missions.mission[idMissionOrder[id]].metarial[i].stypeIDYC,
+                            missions.mission[idMissionOrder[id]].metarial[i].IdYc);
+                        if (amout >= missions.mission[idMissionOrder[id]].metarial[i].Amount)
+                            MissionTick[i].SetActive(true);
                         else MissionTick[i].SetActive(false);
                     }
                     else
@@ -375,7 +386,8 @@ public class ManagerMission : MonoBehaviour
                         int amout = AmountMarket(mission[id].metarial[i].stypeIDYC, mission[id].metarial[i].IdYc);
                         MissionText[i].text = amout + "/" + mission[id].metarial[i].Amount;
                         Debug.Log(id + ":" + mission[id].metarial[i].stypeIDYC + "/" + mission[id].metarial[i].IdYc);
-                        MissionImage[i].sprite = SpriteItem(mission[id].metarial[i].stypeIDYC, mission[id].metarial[i].IdYc);
+                        MissionImage[i].sprite =
+                            SpriteItem(mission[id].metarial[i].stypeIDYC, mission[id].metarial[i].IdYc);
                         if (amout >= mission[id].metarial[i].Amount) MissionTick[i].SetActive(true);
                         else MissionTick[i].SetActive(false);
                     }
@@ -394,6 +406,7 @@ public class ManagerMission : MonoBehaviour
                 if (i == statusOrder[id]) StatusMission[i].SetActive(true);
                 else if (i != statusOrder[id]) StatusMission[i].SetActive(false);
             }
+
             if (Application.systemLanguage == SystemLanguage.Vietnamese)
             {
                 AddressText.text = "Vui lòng chờ...";
@@ -409,6 +422,7 @@ public class ManagerMission : MonoBehaviour
                 AddressText.text = "Please wait...";
                 SuggestText.text = "This is order isn't available \n Wait or speed up!";
             }
+
             if (SuggestGO.activeSelf == false) SuggestGO.SetActive(true);
             CheckShowTime = true;
             TimeLiveText.text = ManagerGame.instance.TimeText(timeNewOrder[id]);
@@ -462,6 +476,7 @@ public class ManagerMission : MonoBehaviour
                     {
                         if (ManagerItem.instance.totalItem[i] > 0) dem += 1;
                     }
+
                     mission[idOrder].metarial = new Metarial[dem];
                     PlayerPrefs.SetInt("NumberItem" + idOrder, mission[idOrder].metarial.Length);
                     int couter = 0;
@@ -470,11 +485,15 @@ public class ManagerMission : MonoBehaviour
                         if (ManagerItem.instance.totalItem[i] > 0)
                         {
                             mission[idOrder].metarial[couter].stypeIDYC = i;
-                            PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + couter, mission[idOrder].metarial[couter].stypeIDYC);
-                            mission[idOrder].metarial[couter].IdYc = ManagerItem.instance.idItemUnlock[i].IdItem[idItemNow[i]];
-                            PlayerPrefs.SetInt("IdItem" + idOrder + "" + couter, mission[idOrder].metarial[couter].IdYc);
+                            PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + couter,
+                                mission[idOrder].metarial[couter].stypeIDYC);
+                            mission[idOrder].metarial[couter].IdYc =
+                                ManagerItem.instance.idItemUnlock[i].IdItem[idItemNow[i]];
+                            PlayerPrefs.SetInt("IdItem" + idOrder + "" + couter,
+                                mission[idOrder].metarial[couter].IdYc);
                             mission[idOrder].metarial[couter].Amount = 3 + 2 * NumberFinal;
-                            PlayerPrefs.SetInt("QuantityItem" + idOrder + "" + couter, mission[idOrder].metarial[couter].Amount);
+                            PlayerPrefs.SetInt("QuantityItem" + idOrder + "" + couter,
+                                mission[idOrder].metarial[couter].Amount);
                             couter += 1;
                             NumberFinal += 1;
                             PlayerPrefs.SetInt("NumderFinal", NumberFinal);
@@ -482,6 +501,7 @@ public class ManagerMission : MonoBehaviour
                             CalculationExp(idOrder);
                         }
                     }
+
                     CalculationCoin(idOrder);
                 }
                 else if (condition == true)
@@ -499,6 +519,7 @@ public class ManagerMission : MonoBehaviour
                             dem += 1;
                         }
                     }
+
                     Combination(idOrder);
                 }
             }
@@ -527,6 +548,7 @@ public class ManagerMission : MonoBehaviour
                 CalculationExp(idOrder);
                 break;
             }
+
             if (i == 1 && NumberCombination[i] < 3)
             {
                 Debug.Log("i: " + i);
@@ -544,7 +566,8 @@ public class ManagerMission : MonoBehaviour
                         PlayerPrefs.SetInt("NumberItem" + idOrder, mission[idOrder].metarial.Length);
                         mission[idOrder].metarial[0].stypeIDYC = StypeItem;
                         PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 0, mission[idOrder].metarial[0].stypeIDYC);
-                        mission[idOrder].metarial[0].IdYc = ManagerItem.instance.idItemUnlock[StypeItem].IdItem[itemUse[StypeItem]];
+                        mission[idOrder].metarial[0].IdYc =
+                            ManagerItem.instance.idItemUnlock[StypeItem].IdItem[itemUse[StypeItem]];
                         PlayerPrefs.SetInt("IdItem" + idOrder + "" + 0, mission[idOrder].metarial[0].IdYc);
                         mission[idOrder].metarial[0].Amount = 3;
                         PlayerPrefs.SetInt("QuantityItem" + idOrder + "" + 1, mission[idOrder].metarial[0].Amount);
@@ -561,8 +584,10 @@ public class ManagerMission : MonoBehaviour
                         break;
                     }
                 }
+
                 if (CheckCondiotion == true) break;
             }
+
             if (i == 2 && NumberCombination[i] < 3)
             {
                 Debug.Log("i: " + i);
@@ -575,25 +600,30 @@ public class ManagerMission : MonoBehaviour
                         {
                             NumberCombination[i] += 1;
                         }
-                        else if (ManagerItem.instance.totalItem[idStypeNow[j]] > 0 && ManagerItem.instance.totalItem[idStypeNow[j + 1]] > 0)
+                        else if (ManagerItem.instance.totalItem[idStypeNow[j]] > 0 &&
+                                 ManagerItem.instance.totalItem[idStypeNow[j + 1]] > 0)
                         {
                             CheckCondition = true;
                             mission[idOrder].metarial = new Metarial[3];
                             PlayerPrefs.SetInt("NumberItem" + idOrder, mission[idOrder].metarial.Length);
                             mission[idOrder].metarial[0].stypeIDYC = StypeItem;
-                            PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 0, mission[idOrder].metarial[0].stypeIDYC);
-                            mission[idOrder].metarial[0].IdYc = ManagerItem.instance.idItemUnlock[StypeItem].IdItem[itemUse[StypeItem]];
+                            PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 0,
+                                mission[idOrder].metarial[0].stypeIDYC);
+                            mission[idOrder].metarial[0].IdYc = ManagerItem.instance.idItemUnlock[StypeItem]
+                                .IdItem[itemUse[StypeItem]];
                             PlayerPrefs.SetInt("IdItem" + idOrder + "" + 0, mission[idOrder].metarial[0].IdYc);
                             mission[idOrder].metarial[0].Amount = 3;
                             PlayerPrefs.SetInt("QuantityItem" + idOrder + "" + 1, mission[idOrder].metarial[1].Amount);
                             mission[idOrder].metarial[1].stypeIDYC = idStypeNow[j];
-                            PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 1, mission[idOrder].metarial[1].stypeIDYC);
+                            PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 1,
+                                mission[idOrder].metarial[1].stypeIDYC);
                             mission[idOrder].metarial[1].IdYc = idItemNow[j];
                             PlayerPrefs.SetInt("IdItem" + idOrder + "" + 1, mission[idOrder].metarial[1].IdYc);
                             mission[idOrder].metarial[1].Amount = 3;
                             PlayerPrefs.SetInt("QuantityItem" + idOrder + "" + 1, mission[idOrder].metarial[1].Amount);
                             mission[idOrder].metarial[2].stypeIDYC = idStypeNow[j + 1];
-                            PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 2, mission[idOrder].metarial[2].stypeIDYC);
+                            PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 2,
+                                mission[idOrder].metarial[2].stypeIDYC);
                             mission[idOrder].metarial[2].IdYc = idItemNow[j + 1];
                             PlayerPrefs.SetInt("IdItem" + idOrder + "" + 2, mission[idOrder].metarial[2].IdYc);
                             mission[idOrder].metarial[2].Amount = 3;
@@ -607,7 +637,8 @@ public class ManagerMission : MonoBehaviour
                     }
                     else if (i + 1 >= idItemNow.Length)
                     {
-                        if (ManagerItem.instance.totalItem[idStypeNow[j]] <= 0 || ManagerItem.instance.totalItem[idStypeNow[j + 1 - 3]] <= 0)
+                        if (ManagerItem.instance.totalItem[idStypeNow[j]] <= 0 ||
+                            ManagerItem.instance.totalItem[idStypeNow[j + 1 - 3]] <= 0)
                         {
                             NumberCombination[i] += 1;
                         }
@@ -617,19 +648,23 @@ public class ManagerMission : MonoBehaviour
                             mission[idOrder].metarial = new Metarial[3];
                             PlayerPrefs.SetInt("NumberItem" + idOrder, mission[idOrder].metarial.Length);
                             mission[idOrder].metarial[0].stypeIDYC = StypeItem;
-                            PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 0, mission[idOrder].metarial[0].stypeIDYC);
-                            mission[idOrder].metarial[0].IdYc = ManagerItem.instance.idItemUnlock[StypeItem].IdItem[itemUse[StypeItem]];
+                            PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 0,
+                                mission[idOrder].metarial[0].stypeIDYC);
+                            mission[idOrder].metarial[0].IdYc = ManagerItem.instance.idItemUnlock[StypeItem]
+                                .IdItem[itemUse[StypeItem]];
                             PlayerPrefs.SetInt("IdItem" + idOrder + "" + 0, mission[idOrder].metarial[0].IdYc);
                             mission[idOrder].metarial[0].Amount = 3;
                             PlayerPrefs.SetInt("QuantityItem" + idOrder + "" + 0, mission[idOrder].metarial[0].Amount);
                             mission[idOrder].metarial[1].stypeIDYC = idStypeNow[j];
-                            PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 1, mission[idOrder].metarial[1].stypeIDYC);
+                            PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 1,
+                                mission[idOrder].metarial[1].stypeIDYC);
                             mission[idOrder].metarial[1].IdYc = idItemNow[j];
                             PlayerPrefs.SetInt("IdItem" + idOrder + "" + 1, mission[idOrder].metarial[1].IdYc);
                             mission[idOrder].metarial[1].Amount = 3;
                             PlayerPrefs.SetInt("QuantityItem" + idOrder + "" + 1, mission[idOrder].metarial[1].Amount);
                             mission[idOrder].metarial[2].stypeIDYC = idStypeNow[j + 1 - 3];
-                            PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 2, mission[idOrder].metarial[2].stypeIDYC);
+                            PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 2,
+                                mission[idOrder].metarial[2].stypeIDYC);
                             mission[idOrder].metarial[2].IdYc = idItemNow[j + 1 - 3];
                             PlayerPrefs.SetInt("IdItem" + idOrder + "" + 2, mission[idOrder].metarial[2].IdYc);
                             mission[idOrder].metarial[2].Amount = 3;
@@ -642,16 +677,23 @@ public class ManagerMission : MonoBehaviour
                         }
                     }
                 }
+
                 if (CheckCondition == true) break;
             }
+
             if (i == 3 && NumberCombination[i] < 1)
             {
                 Debug.Log("i: " + i);
                 bool kt = true;
                 for (int j = 0; j < idStypeNow.Length; j++)
                 {
-                    if (ManagerItem.instance.totalItem[idStypeNow[j]] <= 0) { kt = false; break; }
+                    if (ManagerItem.instance.totalItem[idStypeNow[j]] <= 0)
+                    {
+                        kt = false;
+                        break;
+                    }
                 }
+
                 Debug.Log("kt: " + kt);
                 if (kt == false)
                 {
@@ -659,7 +701,11 @@ public class ManagerMission : MonoBehaviour
                     PlayerPrefs.SetInt("CheckRun", 0);
                     itemUse[StypeItem] += 1;
                     PlayerPrefs.SetInt("ItemUse" + StypeItem, itemUse[StypeItem]);
-                    for (int j = 0; j < NumberCombination.Length; j++) { NumberCombination[j] = 0; }
+                    for (int j = 0; j < NumberCombination.Length; j++)
+                    {
+                        NumberCombination[j] = 0;
+                    }
+
                     MissionOrder(idOrder);
                 }
                 else if (kt == true)
@@ -668,28 +714,36 @@ public class ManagerMission : MonoBehaviour
                     PlayerPrefs.SetInt("NumberItem" + idOrder, mission[idOrder].metarial.Length);
                     mission[idOrder].metarial[0].stypeIDYC = StypeItem;
                     PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 0, mission[idOrder].metarial[0].stypeIDYC);
-                    mission[idOrder].metarial[0].IdYc = ManagerItem.instance.idItemUnlock[StypeItem].IdItem[itemUse[StypeItem]];
+                    mission[idOrder].metarial[0].IdYc =
+                        ManagerItem.instance.idItemUnlock[StypeItem].IdItem[itemUse[StypeItem]];
                     PlayerPrefs.SetInt("IdItem" + idOrder + "" + 0, mission[idOrder].metarial[0].IdYc);
                     mission[idOrder].metarial[0].Amount = 3;
                     PlayerPrefs.SetInt("QuantityItem" + idOrder + "" + 0, mission[idOrder].metarial[0].Amount);
                     for (int j = 0; j < idItemNow.Length; j++)
                     {
                         mission[idOrder].metarial[j + 1].stypeIDYC = idStypeNow[j];
-                        PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + (j + 1), mission[idOrder].metarial[j + 1].stypeIDYC);
+                        PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + (j + 1),
+                            mission[idOrder].metarial[j + 1].stypeIDYC);
                         mission[idOrder].metarial[j + 1].IdYc = idItemNow[j];
                         PlayerPrefs.SetInt("IdItem" + idOrder + "" + (j + 1), mission[idOrder].metarial[j + 1].IdYc);
                         mission[idOrder].metarial[j + 1].Amount = 3;
-                        PlayerPrefs.SetInt("QuantityItem" + idOrder + "" + (j + 1), mission[idOrder].metarial[j + 1].Amount);
+                        PlayerPrefs.SetInt("QuantityItem" + idOrder + "" + (j + 1),
+                            mission[idOrder].metarial[j + 1].Amount);
                     }
+
                     CheckRun = false;
                     itemUse[StypeItem] += 1;
                     PlayerPrefs.SetFloat("ItemUse" + StypeItem, itemUse[StypeItem]);
                     CalculationCoin(idOrder);
                     CalculationExp(idOrder);
-                    for (int j = 0; j < NumberCombination.Length; j++) { NumberCombination[j] = 0; }
+                    for (int j = 0; j < NumberCombination.Length; j++)
+                    {
+                        NumberCombination[j] = 0;
+                    }
                 }
             }
         }
+
         CheckDoneOrder();
     }
 
@@ -725,7 +779,11 @@ public class ManagerMission : MonoBehaviour
                 int idstype = missions.mission[idMissionOrder[idOrder]].metarial[i].stypeIDYC;
                 int idYC = missions.mission[idMissionOrder[idOrder]].metarial[i].IdYc;
                 int Amount = missions.mission[idMissionOrder[idOrder]].metarial[i].Amount;
-                if (AmountMarket(idstype, idYC) < Amount) { DoneOrder = false; break; }
+                if (AmountMarket(idstype, idYC) < Amount)
+                {
+                    DoneOrder = false;
+                    break;
+                }
             }
         }
         else if (stypeMisson[idOrder] == 1)
@@ -735,9 +793,14 @@ public class ManagerMission : MonoBehaviour
                 int idstype = mission[idOrder].metarial[i].stypeIDYC;
                 int idYC = mission[idOrder].metarial[i].IdYc;
                 int Amount = mission[idOrder].metarial[i].Amount;
-                if (AmountMarket(idstype, idYC) < Amount) { DoneOrder = false; break; }
+                if (AmountMarket(idstype, idYC) < Amount)
+                {
+                    DoneOrder = false;
+                    break;
+                }
             }
         }
+
         return DoneOrder;
     }
 
@@ -746,11 +809,20 @@ public class ManagerMission : MonoBehaviour
         int amount = 0;
         switch (idstype)
         {
-            case 0: amount = ManagerMarket.instance.QuantityItemSeeds[idYC]; break;
-            case 1: amount = ManagerMarket.instance.QuantityItemPets[idYC]; break;
-            case 2: amount = ManagerMarket.instance.QuantityItemFactory[idYC]; break;
-            case 3: amount = ManagerMarket.instance.QuantityItemOldTree[idYC]; break;
+            case 0:
+                amount = ManagerMarket.instance.QuantityItemSeeds[idYC];
+                break;
+            case 1:
+                amount = ManagerMarket.instance.QuantityItemPets[idYC];
+                break;
+            case 2:
+                amount = ManagerMarket.instance.QuantityItemFactory[idYC];
+                break;
+            case 3:
+                amount = ManagerMarket.instance.QuantityItemOldTree[idYC];
+                break;
         }
+
         return amount;
     }
 
@@ -759,11 +831,20 @@ public class ManagerMission : MonoBehaviour
         Sprite spr = null;
         switch (idstype)
         {
-            case 0: spr = ManagerData.instance.seeds.Seed[idYC].item; break;
-            case 1: spr = ManagerData.instance.pets.Pet[idYC].itemPet.item; break;
-            case 2: spr = ManagerData.instance.facetoryItems.FacetoryItemDatas[idYC].item; break;
-            case 3: spr = ManagerData.instance.trees.data[idYC].ItemTree.item; break;
+            case 0:
+                spr = ManagerData.instance.seeds.SeedDatas[idYC].item;
+                break;
+            case 1:
+                spr = ManagerData.instance.petCollection.Pet[idYC].itemPet.item;
+                break;
+            case 2:
+                spr = ManagerData.instance.facetoryItems.FacetoryItemDatas[idYC].item;
+                break;
+            case 3:
+                spr = ManagerData.instance.trees.data[idYC].ItemTree.item;
+                break;
         }
+
         return spr;
     }
 
@@ -798,12 +879,25 @@ public class ManagerMission : MonoBehaviour
             int IdYc = mission[idOrder].metarial[i].IdYc;
             switch (stypeIDYC)
             {
-                case 0: mission[idOrder].coin += (int)(1.5 * mission[idOrder].metarial[i].Amount * ManagerData.instance.seeds.Seed[IdYc].sell); break;
-                case 1: mission[idOrder].coin += (int)(1.5 * mission[idOrder].metarial[i].Amount * ManagerData.instance.pets.Pet[IdYc].itemPet.sell); break;
-                case 2: mission[idOrder].coin += (int)(1.5 * mission[idOrder].metarial[i].Amount * ManagerData.instance.facetoryItems.FacetoryItemDatas[IdYc].sell); break;
-                case 3: mission[idOrder].coin += (int)(1.5 * mission[idOrder].metarial[i].Amount * ManagerData.instance.trees.data[IdYc].ItemTree.sell); break;
+                case 0:
+                    mission[idOrder].coin += (int) (1.5 * mission[idOrder].metarial[i].Amount *
+                                                    ManagerData.instance.seeds.SeedDatas[IdYc].sell);
+                    break;
+                case 1:
+                    mission[idOrder].coin += (int) (1.5 * mission[idOrder].metarial[i].Amount *
+                                                    ManagerData.instance.petCollection.Pet[IdYc].itemPet.sell);
+                    break;
+                case 2:
+                    mission[idOrder].coin += (int) (1.5 * mission[idOrder].metarial[i].Amount *
+                                                    ManagerData.instance.facetoryItems.FacetoryItemDatas[IdYc].sell);
+                    break;
+                case 3:
+                    mission[idOrder].coin += (int) (1.5 * mission[idOrder].metarial[i].Amount *
+                                                    ManagerData.instance.trees.data[IdYc].ItemTree.sell);
+                    break;
             }
         }
+
         CoinOrderText[idOrder].text = mission[idOrder].coin.ToString();
     }
 
@@ -815,12 +909,25 @@ public class ManagerMission : MonoBehaviour
             int IdYc = mission[idOrder].metarial[i].IdYc;
             switch (stypeIDYC)
             {
-                case 0: mission[idOrder].exp += 2 * mission[idOrder].metarial[i].Amount * ManagerData.instance.seeds.Seed[IdYc].exp; break;
-                case 1: mission[idOrder].exp += 2 * mission[idOrder].metarial[i].Amount * ManagerData.instance.pets.Pet[IdYc].detailPet.exp; break;
-                case 2: mission[idOrder].exp += 2 * mission[idOrder].metarial[i].Amount * ManagerData.instance.facetoryItems.FacetoryItemDatas[IdYc].exp; break;
-                case 3: mission[idOrder].exp += 2 * mission[idOrder].metarial[i].Amount * ManagerData.instance.trees.data[IdYc].ItemTree.exp; break;
+                case 0:
+                    mission[idOrder].exp += 2 * mission[idOrder].metarial[i].Amount *
+                                            ManagerData.instance.seeds.SeedDatas[IdYc].exp;
+                    break;
+                case 1:
+                    mission[idOrder].exp += 2 * mission[idOrder].metarial[i].Amount *
+                                            ManagerData.instance.petCollection.Pet[IdYc].detailPet.exp;
+                    break;
+                case 2:
+                    mission[idOrder].exp += 2 * mission[idOrder].metarial[i].Amount *
+                                            ManagerData.instance.facetoryItems.FacetoryItemDatas[IdYc].exp;
+                    break;
+                case 3:
+                    mission[idOrder].exp += 2 * mission[idOrder].metarial[i].Amount *
+                                            ManagerData.instance.trees.data[IdYc].ItemTree.exp;
+                    break;
             }
         }
+
         ExpOrderText[idOrder].text = mission[idOrder].exp.ToString();
     }
 
@@ -868,6 +975,7 @@ public class ManagerMission : MonoBehaviour
                 if (i == statusOrder[OrderSelected]) StatusMission[i].SetActive(true);
                 else if (i != statusOrder[OrderSelected]) StatusMission[i].SetActive(false);
             }
+
             ManagerGem.instance.MunisGem(3);
         }
     }
@@ -885,11 +993,30 @@ public class ManagerMission : MonoBehaviour
             PlayerPrefs.SetInt("MissionFinal", MissionFinal);
             PlayerPrefs.SetInt("CheckPerForm", 0);
             PlayerPrefs.SetInt("OrderPerForm", OrderPerForm);
-            for (int i = 0; i < statusOrder.Length; i++) { PlayerPrefs.SetInt("StatusOrder" + i, 0); }
-            for (int i = 0; i < itemUse.Length; i++) { PlayerPrefs.SetInt("ItemUse" + i, itemUse[i]); }
-            for (int i = 0; i < NumberCombination.Length; i++) { PlayerPrefs.SetInt("NumberCombination" + i, NumberCombination[i]); }
-            for (int i = 0; i < idStypeNow.Length; i++) { PlayerPrefs.SetInt("IdStypeNow" + i, idStypeNow[i]); }
-            for (int i = 0; i < idItemNow.Length; i++) { PlayerPrefs.SetInt("IdItemNow" + i, idItemNow[i]); }
+            for (int i = 0; i < statusOrder.Length; i++)
+            {
+                PlayerPrefs.SetInt("StatusOrder" + i, 0);
+            }
+
+            for (int i = 0; i < itemUse.Length; i++)
+            {
+                PlayerPrefs.SetInt("ItemUse" + i, itemUse[i]);
+            }
+
+            for (int i = 0; i < NumberCombination.Length; i++)
+            {
+                PlayerPrefs.SetInt("NumberCombination" + i, NumberCombination[i]);
+            }
+
+            for (int i = 0; i < idStypeNow.Length; i++)
+            {
+                PlayerPrefs.SetInt("IdStypeNow" + i, idStypeNow[i]);
+            }
+
+            for (int i = 0; i < idItemNow.Length; i++)
+            {
+                PlayerPrefs.SetInt("IdItemNow" + i, idItemNow[i]);
+            }
         }
         else if (PlayerPrefs.HasKey("NumberOrder") == true)
         {
@@ -900,10 +1027,26 @@ public class ManagerMission : MonoBehaviour
             OrderPerForm = PlayerPrefs.GetInt("OrderPerForm");
             StypeItem = PlayerPrefs.GetInt("StypeItem");
             NumberFinal = PlayerPrefs.GetInt("NumderFinal");
-            for (int i = 0; i < itemUse.Length; i++) { itemUse[i] = PlayerPrefs.GetInt("ItemUse" + i); }
-            for (int i = 0; i < NumberCombination.Length; i++) { NumberCombination[i] = PlayerPrefs.GetInt("NumberCombination" + i); }
-            for (int i = 0; i < idStypeNow.Length; i++) { idStypeNow[i] = PlayerPrefs.GetInt("IdStypeNow" + i); }
-            for (int i = 0; i < idItemNow.Length; i++) { idItemNow[i] = PlayerPrefs.GetInt("IdItemNow" + i); }
+            for (int i = 0; i < itemUse.Length; i++)
+            {
+                itemUse[i] = PlayerPrefs.GetInt("ItemUse" + i);
+            }
+
+            for (int i = 0; i < NumberCombination.Length; i++)
+            {
+                NumberCombination[i] = PlayerPrefs.GetInt("NumberCombination" + i);
+            }
+
+            for (int i = 0; i < idStypeNow.Length; i++)
+            {
+                idStypeNow[i] = PlayerPrefs.GetInt("IdStypeNow" + i);
+            }
+
+            for (int i = 0; i < idItemNow.Length; i++)
+            {
+                idItemNow[i] = PlayerPrefs.GetInt("IdItemNow" + i);
+            }
+
             NumberOrder = PlayerPrefs.GetInt("NumberOrder");
             MissionFinal = PlayerPrefs.GetInt("MissionFinal");
             for (int i = 0; i < NumberOrder; i++)
@@ -931,6 +1074,7 @@ public class ManagerMission : MonoBehaviour
                             mission[i].metarial[k].IdYc = PlayerPrefs.GetInt("IdItem" + i + k);
                             mission[i].metarial[k].Amount = PlayerPrefs.GetInt("QuantityItem" + i + k);
                         }
+
                         CalculationCoin(i);
                         CalculationExp(i);
                     }
@@ -952,10 +1096,12 @@ public class ManagerMission : MonoBehaviour
                         StartCoroutine(IETimeNewOrder[i]);
                     }
                 }
+
                 Order[i].SetActive(true);
                 OrderWordSpace[i].SetActive(true);
             }
         }
+
         if (CheckPerForm == true) Order[OrderSelected].SetActive(false);
         LoadData = true;
         CheckDoneOrder();

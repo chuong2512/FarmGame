@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using NongTrai;
 using Script.Decorate;
 
 public class DecorateTree : DecorateObject
@@ -103,7 +104,7 @@ public class DecorateTree : DecorateObject
             else if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] == 0)
             {
                 ManagerTool.instance.checkCollider = true;
-                int Purchase = ManagerData.instance.toolDecorate.Data[idDecorate].Purchare;
+                int Purchase = ManagerData.instance.toolDecorate.Datas[idDecorate].Purchare;
                 ManagerUseGem.instance.ShowDialogUseDiamond(idDecorate, StypeUseGem.DecorateTree, Purchase, gameObject);
             }
         }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using NongTrai;
 
 public class Ruong : MonoBehaviour
 {
@@ -41,19 +42,19 @@ public class Ruong : MonoBehaviour
                 int timeNow = ManagerGame.instance.RealTime();
                 int time = timeNow - PlayerPrefs.GetInt("TimeLastField" + idRuong);
                 timeLive = PlayerPrefs.GetInt("TimeLiveField" + idRuong) - time;
-                if (timeLive > ManagerData.instance.seeds.Seed[idSeed].time * 3 / 4)
-                    sprRendererCrop.sprite = ManagerData.instance.seeds.Seed[idSeed].crop1;
-                else if (timeLive <= ManagerData.instance.seeds.Seed[idSeed].time * 3 / 4 && timeLive > ManagerData.instance.seeds.Seed[idSeed].time * 1 / 4)
-                    sprRendererCrop.sprite = ManagerData.instance.seeds.Seed[idSeed].crop2;
-                else if (timeLive <= ManagerData.instance.seeds.Seed[idSeed].time * 1 / 4 && timeLive > 0)
-                    sprRendererCrop.sprite = ManagerData.instance.seeds.Seed[idSeed].crop3;
+                if (timeLive > ManagerData.instance.seeds.SeedDatas[idSeed].time * 3 / 4)
+                    sprRendererCrop.sprite = ManagerData.instance.seeds.SeedDatas[idSeed].crop1;
+                else if (timeLive <= ManagerData.instance.seeds.SeedDatas[idSeed].time * 3 / 4 && timeLive > ManagerData.instance.seeds.SeedDatas[idSeed].time * 1 / 4)
+                    sprRendererCrop.sprite = ManagerData.instance.seeds.SeedDatas[idSeed].crop2;
+                else if (timeLive <= ManagerData.instance.seeds.SeedDatas[idSeed].time * 1 / 4 && timeLive > 0)
+                    sprRendererCrop.sprite = ManagerData.instance.seeds.SeedDatas[idSeed].crop3;
                 StartCoroutine(countTime());
             }
             else if (PlayerPrefs.GetInt("StatusField" + idRuong) == 2)
             {
                 status = 2;
                 idSeed = PlayerPrefs.GetInt("IdSeedField" + idRuong);
-                sprRendererCrop.sprite = ManagerData.instance.seeds.Seed[idSeed].crop4;
+                sprRendererCrop.sprite = ManagerData.instance.seeds.SeedDatas[idSeed].crop4;
             }
         }
         else if (!PlayerPrefs.HasKey("StatusField" + idRuong))
@@ -61,7 +62,7 @@ public class Ruong : MonoBehaviour
             if (idRuong < 6)
             {
                 status = 2;
-                sprRendererCrop.sprite = ManagerData.instance.seeds.Seed[idSeed].crop4;
+                sprRendererCrop.sprite = ManagerData.instance.seeds.SeedDatas[idSeed].crop4;
                 PlayerPrefs.SetInt("StatusField" + idRuong, 2);
                 PlayerPrefs.SetInt("IdSeedField" + idRuong, 0);
                 PlayerPrefs.SetInt("TimeLastField" + idRuong, 0);
@@ -200,11 +201,11 @@ public class Ruong : MonoBehaviour
                         MainCamera.instance.DisableAll();
                         string nameItem;
                         if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                            nameItem = ManagerData.instance.seeds.Seed[idSeed].name;
+                            nameItem = ManagerData.instance.seeds.SeedDatas[idSeed].name;
                         else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                            nameItem = ManagerData.instance.seeds.Seed[idSeed].nameINS;
-                        else nameItem = ManagerData.instance.seeds.Seed[idSeed].engName;
-                        int totalTime = ManagerData.instance.seeds.Seed[idSeed].time;
+                            nameItem = ManagerData.instance.seeds.SeedDatas[idSeed].nameINS;
+                        else nameItem = ManagerData.instance.seeds.SeedDatas[idSeed].engName;
+                        int totalTime = ManagerData.instance.seeds.SeedDatas[idSeed].time;
                         ManagerTool.instance.RegisterShowClock(0, 0, 0, idRuong, nameItem, transform.position, gameObject);
                         ManagerTool.instance.ShowClockCrop(timeLive, totalTime);
                         break;
@@ -255,7 +256,7 @@ public class Ruong : MonoBehaviour
         }
         if (other.tag == "ToolHarvestCrop" && ManagerTool.instance.dragging == true && status == 2 && (idRuong == ManagerTool.instance.idRuong || ManagerTool.instance.checkCollider == true))
         {
-            int quantity = ManagerData.instance.seeds.Seed[idSeed].quantity;
+            int quantity = ManagerData.instance.seeds.SeedDatas[idSeed].quantity;
             if (ManagerMarket.instance.QuantityItemTower + quantity <= ManagerMarket.instance.QuantityTotalItemTower)
             {
                 status = 0;
@@ -265,15 +266,15 @@ public class Ruong : MonoBehaviour
                 sprRendererCrop.sprite = null;
                 ManagerMarket.instance.ReciveItem(0, idSeed, quantity, true);
                 ManagerMarket.instance.MinusCropsSeeds(idSeed);
-                Sprite spr = ManagerData.instance.seeds.Seed[idSeed].item;
-                int exp = ManagerData.instance.seeds.Seed[idSeed].exp;
+                Sprite spr = ManagerData.instance.seeds.SeedDatas[idSeed].item;
+                int exp = ManagerData.instance.seeds.SeedDatas[idSeed].exp;
                 Experience.instance.registerExp(spr, exp, quantity, transform.position);
                 ManagerRuong.instance.CompleteHarvestCrop();
                 if (ManagerGame.instance.RandomItem() == true)
                 {
                     int IdItemBuilding = Random.Range(0, 6);
                     ManagerMarket.instance.ReciveItem(4, IdItemBuilding, 1, false);
-                    Sprite sprIcon = ManagerData.instance.itemBuilding.Data[IdItemBuilding].Icon;
+                    Sprite sprIcon = ManagerData.instance.itemBuildings.Data[IdItemBuilding].Icon;
                     ManagerTool.instance.RegisterItemSingle(1, sprIcon, transform.position);
                 }
                 if (ManagerGuide.instance.GuideClickFieldCrop == 0 && ManagerRuong.instance.landSpace == 0) ManagerGuide.instance.CallArrowField();
@@ -302,14 +303,14 @@ public class Ruong : MonoBehaviour
             idSeed = ManagerTool.instance.idSeeds;
             PlayerPrefs.SetInt("IdSeedField" + idRuong, idSeed);
             ManagerRuong.instance.CompleteCrop();
-            sprRendererCrop.sprite = ManagerData.instance.seeds.Seed[idSeed].crop1;
+            sprRendererCrop.sprite = ManagerData.instance.seeds.SeedDatas[idSeed].crop1;
             ManagerMarket.instance.MinusItem(0, idSeed, 1);
             ManagerMarket.instance.RecieveCropSeeds(idSeed);
             ManagerTool.instance.UpdateQuantitySeeds();
-            timeLive = ManagerData.instance.seeds.Seed[idSeed].time;
+            timeLive = ManagerData.instance.seeds.SeedDatas[idSeed].time;
             IETimeLive = countTime();
             StartCoroutine(IETimeLive);
-            ManagerTool.instance.RegisterEatOne(1, ManagerData.instance.seeds.Seed[idSeed].item, transform.position);
+            ManagerTool.instance.RegisterEatOne(1, ManagerData.instance.seeds.SeedDatas[idSeed].item, transform.position);
             if (ManagerGuide.instance.GetArrowField(idRuong) == 0) ManagerGuide.instance.SetArrowField(idRuong, 1);
             if (ManagerGuide.instance.GuideClickSeeds == 0) ManagerGuide.instance.CallArrowFieldEat();
         }
@@ -345,21 +346,21 @@ public class Ruong : MonoBehaviour
         timeLive -= 1;
         PlayerPrefs.SetInt("TimeLiveField" + idRuong, timeLive);
         PlayerPrefs.SetInt("TimeLastField" + idRuong, ManagerGame.instance.RealTime());
-        if (timeLive == ManagerData.instance.seeds.Seed[idSeed].time * 3 / 4)
-            sprRendererCrop.sprite = ManagerData.instance.seeds.Seed[idSeed].crop2;
-        if (timeLive == ManagerData.instance.seeds.Seed[idSeed].time / 4)
-            sprRendererCrop.sprite = ManagerData.instance.seeds.Seed[idSeed].crop3;
+        if (timeLive == ManagerData.instance.seeds.SeedDatas[idSeed].time * 3 / 4)
+            sprRendererCrop.sprite = ManagerData.instance.seeds.SeedDatas[idSeed].crop2;
+        if (timeLive == ManagerData.instance.seeds.SeedDatas[idSeed].time / 4)
+            sprRendererCrop.sprite = ManagerData.instance.seeds.SeedDatas[idSeed].crop3;
         if (timeLive <= 0)
         {
             status = 2;
             PlayerPrefs.SetInt("StatusField" + idRuong, 2);
-            sprRendererCrop.sprite = ManagerData.instance.seeds.Seed[idSeed].crop4;
+            sprRendererCrop.sprite = ManagerData.instance.seeds.SeedDatas[idSeed].crop4;
         }
         if (ManagerTool.instance.showClock.CheckShow == true)
             if (ManagerTool.instance.showClock.CheckStype[0] == true)
                 if (ManagerTool.instance.showClock.IdShow == idRuong)
                 {
-                    int totalTime = ManagerData.instance.seeds.Seed[idSeed].time;
+                    int totalTime = ManagerData.instance.seeds.SeedDatas[idSeed].time;
                     ManagerTool.instance.ShowClockCrop(timeLive, totalTime);
                 }
         if (timeLive > 0)
@@ -375,9 +376,9 @@ public class Ruong : MonoBehaviour
         PlayerPrefs.SetInt("TimeLiveField" + idRuong, timeLive);
         status = 2;
         PlayerPrefs.SetInt("StatusField" + idRuong, 2);
-        sprRendererCrop.sprite = ManagerData.instance.seeds.Seed[idSeed].crop4;
-        int lighting = ManagerData.instance.seeds.Seed[idSeed].lighting;
-        int totalTime = ManagerData.instance.seeds.Seed[idSeed].time;
+        sprRendererCrop.sprite = ManagerData.instance.seeds.SeedDatas[idSeed].crop4;
+        int lighting = ManagerData.instance.seeds.SeedDatas[idSeed].lighting;
+        int totalTime = ManagerData.instance.seeds.SeedDatas[idSeed].time;
         ManagerTool.instance.ShowClockCrop(timeLive, totalTime);
     }
     public void UseGemBuySeeds()
@@ -390,12 +391,12 @@ public class Ruong : MonoBehaviour
             idSeed = ManagerTool.instance.idSeeds;
             PlayerPrefs.SetInt("IdSeedField" + idRuong, idSeed);
             ManagerRuong.instance.CompleteCrop();
-            sprRendererCrop.sprite = ManagerData.instance.seeds.Seed[idSeed].crop1;
+            sprRendererCrop.sprite = ManagerData.instance.seeds.SeedDatas[idSeed].crop1;
             ManagerMarket.instance.RecieveCropSeeds(idSeed);
-            timeLive = ManagerData.instance.seeds.Seed[idSeed].time;
+            timeLive = ManagerData.instance.seeds.SeedDatas[idSeed].time;
             IETimeLive = countTime();
             StartCoroutine(IETimeLive);
-            ManagerTool.instance.RegisterEatOne(1, ManagerData.instance.seeds.Seed[idSeed].item, transform.position);
+            ManagerTool.instance.RegisterEatOne(1, ManagerData.instance.seeds.SeedDatas[idSeed].item, transform.position);
             ManagerGem.instance.MunisGem(2);
         }
         else

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NongTrai;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ManagerTower : MonoBehaviour
@@ -164,14 +165,14 @@ public class ManagerTower : MonoBehaviour
         {
             if (i < DataUpdate.metarial.Length)
             {
-                ConditionImage[i].sprite = ManagerData.instance.itemBuilding.Data[DataUpdate.metarial[i].IdItem].Icon;
+                ConditionImage[i].sprite = ManagerData.instance.itemBuildings.Data[DataUpdate.metarial[i].IdItem].Icon;
                 ConditionText[i].text = ManagerMarket.instance.QuantityItemBuilding[DataUpdate.metarial[i].IdItem] + "/" + DataUpdate.metarial[i].QuantityItem;
                 if (ManagerMarket.instance.QuantityItemBuilding[DataUpdate.metarial[i].IdItem] < DataUpdate.metarial[i].QuantityItem)
                 {
                     if (checkEligible == true) checkEligible = false;
                     if (TickEgiliable[i].activeSelf == true) TickEgiliable[i].SetActive(false);
                     int TotalGem = DataUpdate.metarial[i].QuantityItem - ManagerMarket.instance.QuantityItemBuilding[DataUpdate.metarial[i].IdItem];
-                    ConditinGemText[i].text = "" + TotalGem * ManagerData.instance.itemBuilding.Data[DataUpdate.metarial[i].IdItem].Purchase;
+                    ConditinGemText[i].text = "" + TotalGem * ManagerData.instance.itemBuildings.Data[DataUpdate.metarial[i].IdItem].Purchase;
                     GemUse[i].SetActive(true);
                 }
                 else
@@ -241,7 +242,7 @@ public class ManagerTower : MonoBehaviour
             {
                 count = 0;
                 int TotalMiss = DataUpdate.metarial[id].QuantityItem - ManagerMarket.instance.QuantityItemBuilding[DataUpdate.metarial[id].IdItem];
-                int TotalGem = TotalMiss * ManagerData.instance.itemBuilding.Data[DataUpdate.metarial[id].IdItem].Purchase;
+                int TotalGem = TotalMiss * ManagerData.instance.itemBuildings.Data[DataUpdate.metarial[id].IdItem].Purchase;
                 if (ManagerGem.instance.GemLive >= TotalGem)
                 {
                     ManagerMarket.instance.ReciveItem(4, DataUpdate.metarial[id].IdItem, TotalMiss, false);

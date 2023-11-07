@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using NongTrai;
 
 public class DecoratePond : MonoBehaviour
 {
@@ -83,7 +84,7 @@ public class DecoratePond : MonoBehaviour
             else if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] == 0)
             {
                 ManagerTool.instance.checkCollider = true;
-                int Purchase = ManagerData.instance.toolDecorate.Data[idDecorate].Purchare;
+                int Purchase = ManagerData.instance.toolDecorate.Datas[idDecorate].Purchare;
                 ManagerUseGem.instance.ShowDialogUseDiamond(idDecorate, StypeUseGem.DecoratePond, Purchase, gameObject);
             }
         }

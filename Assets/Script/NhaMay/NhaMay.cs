@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using NongTrai;
 using UnityEngine.UI;
 
 public class NhaMay : MonoBehaviour

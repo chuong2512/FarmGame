@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Missions : ScriptableObject
 {
     public Mission[] mission;
 }
 
-[System.Serializable]
+[Serializable]
 public struct Mission
 {
     public string name;

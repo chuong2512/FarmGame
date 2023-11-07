@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using NongTrai;
 
 public class RuongHoa : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class RuongHoa : MonoBehaviour
                 timeLive = PlayerPrefs.GetInt("TimeLiveFieldFlower" + idPOL + "" + idRuongHoa) - time;
                 if (timeLive > ManagerData.instance.flowers.Data[idFlower].detailFlower.time * 3 / 4)
                     sprRendererCrop.sprite = ManagerData.instance.flowers.Data[idFlower].detailFlower.crop1;
-                else if (timeLive <= ManagerData.instance.flowers.Data[idFlower].detailFlower.time * 3 / 4 && timeLive > ManagerData.instance.seeds.Seed[idFlower].time * 1 / 4)
+                else if (timeLive <= ManagerData.instance.flowers.Data[idFlower].detailFlower.time * 3 / 4 && timeLive > ManagerData.instance.seeds.SeedDatas[idFlower].time * 1 / 4)
                     sprRendererCrop.sprite = ManagerData.instance.flowers.Data[idFlower].detailFlower.crop2;
                 else if (timeLive <= ManagerData.instance.flowers.Data[idFlower].detailFlower.time * 1 / 4 && timeLive > 0)
                     sprRendererCrop.sprite = ManagerData.instance.flowers.Data[idFlower].detailFlower.crop3;
@@ -235,7 +236,7 @@ public class RuongHoa : MonoBehaviour
         {
             int IdItemBuilding = Random.Range(0, 6);
             ManagerMarket.instance.ReciveItem(4, IdItemBuilding, 1, false);
-            Sprite sprIcon = ManagerData.instance.itemBuilding.Data[IdItemBuilding].Icon;
+            Sprite sprIcon = ManagerData.instance.itemBuildings.Data[IdItemBuilding].Icon;
             ManagerTool.instance.RegisterItemSingle(1, sprIcon, transform.position);
         }
     }

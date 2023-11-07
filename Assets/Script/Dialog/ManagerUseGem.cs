@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NongTrai;
+using UnityEngine;
 using UnityEngine.UI;
 
 public enum StypeUseGem
@@ -64,7 +65,7 @@ public class ManagerUseGem : MonoBehaviour
         stypeUseGem = stype;
         amountDiamond = value;
         objUseGem = obj;
-        imgTool.sprite = ManagerData.instance.toolDecorate.Data[tool].Icon;
+        imgTool.sprite = ManagerData.instance.toolDecorate.Datas[tool].Icon;
         txtAmountDiamond.text = "" + amountDiamond;
         dialogUseDiamond.SetActive(true);
     }
@@ -105,7 +106,7 @@ public class ManagerUseGem : MonoBehaviour
         if (type == StypeUseGemBuySeed.SortDay)
         {
             NumberGemText.text = "2";
-            IconSeedsImage.sprite = ManagerData.instance.seeds.Seed[idseed].iconStore;
+            IconSeedsImage.sprite = ManagerData.instance.seeds.SeedDatas[idseed].iconStore;
         }
         else if (type == StypeUseGemBuySeed.Flower)
         {
