@@ -124,7 +124,7 @@ public class Animal : MonoBehaviour
                     PlayerPrefs.SetInt("TimeLiveAnimal" + idBread + "" + idAmountBreads + "" + idAmountAnimal, timelive);
                     PlayerPrefs.SetInt("TimeLastAnimal" + idBread + "" + idAmountBreads + "" + idAmountAnimal, ManagerGame.instance.RealTime());
                     StartCoroutine(countTime());
-                    Sprite spr = ManagerData.instance.facetoryItems.FacetoryItem[ManagerMarket.instance.idItemFactoryAnimalUse].item;
+                    Sprite spr = ManagerData.instance.facetoryItems.FacetoryItemDatas[ManagerMarket.instance.idItemFactoryAnimalUse].item;
                     Vector3 possition = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
                     ManagerTool.instance.RegisterEatOne(1, spr, possition);
                     if (ManagerGuide.instance.GuideClickFoodChicken == 0) ManagerGuide.instance.GuideClickFoodChicken = 1;

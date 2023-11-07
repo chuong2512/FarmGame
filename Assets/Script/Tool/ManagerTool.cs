@@ -448,20 +448,20 @@ public class ManagerTool : MonoBehaviour
     {
         detailItemNhaMay.quantityItem.text = ManagerMarket.instance.QuantityItemFactory[id].ToString();
         if (Application.systemLanguage == SystemLanguage.Vietnamese)
-            detailItemNhaMay.nameItem.text = ManagerData.instance.facetoryItems.FacetoryItem[id].name;
+            detailItemNhaMay.nameItem.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].name;
         else if (Application.systemLanguage == SystemLanguage.Indonesian)
-            detailItemNhaMay.nameItem.text = ManagerData.instance.facetoryItems.FacetoryItem[id].nameINS;
-        else detailItemNhaMay.nameItem.text = ManagerData.instance.facetoryItems.FacetoryItem[id].engName;
+            detailItemNhaMay.nameItem.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].nameINS;
+        else detailItemNhaMay.nameItem.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].engName;
 
-        for (int i = 0; i < ManagerData.instance.facetoryItems.FacetoryItem[id].metarial.Length; i++)
+        for (int i = 0; i < ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial.Length; i++)
         {
-            int idStype = ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].stypeIDYC;
-            int idYc = ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].IdYc;
+            int idStype = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].stypeIDYC;
+            int idYc = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].IdYc;
             detailItemNhaMay.iconItem[i].sprite = ManagerMarket.instance.IconItem(idStype, idYc);
-            detailItemNhaMay.detail[i].text = ManagerMarket.instance.AmountItem(idStype, idYc) + "/" + ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].Amount;
+            detailItemNhaMay.detail[i].text = ManagerMarket.instance.AmountItem(idStype, idYc) + "/" + ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].Amount;
             detailItemNhaMay.iconItem[i].gameObject.SetActive(true);
         }
-        int time = ManagerData.instance.facetoryItems.FacetoryItem[id].time;
+        int time = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].time;
         detailItemNhaMay.time.text = ManagerGame.instance.TimeText(time);
         objDetailItemNhaMay.SetActive(true);
     }

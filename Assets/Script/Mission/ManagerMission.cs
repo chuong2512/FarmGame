@@ -761,7 +761,7 @@ public class ManagerMission : MonoBehaviour
         {
             case 0: spr = ManagerData.instance.seeds.Seed[idYC].item; break;
             case 1: spr = ManagerData.instance.pets.Pet[idYC].itemPet.item; break;
-            case 2: spr = ManagerData.instance.facetoryItems.FacetoryItem[idYC].item; break;
+            case 2: spr = ManagerData.instance.facetoryItems.FacetoryItemDatas[idYC].item; break;
             case 3: spr = ManagerData.instance.trees.data[idYC].ItemTree.item; break;
         }
         return spr;
@@ -800,7 +800,7 @@ public class ManagerMission : MonoBehaviour
             {
                 case 0: mission[idOrder].coin += (int)(1.5 * mission[idOrder].metarial[i].Amount * ManagerData.instance.seeds.Seed[IdYc].sell); break;
                 case 1: mission[idOrder].coin += (int)(1.5 * mission[idOrder].metarial[i].Amount * ManagerData.instance.pets.Pet[IdYc].itemPet.sell); break;
-                case 2: mission[idOrder].coin += (int)(1.5 * mission[idOrder].metarial[i].Amount * ManagerData.instance.facetoryItems.FacetoryItem[IdYc].sell); break;
+                case 2: mission[idOrder].coin += (int)(1.5 * mission[idOrder].metarial[i].Amount * ManagerData.instance.facetoryItems.FacetoryItemDatas[IdYc].sell); break;
                 case 3: mission[idOrder].coin += (int)(1.5 * mission[idOrder].metarial[i].Amount * ManagerData.instance.trees.data[IdYc].ItemTree.sell); break;
             }
         }
@@ -817,7 +817,7 @@ public class ManagerMission : MonoBehaviour
             {
                 case 0: mission[idOrder].exp += 2 * mission[idOrder].metarial[i].Amount * ManagerData.instance.seeds.Seed[IdYc].exp; break;
                 case 1: mission[idOrder].exp += 2 * mission[idOrder].metarial[i].Amount * ManagerData.instance.pets.Pet[IdYc].detailPet.exp; break;
-                case 2: mission[idOrder].exp += 2 * mission[idOrder].metarial[i].Amount * ManagerData.instance.facetoryItems.FacetoryItem[IdYc].exp; break;
+                case 2: mission[idOrder].exp += 2 * mission[idOrder].metarial[i].Amount * ManagerData.instance.facetoryItems.FacetoryItemDatas[IdYc].exp; break;
                 case 3: mission[idOrder].exp += 2 * mission[idOrder].metarial[i].Amount * ManagerData.instance.trees.data[IdYc].ItemTree.exp; break;
             }
         }

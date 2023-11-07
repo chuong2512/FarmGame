@@ -451,9 +451,9 @@ public class ManagerShop : MonoBehaviour
     {
         infoItemFactory.info[id].status = 1;
         PlayerPrefs.SetInt("updateItemFactory" + id, 1);
-        infoItemFactory.info[id].sprRenderer.sprite = ManagerData.instance.facetoryItems.FacetoryItem[id].item;
+        infoItemFactory.info[id].sprRenderer.sprite = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].item;
         ManagerItem.instance.UpdateItem(2, id);
-        ManagerMarket.instance.ReciveItem(2, id, ManagerData.instance.facetoryItems.FacetoryItem[id].donate, false);
+        ManagerMarket.instance.ReciveItem(2, id, ManagerData.instance.facetoryItems.FacetoryItemDatas[id].donate, false);
     }
     void updateSeeds(int id)
     {
@@ -491,14 +491,14 @@ public class ManagerShop : MonoBehaviour
         inforDecorate.info[id].status = 1;
         PlayerPrefs.SetInt("statusDCRStore" + id, inforDecorate.info[id].status);
         if (Application.systemLanguage == SystemLanguage.Vietnamese)
-            inforDecorate.info[id].txtInfo.text = ManagerData.instance.decorate.Data[id].NameVNS;
+            inforDecorate.info[id].txtInfo.text = ManagerData.instance.decorate.Datas[id].NameVNS;
         else if (Application.systemLanguage == SystemLanguage.Indonesian)
-            inforDecorate.info[id].txtInfo.text = ManagerData.instance.decorate.Data[id].NameINS;
-        else inforDecorate.info[id].txtInfo.text = ManagerData.instance.decorate.Data[id].NameENG;
-        inforDecorate.info[id].goldPrice = ManagerData.instance.decorate.Data[id].Purchase;
+            inforDecorate.info[id].txtInfo.text = ManagerData.instance.decorate.Datas[id].NameINS;
+        else inforDecorate.info[id].txtInfo.text = ManagerData.instance.decorate.Datas[id].NameENG;
+        inforDecorate.info[id].goldPrice = ManagerData.instance.decorate.Datas[id].Purchase;
         inforDecorate.info[id].txtGoldPrice.text = inforDecorate.info[id].goldPrice.ToString();
         inforDecorate.info[id].txtGoldPrice.gameObject.SetActive(true);
-        inforDecorate.info[id].icon.sprite = ManagerData.instance.decorate.Data[id].IconStore;
+        inforDecorate.info[id].icon.sprite = ManagerData.instance.decorate.Datas[id].IconStore;
         Experience.instance.registerItemOpen(inforDecorate.info[id].icon.sprite);
     }
     
@@ -559,16 +559,16 @@ public class ManagerShop : MonoBehaviour
         for (int i = 0; i < inforDecorate.info.Length; i++)
         {
             if (inforDecorate.info[i].status == 0)
-                if (ManagerData.instance.decorate.Data[i].LevelUnlock <= level)
+                if (ManagerData.instance.decorate.Datas[i].LevelUnlock <= level)
                 {
                     updateDecorate(i);
                     HaveItem(4);
                 } 
         }
-        for (int i = 0; i < ManagerData.instance.facetoryItems.FacetoryItem.Length; i++)
+        for (int i = 0; i < ManagerData.instance.facetoryItems.FacetoryItemDatas.Length; i++)
         {
             if (infoItemFactory.info[i].status == 0)
-                if (ManagerData.instance.facetoryItems.FacetoryItem[i].levelOpen <= level)
+                if (ManagerData.instance.facetoryItems.FacetoryItemDatas[i].levelOpen <= level)
                     updateItemFactory(i);
         }
         for (int i = 0; i < ManagerData.instance.seeds.Seed.Length; i++)
@@ -980,25 +980,25 @@ public class ManagerShop : MonoBehaviour
         for (int i = 0; i < inforDecorate.info.Length; i++)
         {
             if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                inforDecorate.info[i].txtName.text = ManagerData.instance.decorate.Data[i].NameVNS;
+                inforDecorate.info[i].txtName.text = ManagerData.instance.decorate.Datas[i].NameVNS;
             else if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                inforDecorate.info[i].txtName.text = ManagerData.instance.decorate.Data[i].NameINS;
-            else inforDecorate.info[i].txtName.text = ManagerData.instance.decorate.Data[i].NameENG;
+                inforDecorate.info[i].txtName.text = ManagerData.instance.decorate.Datas[i].NameINS;
+            else inforDecorate.info[i].txtName.text = ManagerData.instance.decorate.Datas[i].NameENG;
             inforDecorate.info[i].txtAmount.text = "";
-            inforDecorate.info[i].levelOpen = ManagerData.instance.decorate.Data[i].LevelUnlock;
+            inforDecorate.info[i].levelOpen = ManagerData.instance.decorate.Datas[i].LevelUnlock;
             if (PlayerPrefs.HasKey("statusDCRStore" + i) == false)
             {
                 if (inforDecorate.info[i].levelOpen == 0)
                 {
                     if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                        inforDecorate.info[i].txtInfo.text = ManagerData.instance.decorate.Data[i].NameVNS;
+                        inforDecorate.info[i].txtInfo.text = ManagerData.instance.decorate.Datas[i].NameVNS;
                     else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                        inforDecorate.info[i].txtInfo.text = ManagerData.instance.decorate.Data[i].NameINS;
-                    else inforDecorate.info[i].txtInfo.text = ManagerData.instance.decorate.Data[i].NameENG;
+                        inforDecorate.info[i].txtInfo.text = ManagerData.instance.decorate.Datas[i].NameINS;
+                    else inforDecorate.info[i].txtInfo.text = ManagerData.instance.decorate.Datas[i].NameENG;
                     inforDecorate.info[i].status = 1;
-                    inforDecorate.info[i].goldPrice = ManagerData.instance.decorate.Data[i].Purchase;
+                    inforDecorate.info[i].goldPrice = ManagerData.instance.decorate.Datas[i].Purchase;
                     inforDecorate.info[i].txtGoldPrice.text = inforDecorate.info[i].goldPrice.ToString();
-                    inforDecorate.info[i].icon.sprite = ManagerData.instance.decorate.Data[i].IconStore;
+                    inforDecorate.info[i].icon.sprite = ManagerData.instance.decorate.Datas[i].IconStore;
                 }
                 else if (inforDecorate.info[i].levelOpen != 0)
                 {
@@ -1029,13 +1029,13 @@ public class ManagerShop : MonoBehaviour
                 else if (inforDecorate.info[i].status == 1)
                 {
                     if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                        inforDecorate.info[i].txtInfo.text = ManagerData.instance.decorate.Data[i].NameVNS;
+                        inforDecorate.info[i].txtInfo.text = ManagerData.instance.decorate.Datas[i].NameVNS;
                     else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                        inforDecorate.info[i].txtInfo.text = ManagerData.instance.decorate.Data[i].NameINS;
-                    else inforDecorate.info[i].txtInfo.text = ManagerData.instance.decorate.Data[i].NameENG;
-                    inforDecorate.info[i].goldPrice = ManagerData.instance.decorate.Data[i].Purchase;
+                        inforDecorate.info[i].txtInfo.text = ManagerData.instance.decorate.Datas[i].NameINS;
+                    else inforDecorate.info[i].txtInfo.text = ManagerData.instance.decorate.Datas[i].NameENG;
+                    inforDecorate.info[i].goldPrice = ManagerData.instance.decorate.Datas[i].Purchase;
                     inforDecorate.info[i].txtGoldPrice.text = inforDecorate.info[i].goldPrice.ToString();
-                    inforDecorate.info[i].icon.sprite = ManagerData.instance.decorate.Data[i].IconStore;
+                    inforDecorate.info[i].icon.sprite = ManagerData.instance.decorate.Datas[i].IconStore;
                 }
             }
         }
@@ -1095,19 +1095,19 @@ public class ManagerShop : MonoBehaviour
                 if (PlayerPrefs.GetInt("updateItemFactory" + i) == 1)
                 {
                     infoItemFactory.info[i].status = PlayerPrefs.GetInt("updateItemFactory" + i);
-                    infoItemFactory.info[i].sprRenderer.sprite = ManagerData.instance.facetoryItems.FacetoryItem[i].item;
+                    infoItemFactory.info[i].sprRenderer.sprite = ManagerData.instance.facetoryItems.FacetoryItemDatas[i].item;
                 }
             }
             else if (!PlayerPrefs.HasKey("updateItemFactory" + i))
             {
-                if (ManagerData.instance.facetoryItems.FacetoryItem[i].levelOpen == Experience.instance.level)
+                if (ManagerData.instance.facetoryItems.FacetoryItemDatas[i].levelOpen == Experience.instance.level)
                 {
                     infoItemFactory.info[i].status = 1;
                     PlayerPrefs.SetInt("updateItemFactory" + i, infoItemFactory.info[i].status);
-                    infoItemFactory.info[i].sprRenderer.sprite = ManagerData.instance.facetoryItems.FacetoryItem[i].item;
+                    infoItemFactory.info[i].sprRenderer.sprite = ManagerData.instance.facetoryItems.FacetoryItemDatas[i].item;
                     ManagerItem.instance.UpdateItem(2, i);
                 }
-                else if (ManagerData.instance.facetoryItems.FacetoryItem[i].levelOpen != Experience.instance.level)
+                else if (ManagerData.instance.facetoryItems.FacetoryItemDatas[i].levelOpen != Experience.instance.level)
                 {
                     PlayerPrefs.SetInt("updateItemFactory" + i, 0);
                 }

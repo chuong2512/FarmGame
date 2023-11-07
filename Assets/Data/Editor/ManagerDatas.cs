@@ -13,15 +13,6 @@ public class ManagerDatas
         Selection.activeObject = seed;
     }
 
-    [MenuItem("Data/Data/Cages")]
-    public static void DetailCages()
-    {
-        Cages cage = ScriptableObject.CreateInstance<Cages>();
-        AssetDatabase.CreateAsset(cage, "Assets/Data/Data/Manager Cages.asset");
-        AssetDatabase.SaveAssets();
-        EditorUtility.FocusProjectWindow();
-        Selection.activeObject = cage;
-    }
 
     [MenuItem("Data/Data/Facetorys")]
     public static void DetailFacetorys()
@@ -31,6 +22,16 @@ public class ManagerDatas
         AssetDatabase.SaveAssets();
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = facetory;
+    }
+
+    [MenuItem("Data/Data/Cages")]
+    public static void DetailCages()
+    {
+        Cages cage = ScriptableObject.CreateInstance<Cages>();
+        AssetDatabase.CreateAsset(cage, "Assets/Data/Data/Manager Cages.asset");
+        AssetDatabase.SaveAssets();
+        EditorUtility.FocusProjectWindow();
+        Selection.activeObject = cage;
     }
 
     [MenuItem("Data/Data/Pets")]
@@ -43,15 +44,6 @@ public class ManagerDatas
         Selection.activeObject = pet;
     }
 
-    [MenuItem("Data/Data/BreadFeeds")]
-    public static void DetailBreadFeeds()
-    {
-        BreadFeeds breadfeed = ScriptableObject.CreateInstance<BreadFeeds>();
-        AssetDatabase.CreateAsset(breadfeed, "Assets/Data/Data/Manager BreadFeeds.asset");
-        AssetDatabase.SaveAssets();
-        EditorUtility.FocusProjectWindow();
-        Selection.activeObject = breadfeed;
-    }
 
     [MenuItem("Data/Data/FacetoryItems")]
     public static void DetailFacetoryItems()
@@ -83,8 +75,18 @@ public class ManagerDatas
         Selection.activeObject = wage;
     }
 
+    [MenuItem("Data/Data/BreadFeeds")]
+    public static void DetailBreadFeeds()
+    {
+        BreadFeeds breadfeed = ScriptableObject.CreateInstance<BreadFeeds>();
+        AssetDatabase.CreateAsset(breadfeed, "Assets/Data/Data/Manager BreadFeeds.asset");
+        AssetDatabase.SaveAssets();
+        EditorUtility.FocusProjectWindow();
+        Selection.activeObject = breadfeed;
+    }
+
     [MenuItem("Data/Data/HouseFarm")]
-    public static void DetailStoreHouse()
+    public static void DetailStoreHouses()
     {
         HouseFarm storehouse = ScriptableObject.CreateInstance<HouseFarm>();
         AssetDatabase.CreateAsset(storehouse, "Assets/Data/Data/Manager HouseFarm.asset");
@@ -93,15 +95,6 @@ public class ManagerDatas
         Selection.activeObject = storehouse;
     }
 
-    [MenuItem("Data/Data/Land")]
-    public static void DetailLand()
-    {
-        Lands land = ScriptableObject.CreateInstance<Lands>();
-        AssetDatabase.CreateAsset(land, "Assets/Data/Data/Manager Land.asset");
-        AssetDatabase.SaveAssets();
-        EditorUtility.FocusProjectWindow();
-        Selection.activeObject = land;
-    }
 
     [MenuItem("Data/Data/Tree")]
     public static void DetailTree()
@@ -123,8 +116,19 @@ public class ManagerDatas
         Selection.activeObject = mission;
     }
 
+    [MenuItem("Data/Data/Land")]
+    public static void DetailLands()
+    {
+        Lands land = ScriptableObject.CreateInstance<Lands>();
+        AssetDatabase.CreateAsset(land, "Assets/Data/Data/Manager Land.asset");
+        AssetDatabase.SaveAssets();
+        EditorUtility.FocusProjectWindow();
+        Selection.activeObject = land;
+    }
+
+
     [MenuItem("Data/Data/ItemBuilding")]
-    public static void DetailItemBuilding()
+    public static void DetailItemBuildings()
     {
         ItemBuilding itembuilding = ScriptableObject.CreateInstance<ItemBuilding>();
         AssetDatabase.CreateAsset(itembuilding, "Assets/Data/Data/Manager ItemBuilding.asset");
@@ -142,24 +146,7 @@ public class ManagerDatas
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = toolDecorate;
     }
-    [MenuItem("Data/Data/Plot Of Lands")]
-    public static void DetailPlotOfLands()
-    {
-        PlotOfLands plotOfLand = ScriptableObject.CreateInstance<PlotOfLands>();
-        AssetDatabase.CreateAsset(plotOfLand, "Assets/Data/Data/Manager PlotOfLands.asset");
-        AssetDatabase.SaveAssets();
-        EditorUtility.FocusProjectWindow();
-        Selection.activeObject = plotOfLand;
-    }
-    [MenuItem("Data/Data/Flowers")]
-    public static void DetailFlowers()
-    {
-        Flowers flower = ScriptableObject.CreateInstance<Flowers>();
-        AssetDatabase.CreateAsset(flower, "Assets/Data/Data/Manager Flowers.asset");
-        AssetDatabase.SaveAssets();
-        EditorUtility.FocusProjectWindow();
-        Selection.activeObject = flower;
-    }
+
 
     [MenuItem("Data/Data/Langauge")]
     public static void DetailLangauge()
@@ -179,5 +166,25 @@ public class ManagerDatas
         AssetDatabase.SaveAssets();
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = decorate;
+    }
+
+    [MenuItem("Data/Data/Plot Of Lands")]
+    public static void DetailPlotOfLand()
+    {
+        PlotOfLands plotOfLand = ScriptableObject.CreateInstance<PlotOfLands>();
+        AssetDatabase.CreateAsset(plotOfLand, "Assets/Data/Data/Manager PlotOfLands.asset");
+        AssetDatabase.SaveAssets();
+        EditorUtility.FocusProjectWindow();
+        Selection.activeObject = plotOfLand;
+    }
+
+    [MenuItem("Data/Data/Flowers")]
+    public static void DetailFlower()
+    {
+        Flowers flower = ScriptableObject.CreateInstance<Flowers>();
+        AssetDatabase.CreateAsset(flower, "Assets/Data/Data/Manager Flowers.asset");
+        AssetDatabase.SaveAssets();
+        EditorUtility.FocusProjectWindow();
+        Selection.activeObject = flower;
     }
 }

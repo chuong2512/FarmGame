@@ -1,14 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using Sirenix.OdinInspector;
+using UnityEngine;
 
-public class BreadFeeds : ScriptableObject {
-	[System.Serializable]
-	public struct DetailBreadFeed{
-		public int id;
-		public string name, engName;
-		public int time, sell;
-		public int stypeIDYC1, IdYc1, stypeIDYC2, IdYc2;
-		public Sprite item;
-	}
+public class BreadFeeds : ScriptableObject
+{
+    public DetailBreadFeed[] BreadFeed;
+}
 
-	public DetailBreadFeed[] BreadFeed;
+[Serializable]
+public struct DetailBreadFeed
+{
+    public int id;
+    [FoldoutGroup("DataBread")] public string name, engName;
+    [FoldoutGroup("DataBread")] public int time, sell;
+    [FoldoutGroup("DataBread")] public int stypeIDYC1, IdYc1, stypeIDYC2, IdYc2;
+    [FoldoutGroup("DataBread")] public Sprite item;
 }

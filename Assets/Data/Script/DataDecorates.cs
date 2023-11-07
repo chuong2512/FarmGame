@@ -1,17 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using Sirenix.OdinInspector;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DataDecorates : ScriptableObject
 {
-    public DataDecorate[] Data;
+    [FormerlySerializedAs("Data")] public DataDecorate[] Datas;
 }
 
-[System.Serializable]
+[Serializable]
 public struct DataDecorate
 {
     public string NameVNS;
-    public string NameENG;
-    public string NameINS;
-    public int LevelUnlock;
-    public int Purchase;
-    public Sprite IconStore;
+    [FoldoutGroup("MoreData")] public string NameENG;
+    [FoldoutGroup("MoreData")] public string NameINS;
+    [FoldoutGroup("MoreData")] public int LevelUnlock;
+    [FoldoutGroup("MoreData")] public int Purchase;
+    [FoldoutGroup("MoreData")] public Sprite IconStore;
 }

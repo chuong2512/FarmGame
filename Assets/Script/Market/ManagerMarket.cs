@@ -298,11 +298,11 @@ public class ManagerMarket : MonoBehaviour
                 break;
             case 2:
                 if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                    NameItemSaleText.text = ManagerData.instance.facetoryItems.FacetoryItem[idItemSale].name;
+                    NameItemSaleText.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemSale].name;
                 else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                    NameItemSaleText.text = ManagerData.instance.facetoryItems.FacetoryItem[idItemSale].nameINS;
-                else NameItemSaleText.text = ManagerData.instance.facetoryItems.FacetoryItem[idItemSale].engName;
-                ItemSaleImage.sprite = ManagerData.instance.facetoryItems.FacetoryItem[idItemSale].item;
+                    NameItemSaleText.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemSale].nameINS;
+                else NameItemSaleText.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemSale].engName;
+                ItemSaleImage.sprite = ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemSale].item;
                 if (QuantityItemFactory[idItemSale] > 1) QuantitySaleItem = QuantityItemFactory[idItemSale] / 2;
                 else QuantitySaleItem = QuantityItemFactory[idItemSale];
                 ShowGoldGotSale();
@@ -365,7 +365,7 @@ public class ManagerMarket : MonoBehaviour
                 GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.pets.Pet[idItemSale].itemPet.sell;
                 break;
             case 2:
-                GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.facetoryItems.FacetoryItem[idItemSale].sell;
+                GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemSale].sell;
                 break;
             case 3:
                 GoldGotSaleItem = QuantitySaleItem * ManagerData.instance.trees.data[idItemSale].ItemTree.sell;
@@ -478,7 +478,7 @@ public class ManagerMarket : MonoBehaviour
                 ItemShalvesImage[idShelves].sprite = ManagerData.instance.pets.Pet[idItemSale].itemPet.item;
                 break;
             case 2:
-                ItemShalvesImage[idShelves].sprite = ManagerData.instance.facetoryItems.FacetoryItem[idItemSale].item;
+                ItemShalvesImage[idShelves].sprite = ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemSale].item;
                 break;
             case 3:
                 ItemShalvesImage[idShelves].sprite = ManagerData.instance.trees.data[idItemSale].ItemTree.item;
@@ -877,7 +877,7 @@ public class ManagerMarket : MonoBehaviour
                 sprItem = ManagerData.instance.pets.Pet[id].itemPet.item;
                 break;
             case 2:
-                sprItem = ManagerData.instance.facetoryItems.FacetoryItem[id].item;
+                sprItem = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].item;
                 break;
             case 3:
                 sprItem = ManagerData.instance.trees.data[id].ItemTree.item;
@@ -961,7 +961,7 @@ public class ManagerMarket : MonoBehaviour
             }
             else
             {
-                QuantityItemFactory[i] = ManagerData.instance.facetoryItems.FacetoryItem[i].valueStart;
+                QuantityItemFactory[i] = ManagerData.instance.facetoryItems.FacetoryItemDatas[i].valueStart;
                 PlayerPrefs.SetInt("QuantityItemFactory" + i, QuantityItemFactory[i]);
                 QuantityItemDepot += QuantityItemFactory[i];
                 txtQuantityItemFactory[i].text = "" + QuantityItemFactory[i];

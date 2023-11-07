@@ -1,23 +1,25 @@
-﻿using UnityEngine;
+﻿using System;
+using Sirenix.OdinInspector;
+using UnityEngine;
 
 public class Cages : ScriptableObject
 {
     public DetailCage[] Cage;
 }
 
-[System.Serializable]
+[Serializable]
 public struct DetailCage
 {
     public string name;
-    public string engName;
-    public string nameINS;
-    public int time;
-    public int Exp;
-    public int amountPet;
-    public int purchase;
-    public int mutiGold;
-    public int levelOpen;
-    public int distanceLvOpen;
-    public int amountOpen;
-    public Sprite iconStore;
+    [FoldoutGroup("MoreData")] public string engName;
+    [FoldoutGroup("MoreData")] public string nameINS;
+    [FoldoutGroup("MoreData")] public int time;
+    [FoldoutGroup("MoreData")] public int Exp;
+    [FoldoutGroup("MoreData")] public int amountPet;
+    [FoldoutGroup("MoreData")] public int purchase;
+    [FoldoutGroup("MoreData")] public int mutiGold;
+    [FoldoutGroup("MoreData")] public int levelOpen;
+    [FoldoutGroup("MoreData")] public int distanceLvOpen;
+    [FoldoutGroup("MoreData")] public int amountOpen;
+    [FoldoutGroup("MoreData")] public Sprite iconStore;
 }

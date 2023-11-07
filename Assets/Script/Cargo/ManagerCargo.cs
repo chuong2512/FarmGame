@@ -450,7 +450,7 @@ public class ManagerCargo : MonoBehaviour
         {
             case 0: spr = ManagerData.instance.seeds.Seed[idYC].item; break;
             case 1: spr = ManagerData.instance.pets.Pet[idYC].itemPet.item; break;
-            case 2: spr = ManagerData.instance.facetoryItems.FacetoryItem[idYC].item; break;
+            case 2: spr = ManagerData.instance.facetoryItems.FacetoryItemDatas[idYC].item; break;
             case 3: spr = ManagerData.instance.trees.data[idYC].ItemTree.item; break;
         }
         return spr;
@@ -476,7 +476,7 @@ public class ManagerCargo : MonoBehaviour
         {
             case 0: coin += (int)(1.5 * amount * ManagerData.instance.seeds.Seed[iditem].sell); break;
             case 1: coin += (int)(1.5 * amount * ManagerData.instance.pets.Pet[iditem].itemPet.sell); break;
-            case 2: coin += (int)(1.5 * amount * ManagerData.instance.facetoryItems.FacetoryItem[iditem].sell); break;
+            case 2: coin += (int)(1.5 * amount * ManagerData.instance.facetoryItems.FacetoryItemDatas[iditem].sell); break;
             case 3: coin += (int)(1.5 * amount * ManagerData.instance.trees.data[iditem].ItemTree.sell); break;
         }
         return coin;
@@ -489,7 +489,7 @@ public class ManagerCargo : MonoBehaviour
         {
             case 0: exp += 2 * amount * ManagerData.instance.seeds.Seed[iditem].exp; break;
             case 1: exp += 2 * amount * ManagerData.instance.pets.Pet[iditem].detailPet.exp; break;
-            case 2: exp += 2 * amount * ManagerData.instance.facetoryItems.FacetoryItem[iditem].exp; break;
+            case 2: exp += 2 * amount * ManagerData.instance.facetoryItems.FacetoryItemDatas[iditem].exp; break;
             case 3: exp += 2 * amount * ManagerData.instance.trees.data[iditem].ItemTree.exp; break;
         }
         return exp;

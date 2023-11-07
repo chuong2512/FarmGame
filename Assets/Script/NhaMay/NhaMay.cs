@@ -199,14 +199,14 @@ public class NhaMay : MonoBehaviour
                     case 2:
                         ManagerAudio.instance.PlayAudio(Audio.Click);
                         MainCamera.instance.DisableAll();
-                        int quantiy = ManagerData.instance.facetoryItems.FacetoryItem[idItemDone[CountDone - 1]].quantity;
+                        int quantiy = ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemDone[CountDone - 1]].quantity;
                         if ((ManagerMarket.instance.QuantityItemDepot + quantiy) <= ManagerMarket.instance.QuantityTotalItemDepot)
                         {
                             if (CountDone > 1)
                             {
                                 CountDone -= 1;
                                 PlayerPrefs.SetInt("CountDone" + idNhaMay + "" + idSoNhaMay, CountDone);
-                                Experience.instance.registerExp(ManagerData.instance.facetoryItems.FacetoryItem[idItemDone[CountDone]].item, ManagerData.instance.facetoryItems.FacetoryItem[idItemDone[CountDone]].exp, ManagerData.instance.facetoryItems.FacetoryItem[idItemDone[CountDone]].quantity, IconItemDone[CountDone].transform.position);
+                                Experience.instance.registerExp(ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemDone[CountDone]].item, ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemDone[CountDone]].exp, ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemDone[CountDone]].quantity, IconItemDone[CountDone].transform.position);
                                 ManagerMarket.instance.ReciveItem(2, idItemDone[CountDone], quantiy, true);
                                 idItemDone[CountDone] = 0;
                                 PlayerPrefs.SetInt("IdItemDone" + idNhaMay + "" + idSoNhaMay + "" + CountDone, 0);
@@ -216,11 +216,11 @@ public class NhaMay : MonoBehaviour
                                     status = 2;
                                     PlayerPrefs.SetInt("StatusFactory" + idNhaMay + "" + idSoNhaMay, 0);
                                     if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                                        nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].name;
+                                        nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].name;
                                     else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                                        nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].nameINS;
-                                    else nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].engName;
-                                    int timeLive = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].time;
+                                        nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].nameINS;
+                                    else nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].engName;
+                                    int timeLive = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].time;
                                     timeItemFirst.text = ManagerGame.instance.TimeText(timeLive);
                                     LightingText.text = ManagerGame.instance.CalcalutorGem(timeLive).ToString();
                                     Lighting.SetActive(true);
@@ -237,8 +237,8 @@ public class NhaMay : MonoBehaviour
                                 PlayerPrefs.SetInt("StatusFactory" + idNhaMay + "" + idSoNhaMay, status);
                                 CountDone = CountDone - 1;
                                 PlayerPrefs.SetInt("CountDone" + idNhaMay + "" + idSoNhaMay, CountDone);
-                                Experience.instance.registerExp(ManagerData.instance.facetoryItems.FacetoryItem[idItemDone[CountDone]].item, ManagerData.instance.facetoryItems.FacetoryItem[idItemDone[CountDone]].exp, ManagerData.instance.facetoryItems.FacetoryItem[idItemDone[CountDone]].quantity, IconItemDone[CountDone].transform.position);
-                                ManagerMarket.instance.ReciveItem(2, idItemDone[CountDone], ManagerData.instance.facetoryItems.FacetoryItem[idItemDone[CountDone]].quantity, true);
+                                Experience.instance.registerExp(ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemDone[CountDone]].item, ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemDone[CountDone]].exp, ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemDone[CountDone]].quantity, IconItemDone[CountDone].transform.position);
+                                ManagerMarket.instance.ReciveItem(2, idItemDone[CountDone], ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemDone[CountDone]].quantity, true);
                                 idItemDone[CountDone] = 0;
                                 PlayerPrefs.SetInt("IdItemDone" + idNhaMay + "" + idSoNhaMay + "" + CountDone, 0);
                                 IconItemDone[CountDone].gameObject.SetActive(false);
@@ -287,17 +287,17 @@ public class NhaMay : MonoBehaviour
                 if (CountMFT < NumberMFTFinal)
                 {
                     itemStay = true;
-                    IconItemMFTImage[CountMFT].sprite = ManagerData.instance.facetoryItems.FacetoryItem[ManagerTool.instance.idItem].item;
+                    IconItemMFTImage[CountMFT].sprite = ManagerData.instance.facetoryItems.FacetoryItemDatas[ManagerTool.instance.idItem].item;
                     IconItemMFTImage[CountMFT].color = Color.white;
                     EmptyMFTText[CountMFT].text = "";
                     if (CountMFT == 0)
                     {
                         if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                            nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[ManagerTool.instance.idItem].name;
+                            nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[ManagerTool.instance.idItem].name;
                         else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                            nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[ManagerTool.instance.idItem].nameINS;
-                        else nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[ManagerTool.instance.idItem].engName;
-                        int timeLive = ManagerData.instance.facetoryItems.FacetoryItem[ManagerTool.instance.idItem].time;
+                            nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[ManagerTool.instance.idItem].nameINS;
+                        else nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[ManagerTool.instance.idItem].engName;
+                        int timeLive = ManagerData.instance.facetoryItems.FacetoryItemDatas[ManagerTool.instance.idItem].time;
                         timeItemFirst.text = ManagerGame.instance.TimeText(timeLive);
                     }
                 }
@@ -341,7 +341,7 @@ public class NhaMay : MonoBehaviour
                             PlayerPrefs.SetInt("IdItemMFT" + idNhaMay + "" + idSoNhaMay + "" + CountMFT, IdItemMFT[CountMFT]);
                             if (CountMFT == 0)
                             {
-                                int timeLive = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].time;
+                                int timeLive = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].time;
                                 timeItemFirst.text = ManagerGame.instance.TimeText(timeLive);
                                 LightingText.text = ManagerGame.instance.CalcalutorGem(timeLive).ToString();
                                 Lighting.SetActive(true);
@@ -412,7 +412,7 @@ public class NhaMay : MonoBehaviour
             PlayerPrefs.SetInt("StatusFactory" + idNhaMay + "" + idSoNhaMay, status);
             idItemDone[CountDone] = IdItemMFT[0];
             PlayerPrefs.SetInt("IdItemDone" + idNhaMay + "" + idSoNhaMay + "" + CountDone, idItemDone[CountDone]);
-            IconItemDone[CountDone].sprite = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].item;
+            IconItemDone[CountDone].sprite = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].item;
             IconItemDone[CountDone].gameObject.SetActive(true);
             CountDone += 1;
             PlayerPrefs.SetInt("CountDone" + idNhaMay + "" + idSoNhaMay, CountDone);
@@ -438,11 +438,11 @@ public class NhaMay : MonoBehaviour
                     }
                 }
                 if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                    nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].name;
+                    nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].name;
                 else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                    nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].nameINS;
-                else nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].engName;
-                int time = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].time;
+                    nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].nameINS;
+                else nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].engName;
+                int time = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].time;
                 timeItemFirst.text = ManagerGame.instance.TimeText(time);
                 if (CountDone < idItemDone.Length)
                 {
@@ -508,30 +508,30 @@ public class NhaMay : MonoBehaviour
     private bool CheckCondition(int id)
     {
         bool condition = true;
-        for (int i = 0; i < ManagerData.instance.facetoryItems.FacetoryItem[id].metarial.Length; i++)
+        for (int i = 0; i < ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial.Length; i++)
         {
-            if (ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].stypeIDYC == 0)
+            if (ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].stypeIDYC == 0)
             {
-                int AmountSeeds = ManagerMarket.instance.QuantityItemSeeds[ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].IdYc];
-                int AmountSeedsRequire = ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].Amount;
+                int AmountSeeds = ManagerMarket.instance.QuantityItemSeeds[ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].IdYc];
+                int AmountSeedsRequire = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].Amount;
                 if (AmountSeeds < AmountSeedsRequire) condition = false;
             }
-            else if (ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].stypeIDYC == 1)
+            else if (ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].stypeIDYC == 1)
             {
-                int AmountPets = ManagerMarket.instance.QuantityItemPets[ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].IdYc];
-                int AmountPetsRequire = ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].Amount;
+                int AmountPets = ManagerMarket.instance.QuantityItemPets[ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].IdYc];
+                int AmountPetsRequire = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].Amount;
                 if (AmountPets < AmountPetsRequire) condition = false;
             }
-            else if (ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].stypeIDYC == 2)
+            else if (ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].stypeIDYC == 2)
             {
-                int AmountItemFactory = ManagerMarket.instance.QuantityItemFactory[ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].IdYc];
-                int AmountItemFactoryRequire = ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].Amount;
+                int AmountItemFactory = ManagerMarket.instance.QuantityItemFactory[ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].IdYc];
+                int AmountItemFactoryRequire = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].Amount;
                 if (AmountItemFactory < AmountItemFactoryRequire) condition = false;
             }
-            else if (ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].stypeIDYC == 3)
+            else if (ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].stypeIDYC == 3)
             {
-                int AmountItemFactory = ManagerMarket.instance.QuantityItemOldTree[ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].IdYc];
-                int AmountItemFactoryRequire = ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].Amount;
+                int AmountItemFactory = ManagerMarket.instance.QuantityItemOldTree[ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].IdYc];
+                int AmountItemFactoryRequire = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].Amount;
                 if (AmountItemFactory < AmountItemFactoryRequire) condition = false;
             }
         }
@@ -540,11 +540,11 @@ public class NhaMay : MonoBehaviour
 
     void RegisterSxComplete(int id)
     {
-        for (int i = 0; i < ManagerData.instance.facetoryItems.FacetoryItem[id].metarial.Length; i++)
+        for (int i = 0; i < ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial.Length; i++)
         {
-            int idStype = ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].stypeIDYC;
-            int idYc = ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].IdYc;
-            int amount = ManagerData.instance.facetoryItems.FacetoryItem[id].metarial[i].Amount;
+            int idStype = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].stypeIDYC;
+            int idYc = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].IdYc;
+            int amount = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].metarial[i].Amount;
             ManagerMarket.instance.MinusItem(idStype, idYc, amount);
         }
     }
@@ -621,7 +621,7 @@ public class NhaMay : MonoBehaviour
                 PlayerPrefs.SetInt("StatusFactory" + idNhaMay + "" + idSoNhaMay, status);
                 idItemDone[CountDone] = IdItemMFT[0];
                 PlayerPrefs.SetInt("IdItemDone" + idNhaMay + "" + idSoNhaMay + "" + CountDone, idItemDone[CountDone]);
-                IconItemDone[CountDone].sprite = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].item;
+                IconItemDone[CountDone].sprite = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].item;
                 IconItemDone[CountDone].gameObject.SetActive(true);
                 CountDone += 1;
                 PlayerPrefs.SetInt("CountDone" + idNhaMay + "" + idSoNhaMay, CountDone);
@@ -647,9 +647,9 @@ public class NhaMay : MonoBehaviour
                         }
                     }
                     nameItemFirst.text = Application.systemLanguage == SystemLanguage.Vietnamese
-                        ? ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].name
-                        : ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].engName;
-                    int time = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].time;
+                        ? ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].name
+                        : ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].engName;
+                    int time = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].time;
                     timeItemFirst.text = ManagerGame.instance.TimeText(time);
                     if (CountDone < idItemDone.Length)
                     {
@@ -755,7 +755,7 @@ public class NhaMay : MonoBehaviour
             for (int i = 0; i < CountMFT; i++)
             {
                 IdItemMFT[i] = PlayerPrefs.GetInt("IdItemMFT" + idNhaMay + "" + idSoNhaMay + "" + i);
-                IconItemMFTImage[i].sprite = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[i]].item;
+                IconItemMFTImage[i].sprite = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[i]].item;
                 IconItemMFTImage[i].color = Color.white;
                 EmptyMFTText[i].text = "";
             }
@@ -763,7 +763,7 @@ public class NhaMay : MonoBehaviour
             for (int i = 0; i < CountDone; i++)
             {
                 idItemDone[i] = PlayerPrefs.GetInt("IdItemDone" + idNhaMay + "" + idSoNhaMay + "" + i);
-                IconItemDone[i].sprite = ManagerData.instance.facetoryItems.FacetoryItem[idItemDone[i]].item;
+                IconItemDone[i].sprite = ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemDone[i]].item;
                 IconItemDone[i].gameObject.SetActive(true);
             }
 
@@ -808,10 +808,10 @@ public class NhaMay : MonoBehaviour
         if (CountMFT == 1)
         {
             if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].name;
+                nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].name;
             else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].nameINS;
-            else nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].engName;
+                nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].nameINS;
+            else nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].engName;
             if (CountDone < idItemDone.Length)
             {
                 timeItemFirst.text = ManagerGame.instance.TimeText(-time);
@@ -833,7 +833,7 @@ public class NhaMay : MonoBehaviour
                     PlayerPrefs.SetInt("StatusFactory" + idNhaMay + "" + idSoNhaMay, status);
                     idItemDone[CountDone] = IdItemMFT[0];
                     PlayerPrefs.SetInt("IdItemDone" + idNhaMay + "" + idSoNhaMay + "" + CountDone, idItemDone[CountDone]);
-                    IconItemDone[CountDone].sprite = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].item;
+                    IconItemDone[CountDone].sprite = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].item;
                     IconItemDone[CountDone].gameObject.SetActive(true);
                     CountDone += 1;
                     PlayerPrefs.SetInt("CountDone" + idNhaMay + "" + idSoNhaMay, CountDone);
@@ -856,17 +856,17 @@ public class NhaMay : MonoBehaviour
                     }
                     CountMFT -= 1;
                     PlayerPrefs.SetInt("CountMFT" + idNhaMay + "" + idSoNhaMay, CountMFT);
-                    int timeNext = time - ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].time;
+                    int timeNext = time - ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].time;
                     LoadData(timeNext);
                 }
             }
             else if (time <= 0)
             {
                 if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                    nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].name;
+                    nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].name;
                 else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                    nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].nameINS;
-                else nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItem[IdItemMFT[0]].engName;
+                    nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].nameINS;
+                else nameItemFirst.text = ManagerData.instance.facetoryItems.FacetoryItemDatas[IdItemMFT[0]].engName;
                 if (CountDone < idItemDone.Length)
                 {
                     if (idNhaMay < 6) smoke.SetActive(true);
