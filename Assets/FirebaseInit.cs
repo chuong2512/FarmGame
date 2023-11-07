@@ -1,7 +1,7 @@
 using System;
 using NongTrai;
 
-public class FirebaseInit : Singleton<FirebaseInit>
+public class FirebaseInit : PersistentSingleton<FirebaseInit>
 {
     // Start is called before the first frame update
     void Start()

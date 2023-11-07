@@ -292,10 +292,30 @@ public class FortuneWheelManager : MonoBehaviour
 		// Show animated delta coins
 	}
 	
-	public void RewardSeeds (int awardCoins)
+	public void RewardSeeds (int amount, int id)
 	{
-		ManagerShop.instance.AddSeeds(awardCoins);
+		ManagerMarket.instance.ReciveItem(0, id, amount, true);
 		// Show animated delta coins
+	}
+
+	public void AddLua(int amount)
+	{
+		RewardSeeds(amount, 0);
+	}
+
+	public void AddNgo(int amount)
+	{
+		RewardSeeds(amount, 1);
+	}
+
+	public void AddBiNgo(int amount)
+	{
+		RewardSeeds(amount, 6);
+	}
+	
+	public void AddCaithao(int amount)
+	{
+		RewardSeeds(amount, 12);
 	}
 
 	// Hide coins delta text after animation
