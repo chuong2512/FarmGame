@@ -8,7 +8,6 @@ namespace NongTrai
     [DefaultExecutionOrder(-99)]
     public class ManagerCoin : Singleton<ManagerCoin>
     {
-        public static ManagerCoin Instance;
         [SerializeField] Text ShowGoldText;
         public Transform pointerGold;
         public GameObject goldFly;
