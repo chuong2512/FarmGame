@@ -7,8 +7,6 @@ namespace NongTrai
     [DefaultExecutionOrder(-99)]
     public class ManagerGem : Singleton<ManagerGem>
     {
-        public static ManagerGem Instance = null;
-
         [FormerlySerializedAs("ShowDiamondText")] [SerializeField]
         Text showDiamondText;
 
