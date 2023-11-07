@@ -104,14 +104,14 @@ namespace NongTrai
         public void ShowNameDepot()
         {
             if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                NameDepotText.text = "Kho Vật Phẩm " + ManagerMarket.instance.QuantityItemDepot + "/" +
-                                     ManagerMarket.instance.QuantityTotalItemDepot;
+                NameDepotText.text = "Kho Vật Phẩm " + ManagerMarket.instance.quantityItemDepot + "/" +
+                                     ManagerMarket.instance.quantityTotalItemDepot;
             else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                NameDepotText.text = "Penyimpanan Lumbung " + ManagerMarket.instance.QuantityItemDepot + "/" +
-                                     ManagerMarket.instance.QuantityTotalItemDepot;
+                NameDepotText.text = "Penyimpanan Lumbung " + ManagerMarket.instance.quantityItemDepot + "/" +
+                                     ManagerMarket.instance.quantityTotalItemDepot;
             else
-                NameDepotText.text = "Depot Item " + ManagerMarket.instance.QuantityItemDepot + "/" +
-                                     ManagerMarket.instance.QuantityTotalItemDepot;
+                NameDepotText.text = "Depot Item " + ManagerMarket.instance.quantityItemDepot + "/" +
+                                     ManagerMarket.instance.quantityTotalItemDepot;
         }
 
         private void ButtonUpdateText()

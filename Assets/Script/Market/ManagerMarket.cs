@@ -1,10 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using NongTrai;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace NongTrai
 {
+    [RequireComponent(typeof(Text))]
+    [RequireComponent(typeof(Image))]
     public class ManagerMarket : MonoBehaviour
     {
         public static ManagerMarket instance;
@@ -23,26 +28,26 @@ namespace NongTrai
 
         [HideInInspector] public int idAnimalFood;
         [HideInInspector] public int idItemFactoryAnimalUse;
-        [HideInInspector] public int QuantityItemTower;
-        [HideInInspector] public int QuantityTotalItemTower;
-        [HideInInspector] public int QuantityItemDepot;
-        [HideInInspector] public int QuantityTotalItemDepot;
+        [FormerlySerializedAs("QuantityItemTower")] [HideInInspector] public int quantityItemTower;
+        [NonSerialized] [HideInInspector] public int QuantityTotalItemTower;
+        [FormerlySerializedAs("QuantityItemDepot")] [HideInInspector] public int quantityItemDepot;
+        [FormerlySerializedAs("QuantityTotalItemDepot")] [HideInInspector] public int quantityTotalItemDepot;
 
         [Header("Warning")] [SerializeField] Text TitleWarningText;
         [SerializeField] Text NotificationWaringText;
-        [SerializeField] Image NotificationWarningImage;
+        [FormerlySerializedAs("NotificationWarningImage")] [SerializeField] Image notificationWarningImage;
         [SerializeField] GameObject Warning;
 
         [Header("Market")] [SerializeField] Sprite DepotNormal;
         [SerializeField] Sprite DepotChoose;
         [SerializeField] Text NameMarketText;
         [SerializeField] Text NameDepotText;
-        [SerializeField] Text SaleButtonText;
+        [FormerlySerializedAs("SaleButtonText")] [SerializeField] Text saleButtonText;
         [SerializeField] GameObject Market;
-        [SerializeField] GameObject Store;
-        [SerializeField] GameObject Depot;
+        [FormerlySerializedAs("Store")] [SerializeField] GameObject store;
+        [FormerlySerializedAs("Depot")] [SerializeField] GameObject depot;
         [SerializeField] GameObject HaveItem;
-        [SerializeField] Image[] DepotImage;
+        [FormerlySerializedAs("DepotImage")] [SerializeField] Image[] depotImage;
         [SerializeField] GameObject[] TypeDepot;
 
         [Header("Sale")] [SerializeField] Sprite CoinSprite;
@@ -107,40 +112,11 @@ namespace NongTrai
             else if (instance != this) Destroy(gameObject);
         }
 
-        void Start()
-        {
-            InitData();
-            InitShelves();
-            QuantityTotalItemTower = ManagerTower.instance.capacity;
-            QuantityTotalItemDepot = ManagerDepot.instance.capacity;
-            ManagerTower.instance.ShowNameTower();
-            ManagerDepot.instance.ShowNameDepot();
-            if (Application.systemLanguage == SystemLanguage.Vietnamese)
-            {
-                NameMarketText.text = "Chợ";
-                TitleWarningText.text = "Chú Ý!";
-                SaleButtonText.text = "Đưa ra bán";
-                NotificationWaringText.text = "Bạn sắp sử dụng hạt giống cuối cùng. Bạn có muốn tiếp tục?";
-            }
-            else if (Application.systemLanguage == SystemLanguage.Indonesian)
-            {
-                NameMarketText.text = "Pasar";
-                TitleWarningText.text = "Peringatan!";
-                SaleButtonText.text = "Jual Obral";
-                NotificationWaringText.text = "Kamu akan memakai hasil panen terakhir. Lanjutkan?";
-            }
-            else
-            {
-                NameMarketText.text = "Market";
-                TitleWarningText.text = "Warning!";
-                SaleButtonText.text = "Put on sale";
-                NotificationWaringText.text = "Are you about to use your last crops. Do you want proceed?";
-            }
-        }
+        
 
         public void UpgradeQuantityItemDepot()
         {
-            QuantityTotalItemDepot = ManagerDepot.instance.capacity;
+            quantityTotalItemDepot = ManagerDepot.instance.capacity;
         }
 
         public void UpgradeQuantityItemTower()
@@ -155,20 +131,20 @@ namespace NongTrai
             if (idDepot == 0)
             {
                 if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                    NameDepotText.text = "Tháp nông sản " + QuantityItemTower + "/" + QuantityTotalItemTower;
+                    NameDepotText.text = "Tháp nông sản " + quantityItemTower + "/" + QuantityTotalItemTower;
                 else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                    NameDepotText.text = "Penyimpanan Silo " + QuantityItemTower + "/" + QuantityTotalItemTower;
+                    NameDepotText.text = "Penyimpanan Silo " + quantityItemTower + "/" + QuantityTotalItemTower;
                 else
-                    NameDepotText.text = "Tower Agricultural " + QuantityItemTower + "/" + QuantityTotalItemTower;
+                    NameDepotText.text = "Tower Agricultural " + quantityItemTower + "/" + QuantityTotalItemTower;
             }
             else if (idDepot == 1)
             {
                 if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                    NameDepotText.text = "Kho Lưu Trữ " + QuantityItemDepot + "/" + QuantityTotalItemDepot;
+                    NameDepotText.text = "Kho Lưu Trữ " + quantityItemDepot + "/" + quantityTotalItemDepot;
                 else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                    NameDepotText.text = "Penyimpanan Lumbung " + QuantityItemDepot + "/" + QuantityTotalItemDepot;
+                    NameDepotText.text = "Penyimpanan Lumbung " + quantityItemDepot + "/" + quantityTotalItemDepot;
                 else
-                    NameDepotText.text = "Barn Storage " + QuantityItemDepot + "/" + QuantityTotalItemDepot;
+                    NameDepotText.text = "Barn Storage " + quantityItemDepot + "/" + quantityTotalItemDepot;
             }
 
             Market.SetActive(true);
@@ -190,8 +166,8 @@ namespace NongTrai
             QuantityItemSaleText.text = "";
             if (ItemSaleImage.sprite != null) ItemSaleImage.sprite = null;
             if (ItemSaleImage.color == Color.white) ItemSaleImage.color = new Color(1f, 1f, 1f, 0f);
-            Depot.SetActive(false);
-            Store.SetActive(true);
+            depot.SetActive(false);
+            store.SetActive(true);
         }
 
         public void ButtonCloseMarket()
@@ -207,8 +183,8 @@ namespace NongTrai
             {
                 case 0:
                     idShelves = id;
-                    Store.SetActive(false);
-                    Depot.SetActive(true);
+                    store.SetActive(false);
+                    depot.SetActive(true);
                     break;
                 case 1:
 
@@ -232,6 +208,39 @@ namespace NongTrai
             ManagerAudio.Instance.PlayAudio(Audio.ClickExit);
             CloseDepot();
         }
+        
+        
+        void Start()
+        {
+            NameDepotText = GetComponent<Text>();
+            InitData();
+            InitShelves();
+            QuantityTotalItemTower = ManagerTower.instance.capacity;
+            quantityTotalItemDepot = ManagerDepot.instance.capacity;
+            ManagerTower.instance.ShowNameTower();
+            ManagerDepot.instance.ShowNameDepot();
+            if (Application.systemLanguage == SystemLanguage.Vietnamese)
+            {
+                NameMarketText.text = "Chợ";
+                TitleWarningText.text = "Chú Ý!";
+                saleButtonText.text = "Đưa ra bán";
+                NotificationWaringText.text = "Bạn sắp sử dụng hạt giống cuối cùng. Bạn có muốn tiếp tục?";
+            }
+            else if (Application.systemLanguage == SystemLanguage.Indonesian)
+            {
+                NameMarketText.text = "Pasar";
+                TitleWarningText.text = "Peringatan!";
+                saleButtonText.text = "Jual Obral";
+                NotificationWaringText.text = "Kamu akan memakai hasil panen terakhir. Lanjutkan?";
+            }
+            else
+            {
+                NameMarketText.text = "Market";
+                TitleWarningText.text = "Warning!";
+                saleButtonText.text = "Put on sale";
+                NotificationWaringText.text = "Are you about to use your last crops. Do you want proceed?";
+            }
+        }
 
         public void ButtonTypeDepot(int id)
         {
@@ -239,30 +248,28 @@ namespace NongTrai
             if (idDepot != id)
             {
                 clickItem = false;
-                DepotImage[idDepot].sprite = DepotNormal;
+                depotImage[idDepot].sprite = DepotNormal;
                 TypeDepot[idDepot].SetActive(false);
                 idDepot = id;
-                DepotImage[idDepot].sprite = DepotChoose;
+                depotImage[idDepot].sprite = DepotChoose;
                 TypeDepot[idDepot].SetActive(true);
                 NameItemSaleText.text = "";
                 QuantityItemSaleText.text = "";
                 QuantityGoldGotSaleItemText.text = "0";
-                if (idDepot == 0)
+                NameDepotText.text = idDepot switch
                 {
-                    if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                        NameDepotText.text = "Tháp nông sản " + QuantityItemTower + "/" + QuantityTotalItemTower;
-                    else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                        NameDepotText.text = "Penyimpanan Silo " + QuantityItemTower + "/" + QuantityTotalItemTower;
-                    else NameDepotText.text = "Tower Agricultural " + QuantityItemTower + "/" + QuantityTotalItemTower;
-                }
-                else if (idDepot == 1)
-                {
-                    if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                        NameDepotText.text = "Kho Lưu Trữ " + QuantityItemDepot + "/" + QuantityTotalItemDepot;
-                    else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                        NameDepotText.text = "Penyimpanan Lumbung " + QuantityItemDepot + "/" + QuantityTotalItemDepot;
-                    else NameDepotText.text = "Barn Storage " + QuantityItemDepot + "/" + QuantityTotalItemDepot;
-                }
+                    0 when Application.systemLanguage == SystemLanguage.Vietnamese => "Tháp nông sản " +
+                        quantityItemTower + "/" + QuantityTotalItemTower,
+                    0 when Application.systemLanguage == SystemLanguage.Indonesian => "Penyimpanan Silo " +
+                        quantityItemTower + "/" + QuantityTotalItemTower,
+                    0 => "Tower Agricultural " + quantityItemTower + "/" + QuantityTotalItemTower,
+                    1 when Application.systemLanguage == SystemLanguage.Vietnamese => "Kho Lưu Trữ " +
+                        quantityItemDepot + "/" + quantityTotalItemDepot,
+                    1 when Application.systemLanguage == SystemLanguage.Indonesian => "Penyimpanan Lumbung " +
+                        quantityItemDepot + "/" + quantityTotalItemDepot,
+                    1 => "Barn Storage " + quantityItemDepot + "/" + quantityTotalItemDepot,
+                    _ => NameDepotText.text
+                };
 
                 if (ItemSaleImage.color == Color.white) ItemSaleImage.color = new Color(1f, 1f, 1f, 0f);
             }
@@ -278,11 +285,12 @@ namespace NongTrai
             switch (idTypeItemSale)
             {
                 case 0:
-                    if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                        NameItemSaleText.text = ManagerData.instance.seeds.SeedDatas[idItemSale].name;
-                    else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                        NameItemSaleText.text = ManagerData.instance.seeds.SeedDatas[idItemSale].nameINS;
-                    else NameItemSaleText.text = ManagerData.instance.seeds.SeedDatas[idItemSale].engName;
+                    NameItemSaleText.text = Application.systemLanguage switch
+                    {
+                        SystemLanguage.Vietnamese => ManagerData.instance.seeds.SeedDatas[idItemSale].name,
+                        SystemLanguage.Indonesian => ManagerData.instance.seeds.SeedDatas[idItemSale].nameINS,
+                        _ => ManagerData.instance.seeds.SeedDatas[idItemSale].engName
+                    };
                     ItemSaleImage.sprite = ManagerData.instance.seeds.SeedDatas[idItemSale].item;
                     if (QuantityItemSeeds[idItemSale] > 1) QuantitySaleItem = QuantityItemSeeds[idItemSale] / 2;
                     else QuantitySaleItem = QuantityItemSeeds[idItemSale];
@@ -314,11 +322,12 @@ namespace NongTrai
                     ShowGoldGotSale();
                     break;
                 case 3:
-                    if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                        NameItemSaleText.text = ManagerData.instance.trees.data[idItemSale].ItemTree.name;
-                    else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                        NameItemSaleText.text = ManagerData.instance.trees.data[idItemSale].ItemTree.nameINS;
-                    else NameItemSaleText.text = ManagerData.instance.trees.data[idItemSale].ItemTree.engName;
+                    NameItemSaleText.text = Application.systemLanguage switch
+                    {
+                        SystemLanguage.Vietnamese => ManagerData.instance.trees.data[idItemSale].ItemTree.name,
+                        SystemLanguage.Indonesian => ManagerData.instance.trees.data[idItemSale].ItemTree.nameINS,
+                        _ => ManagerData.instance.trees.data[idItemSale].ItemTree.engName
+                    };
                     ItemSaleImage.sprite = ManagerData.instance.trees.data[idItemSale].ItemTree.item;
                     if (QuantityItemOldTree[idItemSale] > 1) QuantitySaleItem = QuantityItemOldTree[idItemSale] / 2;
                     else QuantitySaleItem = QuantityItemOldTree[idItemSale];
@@ -465,59 +474,7 @@ namespace NongTrai
             PlayerPrefs.SetInt("StatusBuySeeds" + id, 0);
         }
 
-        private void FinishSale()
-        {
-            StatusShalves[idShelves] = 1;
-            PlayerPrefs.SetInt("StatusShalves" + idShelves, 1);
-            IdStypeShalves[idShelves] = idTypeItemSale;
-            PlayerPrefs.SetInt("IdStypeShalves" + idShelves, IdStypeShalves[idShelves]);
-            idItemShaleves[idShelves] = idItemSale;
-            PlayerPrefs.SetInt("idItemShaleves" + idShelves, idItemShaleves[idShelves]);
-            QuantityItemShalves[idShelves] = QuantitySaleItem;
-            PlayerPrefs.SetInt("QuantityItemShalves" + idShelves, QuantityItemShalves[idShelves]);
-            CoinShalves[idShelves] = GoldGotSaleItem;
-            PlayerPrefs.SetInt("CoinShalves" + idShelves, CoinShalves[idShelves]);
-            switch (idTypeItemSale)
-            {
-                case 0:
-                    ItemShalvesImage[idShelves].sprite = ManagerData.instance.seeds.SeedDatas[idItemSale].item;
-                    break;
-                case 1:
-                    ItemShalvesImage[idShelves].sprite =
-                        ManagerData.instance.petCollection.Pet[idItemSale].itemPet.item;
-                    break;
-                case 2:
-                    ItemShalvesImage[idShelves].sprite =
-                        ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemSale].item;
-                    break;
-                case 3:
-                    ItemShalvesImage[idShelves].sprite = ManagerData.instance.trees.data[idItemSale].ItemTree.item;
-                    break;
-                case 4:
-                    ItemShalvesImage[idShelves].sprite = ManagerData.instance.itemBuildings.Data[idItemSale].Icon;
-                    break;
-                case 5:
-                    ItemShalvesImage[idShelves].sprite = ManagerData.instance.toolDecorate.Datas[idItemSale].Icon;
-                    break;
-                case 6:
-                    ItemShalvesImage[idShelves].sprite =
-                        ManagerData.instance.flowers.Data[idItemSale].DetailItemFlower.item;
-                    break;
-            }
-
-            ItemShalvesImage[idShelves].color = Color.white;
-            QuantityItemShalvesText[idShelves].text = "x" + QuantityItemShalves[idShelves];
-            PriceItemShalvesText[idShelves].text = CoinShalves[idShelves].ToString();
-            MinusItem(IdStypeShalves[idShelves], idItemShaleves[idShelves], QuantityItemShalves[idShelves]);
-            int randomTime = Random.Range(60, 300);
-            TimeSellShalves[idShelves] = randomTime;
-            PlayerPrefs.SetInt("TimeSellShalves" + idShelves, TimeSellShalves[idShelves]);
-            PlayerPrefs.SetInt("TimeLastShelves" + idShelves, ManagerGame.Instance.RealTime());
-            IETimeShalves[idShelves] = WaitSaleItem(idShelves);
-            StartCoroutine(IETimeShalves[idShelves]);
-            CloseDepot();
-        }
-
+        
         IEnumerator WaitSaleItem(int id)
         {
             yield return new WaitForSeconds(1f);
@@ -621,6 +578,61 @@ namespace NongTrai
             }
         }
 
+        
+        private void FinishSale()
+        {
+            StatusShalves[idShelves] = 1;
+            PlayerPrefs.SetInt("StatusShalves" + idShelves, 1);
+            IdStypeShalves[idShelves] = idTypeItemSale;
+            PlayerPrefs.SetInt("IdStypeShalves" + idShelves, IdStypeShalves[idShelves]);
+            idItemShaleves[idShelves] = idItemSale;
+            PlayerPrefs.SetInt("idItemShaleves" + idShelves, idItemShaleves[idShelves]);
+            QuantityItemShalves[idShelves] = QuantitySaleItem;
+            PlayerPrefs.SetInt("QuantityItemShalves" + idShelves, QuantityItemShalves[idShelves]);
+            CoinShalves[idShelves] = GoldGotSaleItem;
+            PlayerPrefs.SetInt("CoinShalves" + idShelves, CoinShalves[idShelves]);
+            switch (idTypeItemSale)
+            {
+                case 0:
+                    ItemShalvesImage[idShelves].sprite = ManagerData.instance.seeds.SeedDatas[idItemSale].item;
+                    break;
+                case 1:
+                    ItemShalvesImage[idShelves].sprite =
+                        ManagerData.instance.petCollection.Pet[idItemSale].itemPet.item;
+                    break;
+                case 2:
+                    ItemShalvesImage[idShelves].sprite =
+                        ManagerData.instance.facetoryItems.FacetoryItemDatas[idItemSale].item;
+                    break;
+                case 3:
+                    ItemShalvesImage[idShelves].sprite = ManagerData.instance.trees.data[idItemSale].ItemTree.item;
+                    break;
+                case 4:
+                    ItemShalvesImage[idShelves].sprite = ManagerData.instance.itemBuildings.Data[idItemSale].Icon;
+                    break;
+                case 5:
+                    ItemShalvesImage[idShelves].sprite = ManagerData.instance.toolDecorate.Datas[idItemSale].Icon;
+                    break;
+                case 6:
+                    ItemShalvesImage[idShelves].sprite =
+                        ManagerData.instance.flowers.Data[idItemSale].DetailItemFlower.item;
+                    break;
+            }
+
+            ItemShalvesImage[idShelves].color = Color.white;
+            QuantityItemShalvesText[idShelves].text = "x" + QuantityItemShalves[idShelves];
+            PriceItemShalvesText[idShelves].text = CoinShalves[idShelves].ToString();
+            MinusItem(IdStypeShalves[idShelves], idItemShaleves[idShelves], QuantityItemShalves[idShelves]);
+            int randomTime = Random.Range(60, 300);
+            TimeSellShalves[idShelves] = randomTime;
+            PlayerPrefs.SetInt("TimeSellShalves" + idShelves, TimeSellShalves[idShelves]);
+            PlayerPrefs.SetInt("TimeLastShelves" + idShelves, ManagerGame.Instance.RealTime());
+            IETimeShalves[idShelves] = WaitSaleItem(idShelves);
+            StartCoroutine(IETimeShalves[idShelves]);
+            CloseDepot();
+        }
+
+        
         public void ReciveItem(int idstype, int iditem, int amount, bool show)
         {
             FirebaseInit.Instance.LogFirebase(() =>
@@ -634,7 +646,7 @@ namespace NongTrai
                 case 0:
                     QuantityItemSeeds[iditem] += amount;
                     PlayerPrefs.SetInt("QuantityItemSeeds" + iditem, QuantityItemSeeds[iditem]);
-                    QuantityItemTower += amount;
+                    quantityItemTower += amount;
                     ManagerTower.instance.ShowNameTower();
                     if (show == true) Notification.Instance.dialogTower();
                     txtQuantityItemSeeds[iditem].text = "" + QuantityItemSeeds[iditem];
@@ -647,7 +659,7 @@ namespace NongTrai
                 case 1:
                     QuantityItemPets[iditem] += amount;
                     PlayerPrefs.SetInt("QuantityItemPets" + iditem, QuantityItemPets[iditem]);
-                    QuantityItemDepot += amount;
+                    quantityItemDepot += amount;
                     ManagerDepot.instance.ShowNameDepot();
                     if (show == true) Notification.Instance.dialogDepot();
                     txtQuantityItemPet[iditem].text = "" + QuantityItemPets[iditem];
@@ -659,7 +671,7 @@ namespace NongTrai
                 case 2:
                     QuantityItemFactory[iditem] += amount;
                     PlayerPrefs.SetInt("QuantityItemFactory" + iditem, QuantityItemFactory[iditem]);
-                    QuantityItemDepot += amount;
+                    quantityItemDepot += amount;
                     ManagerDepot.instance.ShowNameDepot();
                     if (show == true) Notification.Instance.dialogDepot();
                     txtQuantityItemFactory[iditem].text = "" + QuantityItemFactory[iditem];
@@ -672,7 +684,7 @@ namespace NongTrai
                 case 3:
                     QuantityItemOldTree[iditem] += amount;
                     PlayerPrefs.SetInt("QuantityItemOldTree" + iditem, QuantityItemOldTree[iditem]);
-                    QuantityItemTower += amount;
+                    quantityItemTower += amount;
                     ManagerTower.instance.ShowNameTower();
                     if (show == true) Notification.Instance.dialogTower();
                     txtQuantityItemOldTree[iditem].text = "" + QuantityItemOldTree[iditem];
@@ -684,7 +696,7 @@ namespace NongTrai
                 case 4:
                     QuantityItemBuilding[iditem] += amount;
                     PlayerPrefs.SetInt("QuantityItemBuilding" + iditem, QuantityItemBuilding[iditem]);
-                    QuantityItemDepot += amount;
+                    quantityItemDepot += amount;
                     ManagerDepot.instance.ShowNameDepot();
                     if (show == true) Notification.Instance.dialogDepot();
                     txtQuantityItemBuilding[iditem].text = "" + QuantityItemBuilding[iditem];
@@ -695,7 +707,7 @@ namespace NongTrai
                 case 5:
                     QuantityToolDecorate[iditem] += amount;
                     PlayerPrefs.SetInt("QuantityToolDecorate" + iditem, QuantityToolDecorate[iditem]);
-                    QuantityItemDepot += amount;
+                    quantityItemDepot += amount;
                     ManagerDepot.instance.ShowNameDepot();
                     if (show == true) Notification.Instance.dialogDepot();
                     txtQuantityToolDecorate[iditem].text = "" + QuantityToolDecorate[iditem];
@@ -707,7 +719,7 @@ namespace NongTrai
                 case 6:
                     QuantityItemFlower[iditem] += amount;
                     PlayerPrefs.SetInt("QuantityItemFlowers" + iditem, QuantityItemFlower[iditem]);
-                    QuantityItemTower += amount;
+                    quantityItemTower += amount;
                     ManagerTower.instance.ShowNameTower();
                     if (show == true) Notification.Instance.dialogDepot();
                     txtQuantityItemFlower[iditem].text = "" + QuantityItemFlower[iditem];
@@ -726,7 +738,7 @@ namespace NongTrai
                 case 0:
                     QuantityItemSeeds[iditem] -= amount;
                     PlayerPrefs.SetInt("QuantityItemSeeds" + iditem, QuantityItemSeeds[iditem]);
-                    QuantityItemTower -= amount;
+                    quantityItemTower -= amount;
                     ManagerTower.instance.ShowNameTower();
                     txtQuantityItemSeeds[iditem].text = "" + QuantityItemSeeds[iditem];
                     txtQuantitySeedsCrop[iditem].text = "" + QuantityItemSeeds[iditem];
@@ -738,7 +750,7 @@ namespace NongTrai
                 case 1:
                     QuantityItemPets[iditem] -= amount;
                     PlayerPrefs.SetInt("QuantityItemPets" + iditem, QuantityItemPets[iditem]);
-                    QuantityItemDepot -= amount;
+                    quantityItemDepot -= amount;
                     ManagerDepot.instance.ShowNameDepot();
                     txtQuantityItemPet[iditem].text = "" + QuantityItemPets[iditem];
                     txtQuantitySeedsCrop[iditem].text = "" + QuantityItemSeeds[iditem];
@@ -750,7 +762,7 @@ namespace NongTrai
                 case 2:
                     QuantityItemFactory[iditem] -= amount;
                     PlayerPrefs.SetInt("QuantityItemFactory" + iditem, QuantityItemFactory[iditem]);
-                    QuantityItemDepot -= amount;
+                    quantityItemDepot -= amount;
                     ManagerDepot.instance.ShowNameDepot();
                     txtQuantityItemFactory[iditem].text = "" + QuantityItemFactory[iditem];
                     ManagerDepot.instance.ShowQuantity(idstype, iditem, QuantityItemFactory[iditem]);
@@ -762,7 +774,7 @@ namespace NongTrai
                 case 3:
                     QuantityItemOldTree[iditem] -= amount;
                     PlayerPrefs.SetInt("QuantityItemOldTree" + iditem, QuantityItemOldTree[iditem]);
-                    QuantityItemTower -= amount;
+                    quantityItemTower -= amount;
                     ManagerTower.instance.ShowNameTower();
                     txtQuantityItemOldTree[iditem].text = "" + QuantityItemOldTree[iditem];
                     ManagerTower.instance.ShowQuantity(idstype, iditem, QuantityItemOldTree[iditem]);
@@ -773,7 +785,7 @@ namespace NongTrai
                 case 4:
                     QuantityItemBuilding[iditem] -= amount;
                     PlayerPrefs.SetInt("QuantityItemBuilding" + iditem, QuantityItemBuilding[iditem]);
-                    QuantityItemDepot -= amount;
+                    quantityItemDepot -= amount;
                     ManagerDepot.instance.ShowNameDepot();
                     txtQuantityItemBuilding[iditem].text = "" + QuantityItemBuilding[iditem];
                     ManagerDepot.instance.ShowQuantity(idstype, iditem, QuantityItemBuilding[iditem]);
@@ -783,7 +795,7 @@ namespace NongTrai
                 case 5:
                     QuantityToolDecorate[iditem] -= amount;
                     PlayerPrefs.SetInt("QuantityToolDecorate" + iditem, QuantityToolDecorate[iditem]);
-                    QuantityItemDepot -= amount;
+                    quantityItemDepot -= amount;
                     ManagerDepot.instance.ShowNameDepot();
                     Notification.Instance.dialogDepot();
                     txtQuantityToolDecorate[iditem].text = "" + QuantityToolDecorate[iditem];
@@ -795,7 +807,7 @@ namespace NongTrai
                 case 6:
                     QuantityItemFlower[iditem] -= amount;
                     PlayerPrefs.SetInt("QuantityItemFlowers" + iditem, QuantityItemFlower[iditem]);
-                    QuantityItemTower -= amount;
+                    quantityItemTower -= amount;
                     ManagerTower.instance.ShowNameTower();
                     Notification.Instance.dialogDepot();
                     txtQuantityItemFlower[iditem].text = "" + QuantityItemFlower[iditem];
@@ -837,8 +849,8 @@ namespace NongTrai
 
         private void RegisterWaring()
         {
-            NotificationWarningImage.sprite = IconItem(idTypeItemSale, idItemSale);
-            Depot.SetActive(false);
+            notificationWarningImage.sprite = IconItem(idTypeItemSale, idItemSale);
+            depot.SetActive(false);
             Warning.SetActive(true);
         }
 
@@ -859,7 +871,7 @@ namespace NongTrai
             QuantityGoldGotSaleItemText.text = "0";
             if (ItemSaleImage.color == Color.white) ItemSaleImage.color = new Color(1f, 1f, 1f, 0f);
             Warning.SetActive(false);
-            Depot.SetActive(true);
+            depot.SetActive(true);
         }
 
         public int AmountItem(int idStype, int idItem)
@@ -913,7 +925,7 @@ namespace NongTrai
                 if (PlayerPrefs.HasKey("QuantityItemSeeds" + i) == true)
                 {
                     QuantityItemSeeds[i] = PlayerPrefs.GetInt("QuantityItemSeeds" + i);
-                    QuantityItemTower += QuantityItemSeeds[i];
+                    quantityItemTower += QuantityItemSeeds[i];
                     txtQuantityItemSeeds[i].text = "" + QuantityItemSeeds[i];
                     txtQuantitySeedsCrop[i].text = "" + QuantityItemSeeds[i];
                     ManagerTower.instance.ShowQuantity(0, i, QuantityItemSeeds[i]);
@@ -928,7 +940,7 @@ namespace NongTrai
                 else if (PlayerPrefs.HasKey("QuantityItemSeeds" + i) == false)
                 {
                     QuantityItemSeeds[i] = ManagerData.instance.seeds.SeedDatas[i].ValueStart;
-                    QuantityItemTower += QuantityItemSeeds[i];
+                    quantityItemTower += QuantityItemSeeds[i];
                     txtQuantityItemSeeds[i].text = "" + QuantityItemSeeds[i];
                     txtQuantitySeedsCrop[i].text = "" + QuantityItemSeeds[i];
                     ManagerTower.instance.ShowQuantity(0, i, QuantityItemSeeds[i]);
@@ -944,14 +956,14 @@ namespace NongTrai
                 if (PlayerPrefs.HasKey("QuantityItemPets" + i))
                 {
                     QuantityItemPets[i] = PlayerPrefs.GetInt("QuantityItemPets" + i);
-                    QuantityItemDepot += QuantityItemPets[i];
+                    quantityItemDepot += QuantityItemPets[i];
                     txtQuantityItemPet[i].text = "" + QuantityItemPets[i];
                     ManagerDepot.instance.ShowQuantity(1, i, QuantityItemPets[i]);
                     if (QuantityItemPets[i] > 0) itemPet[i].SetActive(true);
                 }
                 else
                 {
-                    QuantityItemDepot += QuantityItemPets[i];
+                    quantityItemDepot += QuantityItemPets[i];
                     txtQuantityItemPet[i].text = "" + QuantityItemPets[i];
                     ManagerDepot.instance.ShowQuantity(1, i, QuantityItemPets[i]);
                     PlayerPrefs.SetInt("QuantityItemPets" + i, QuantityItemPets[i]);
@@ -963,7 +975,7 @@ namespace NongTrai
                 if (PlayerPrefs.HasKey("QuantityItemFactory" + i))
                 {
                     QuantityItemFactory[i] = PlayerPrefs.GetInt("QuantityItemFactory" + i);
-                    QuantityItemDepot += QuantityItemFactory[i];
+                    quantityItemDepot += QuantityItemFactory[i];
                     txtQuantityItemFactory[i].text = "" + QuantityItemFactory[i];
                     ManagerDepot.instance.ShowQuantity(2, i, QuantityItemFactory[i]);
                     if (QuantityItemFactory[i] > 0) itemFactory[i].SetActive(true);
@@ -973,7 +985,7 @@ namespace NongTrai
                 {
                     QuantityItemFactory[i] = ManagerData.instance.facetoryItems.FacetoryItemDatas[i].valueStart;
                     PlayerPrefs.SetInt("QuantityItemFactory" + i, QuantityItemFactory[i]);
-                    QuantityItemDepot += QuantityItemFactory[i];
+                    quantityItemDepot += QuantityItemFactory[i];
                     txtQuantityItemFactory[i].text = "" + QuantityItemFactory[i];
                     ManagerDepot.instance.ShowQuantity(2, i, QuantityItemFactory[i]);
                     if (QuantityItemFactory[i] > 0) itemFactory[i].SetActive(true);
@@ -986,14 +998,14 @@ namespace NongTrai
                 if (PlayerPrefs.HasKey("QuantityItemOldTree" + i) == true)
                 {
                     QuantityItemOldTree[i] = PlayerPrefs.GetInt("QuantityItemOldTree" + i);
-                    QuantityItemTower += QuantityItemOldTree[i];
+                    quantityItemTower += QuantityItemOldTree[i];
                     txtQuantityItemOldTree[i].text = "" + QuantityItemOldTree[i];
                     ManagerTower.instance.ShowQuantity(3, i, QuantityItemOldTree[i]);
                     if (QuantityItemOldTree[i] > 0) itemOldTree[i].SetActive(true);
                 }
                 else if (PlayerPrefs.HasKey("QuantityItemOldTree" + i) == false)
                 {
-                    QuantityItemTower += QuantityItemOldTree[i];
+                    quantityItemTower += QuantityItemOldTree[i];
                     txtQuantityItemOldTree[i].text = "" + QuantityItemOldTree[i];
                     ManagerTower.instance.ShowQuantity(3, i, QuantityItemOldTree[i]);
                     PlayerPrefs.SetInt("QuantityItemOldTree" + i, QuantityItemOldTree[i]);
@@ -1005,7 +1017,7 @@ namespace NongTrai
                 if (PlayerPrefs.HasKey("QuantityItemBuilding" + i))
                 {
                     QuantityItemBuilding[i] = PlayerPrefs.GetInt("QuantityItemBuilding" + i);
-                    QuantityItemDepot += QuantityItemBuilding[i];
+                    quantityItemDepot += QuantityItemBuilding[i];
                     txtQuantityItemBuilding[i].text = "" + QuantityItemBuilding[i];
                     ManagerDepot.instance.ShowQuantity(4, i, QuantityItemBuilding[i]);
                     if (QuantityItemBuilding[i] > 0) itemItemBuilding[i].SetActive(true);
@@ -1013,7 +1025,7 @@ namespace NongTrai
                 else
                 {
                     QuantityItemBuilding[i] = ManagerData.instance.itemBuildings.Data[i].ValueStart;
-                    QuantityItemDepot += QuantityItemBuilding[i];
+                    quantityItemDepot += QuantityItemBuilding[i];
                     txtQuantityItemBuilding[i].text = "" + QuantityItemBuilding[i];
                     ManagerDepot.instance.ShowQuantity(4, i, QuantityItemBuilding[i]);
                     PlayerPrefs.SetInt("QuantityItemBuilding" + i, QuantityItemBuilding[i]);
@@ -1025,7 +1037,7 @@ namespace NongTrai
                 if (PlayerPrefs.HasKey("QuantityToolDecorate" + i) == true)
                 {
                     QuantityToolDecorate[i] = PlayerPrefs.GetInt("QuantityToolDecorate" + i);
-                    QuantityItemDepot += QuantityToolDecorate[i];
+                    quantityItemDepot += QuantityToolDecorate[i];
                     txtQuantityToolDecorate[i].text = "" + QuantityToolDecorate[i];
                     txtQuantityToolDecorateWS[i].text = "" + QuantityToolDecorate[i];
                     ManagerDepot.instance.ShowQuantity(5, i, QuantityToolDecorate[i]);
@@ -1034,7 +1046,7 @@ namespace NongTrai
                 else if (PlayerPrefs.HasKey("QuantityToolDecorate" + i) == false)
                 {
                     QuantityToolDecorate[i] = ManagerData.instance.toolDecorate.Datas[i].ValueStart;
-                    QuantityItemDepot += QuantityToolDecorate[i];
+                    quantityItemDepot += QuantityToolDecorate[i];
                     txtQuantityToolDecorate[i].text = "" + QuantityToolDecorate[i];
                     txtQuantityToolDecorateWS[i].text = "" + QuantityToolDecorate[i];
                     ManagerDepot.instance.ShowQuantity(5, i, QuantityToolDecorate[i]);
@@ -1047,7 +1059,7 @@ namespace NongTrai
                 if (PlayerPrefs.HasKey("QuantityItemFlowers" + i) == true)
                 {
                     QuantityItemFlower[i] = PlayerPrefs.GetInt("QuantityItemFlowers" + i);
-                    QuantityItemTower += QuantityItemFlower[i];
+                    quantityItemTower += QuantityItemFlower[i];
                     txtQuantityItemFlower[i].text = "" + QuantityItemFlower[i];
                     txtQuantityFlowerCrop[i].text = "" + QuantityItemFlower[i];
                     ManagerTower.instance.ShowQuantity(6, i, QuantityItemFlower[i]);
@@ -1057,7 +1069,7 @@ namespace NongTrai
                 {
                     QuantityItemFlower[i] = ManagerData.instance.flowers.Data[i].detailFlower.ValueStart;
                     PlayerPrefs.SetInt("QuantityItemFlowers" + i, QuantityItemFlower[i]);
-                    QuantityItemTower += QuantityItemFlower[i];
+                    quantityItemTower += QuantityItemFlower[i];
                     txtQuantityItemFlower[i].text = "" + QuantityItemFlower[i];
                     txtQuantityFlowerCrop[i].text = "" + QuantityItemFlower[i];
                     ManagerTower.instance.ShowQuantity(6, i, QuantityItemFlower[i]);

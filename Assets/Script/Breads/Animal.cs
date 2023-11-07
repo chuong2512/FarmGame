@@ -171,7 +171,7 @@
             if (other.tag == "HarvestBread" && status == 2 && ManagerTool.instance.idToodHarvestBread == idBread &&
                 ManagerTool.instance.dragging == true)
             {
-                if (ManagerMarket.instance.QuantityItemDepot < ManagerMarket.instance.QuantityTotalItemDepot)
+                if (ManagerMarket.instance.quantityItemDepot < ManagerMarket.instance.quantityTotalItemDepot)
                 {
                     status = 0;
                     PlayerPrefs.SetInt("StatusAnimal" + idBread + "" + idAmountBreads + "" + idAmountAnimal, 0);

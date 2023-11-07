@@ -98,13 +98,13 @@ namespace NongTrai
         public void ShowNameTower()
         {
             if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                NameTowerText.text = "Tháp Nông Sản " + ManagerMarket.instance.QuantityItemTower + "/" +
+                NameTowerText.text = "Tháp Nông Sản " + ManagerMarket.instance.quantityItemTower + "/" +
                                      ManagerMarket.instance.QuantityTotalItemTower;
             else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                NameTowerText.text = "Penyimpanan Silo " + ManagerMarket.instance.QuantityItemTower + "/" +
+                NameTowerText.text = "Penyimpanan Silo " + ManagerMarket.instance.quantityItemTower + "/" +
                                      ManagerMarket.instance.QuantityTotalItemTower;
             else
-                NameTowerText.text = "Farm Item " + ManagerMarket.instance.QuantityItemTower + "/" +
+                NameTowerText.text = "Farm Item " + ManagerMarket.instance.quantityItemTower + "/" +
                                      ManagerMarket.instance.QuantityTotalItemTower;
         }
 

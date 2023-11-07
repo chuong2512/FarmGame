@@ -279,7 +279,7 @@ namespace NongTrai
                 (idRuong == ManagerTool.instance.idRuong || ManagerTool.instance.checkCollider == true))
             {
                 int quantity = ManagerData.instance.seeds.SeedDatas[idSeed].quantity;
-                if (ManagerMarket.instance.QuantityItemTower + quantity <=
+                if (ManagerMarket.instance.quantityItemTower + quantity <=
                     ManagerMarket.instance.QuantityTotalItemTower)
                 {
                     status = 0;
@@ -304,7 +304,7 @@ namespace NongTrai
                     if (ManagerGuide.Instance.GuideClickFieldCrop == 0 && ManagerRuong.instance.landSpace == 0)
                         ManagerGuide.Instance.CallArrowField();
                 }
-                else if (ManagerMarket.instance.QuantityItemTower + quantity >
+                else if (ManagerMarket.instance.quantityItemTower + quantity >
                          ManagerMarket.instance.QuantityTotalItemTower)
                 {
                     string str;

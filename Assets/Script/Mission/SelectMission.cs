@@ -9,11 +9,7 @@ namespace NongTrai
         [SerializeField] Animator Ani;
         string[] shake = new string[] {"ShakeLeft", "SkakeRight"};
 
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
-        }
-
+        
         public void OnPointerUp(PointerEventData eventData)
         {
             transform.localScale = new Vector3(1f, 1f, 1f);
@@ -21,5 +17,12 @@ namespace NongTrai
             Ani.SetTrigger(shake[random]);
             ManagerMission.instance.ClickOrder(idOrder);
         }
+        
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+        }
+
+        
     }
 }

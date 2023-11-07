@@ -33,60 +33,71 @@ namespace NongTrai
 
         void OnMouseDrag()
         {
-            if (dragging == false)
+            switch (dragging)
             {
-                if (Vector2.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) > 0.1f)
-                {
+                case false when !(Vector2.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) >
+                                  0.1f):
+                    return;
+                case false:
                     dragging = true;
                     ManagerTool.instance.dragging = true;
                     ManagerTool.instance.idDecorate = idDecorate;
                     sprRendererBgFoot.color = new Color(1f, 1f, 1f, 0f);
-                }
-            }
-            else if (dragging == true)
-            {
-                if (ManagerTool.instance.checkCollider == false)
-                {
-                    Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    target.z = oldPos.z;
-                    transform.position = target;
-                }
-                else if (ManagerTool.instance.checkCollider == true) transform.localScale = new Vector3(0, 0, 0);
+                    break;
+                case true:
+                    switch (ManagerTool.instance.checkCollider)
+                    {
+                        case false:
+                        {
+                            Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                            target.z = oldPos.z;
+                            transform.position = target;
+                            break;
+                        }
+                        case true:
+                            transform.localScale = new Vector3(0, 0, 0);
+                            break;
+                    }
+
+                    break;
             }
         }
 
         void OnMouseUp()
         {
-            if (dragging == false)
+            switch (dragging)
             {
-                MainCamera.instance.unLockCam();
-                transform.position = oldPos;
-                amount.transform.position = oldAmoutPos;
-                sprRendererBgFoot.color = new Color(1f, 1f, 1f, 1f);
-            }
-            else if (dragging == true)
-            {
-                if (ManagerTool.instance.checkCollider == false)
-                {
+                case false:
+                    MainCamera.instance.unLockCam();
+                    transform.position = oldPos;
+                    amount.transform.position = oldAmoutPos;
+                    sprRendererBgFoot.color = new Color(1f, 1f, 1f, 1f);
+                    break;
+                case true when ManagerTool.instance.checkCollider == false:
                     dragging = false;
                     MainCamera.instance.unLockCam();
                     transform.position = oldPos;
                     amount.transform.position = oldAmoutPos;
                     sprRendererBgFoot.color = new Color(1f, 1f, 1f, 1f);
                     ManagerTool.instance.dragging = false;
-                }
-                else if (ManagerTool.instance.checkCollider == true)
+                    break;
+                case true:
                 {
-                    dragging = false;
-                    MainCamera.instance.unLockCam();
-                    transform.localScale = new Vector3(1, 1, 1);
-                    transform.position = oldPos;
-                    amount.transform.position = oldAmoutPos;
-                    sprRendererBgFoot.color = new Color(1f, 1f, 1f, 1f);
-                    ManagerTool.instance.dragging = false;
-                    sprRendererBgFoot.color = new Color(1f, 1f, 1f, 1f);
-                    ManagerTool.instance.checkCollider = false;
-                    ManagerTool.instance.HideToolDecorate(idDecorate);
+                    if (ManagerTool.instance.checkCollider == true)
+                    {
+                        dragging = false;
+                        MainCamera.instance.unLockCam();
+                        transform.localScale = new Vector3(1, 1, 1);
+                        transform.position = oldPos;
+                        amount.transform.position = oldAmoutPos;
+                        sprRendererBgFoot.color = new Color(1f, 1f, 1f, 1f);
+                        ManagerTool.instance.dragging = false;
+                        sprRendererBgFoot.color = new Color(1f, 1f, 1f, 1f);
+                        ManagerTool.instance.checkCollider = false;
+                        ManagerTool.instance.HideToolDecorate(idDecorate);
+                    }
+
+                    break;
                 }
             }
         }

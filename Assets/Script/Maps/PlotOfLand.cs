@@ -1,71 +1,76 @@
 ﻿using NongTrai;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NongTrai
 {
     public class PlotOfLand : MonoBehaviour
     {
-        private bool dragging;
-        private Vector3 camfirstPos;
-        private Color defaultColor;
+        private bool _dragging;
+        private Vector3 _camfirstPos;
+        private Color _defaultColor;
         [SerializeField] int idPOL;
-        [SerializeField] SpriteRenderer SprRenderer;
+        [FormerlySerializedAs("SprRenderer")] [SerializeField] SpriteRenderer sprRenderer;
 
         private void OnMouseDown()
         {
-            defaultColor = SprRenderer.color;
-            camfirstPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            SprRenderer.color = new Color(127f / 255, 127f / 255, 127f / 255, 1);
+            _defaultColor = sprRenderer.color;
+            _camfirstPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            sprRenderer.color = new Color(127f / 255, 127f / 255, 127f / 255, 1);
         }
 
         private void OnMouseDrag()
         {
-            if (dragging == false)
-            {
-                if (Vector3.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) > 0.1f)
-                {
-                    dragging = true;
-                    SprRenderer.color = defaultColor;
-                }
-            }
+            if (_dragging) return;
+            if (!(Vector3.Distance(_camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) >
+                  0.1f)) return;
+            _dragging = true;
+            sprRenderer.color = _defaultColor;
         }
 
         private void OnMouseUp()
         {
-            SprRenderer.color = defaultColor;
-            if (dragging == false)
+            sprRenderer.color = _defaultColor;
+            switch (_dragging)
             {
-                switch (ManagerMaps.ins.GetStatusPOL(idPOL))
-                {
-                    case 0:
-                        string str;
-                        if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                            str = "Ô đất được mở khóa khi bạn đạt cấp độ " +
-                                  (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
-                        else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                            str = "Tanah terbuka di level " +
-                                  (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
-                        else
-                            str = "Land is unlocked when you reach the level " +
-                                  (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
-                        Notification.Instance.dialogBelow(str);
-                        break;
-                    case 1:
-                        ManagerMaps.ins.RegisterExpland(idPOL);
-                        break;
-                    case 2:
-                        string strOne;
-                        if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                            strOne = "Mảnh đất của bạn đang có cây hoang và đá, hãy loại bỏ chúng để bắt đầu sử dụng!";
-                        else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                            strOne =
-                                "Tanah Anda memiliki tumbuhan dan bebatuan liar, singkirkan untuk mulai menggunakan!";
-                        else strOne = "Your Plot having wild plant and rocky, please remove it to begin use";
-                        Notification.Instance.dialogBelow(strOne);
-                        break;
-                }
+                case false:
+                    switch (ManagerMaps.ins.GetStatusPol(idPOL))
+                    {
+                        case 0:
+                            string str = Application.systemLanguage switch
+                            {
+                                SystemLanguage.Vietnamese => "Ô đất được mở khóa khi bạn đạt cấp độ " +
+                                                             (ManagerData.instance.plotOfLands.Datas[idPOL]
+                                                                 .LevelUnlock + 1),
+                                SystemLanguage.Indonesian => "Tanah terbuka di level " +
+                                                             (ManagerData.instance.plotOfLands.Datas[idPOL]
+                                                                 .LevelUnlock + 1),
+                                _ => "Land is unlocked when you reach the level " +
+                                     (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1)
+                            };
+                            Notification.Instance.dialogBelow(str);
+                            break;
+                        case 1:
+                            ManagerMaps.ins.RegisterExpland(idPOL);
+                            break;
+                        case 2:
+                            string strOne = Application.systemLanguage switch
+                            {
+                                SystemLanguage.Vietnamese =>
+                                    "Mảnh đất của bạn đang có cây hoang và đá, hãy loại bỏ chúng để bắt đầu sử dụng!",
+                                SystemLanguage.Indonesian =>
+                                    "Tanah Anda memiliki tumbuhan dan bebatuan liar, singkirkan untuk mulai menggunakan!",
+                                _ => "Your Plot having wild plant and rocky, please remove it to begin use"
+                            };
+                            Notification.Instance.dialogBelow(strOne);
+                            break;
+                    }
+
+                    break;
+                case true:
+                    _dragging = false;
+                    break;
             }
-            else if (dragging == true) dragging = false;
         }
     }
 }

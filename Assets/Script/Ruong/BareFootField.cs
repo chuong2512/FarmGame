@@ -8,12 +8,14 @@ namespace NongTrai
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.tag == "BeraFoot") ruong.onTriggerStay2D();
+            if (collision.tag != "BeraFoot") return;
+            ruong.onTriggerStay2D();
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.tag == "BeraFoot") ruong.onTriggerExit2D();
+            if (collision.tag != "BeraFoot") return;
+            ruong.onTriggerExit2D();
         }
     }
 }

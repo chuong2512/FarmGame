@@ -24,9 +24,9 @@ namespace NongTrai
             float order = transform.position.y * (-100);
             for (int i = 0; i < orderMarket.Length; i++)
             {
-                for (int k = 0; k < orderMarket[i].SprRenderer.Length; k++)
+                foreach (var t in orderMarket[i].SprRenderer)
                 {
-                    orderMarket[i].SprRenderer[k].sortingOrder = (int) order + orderMarket[i].order;
+                    t.sortingOrder = (int) order + orderMarket[i].order;
                 }
             }
         }
@@ -48,13 +48,7 @@ namespace NongTrai
             camfirstPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
 
-        void OnMouseDrag()
-        {
-            if (Vector3.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) >= 0.2f)
-            {
-                if (orderMarket[0].SprRenderer[0].color != Color.white) ColorS(1f, 1f, 1f, 1f);
-            }
-        }
+        
 
         void OnMouseUp()
         {
@@ -63,6 +57,14 @@ namespace NongTrai
                 ManagerAudio.Instance.PlayAudio(Audio.ClickOpen);
                 ColorS(1f, 1f, 1f, 1f);
                 ManagerMarket.instance.OpenMarket();
+            }
+        }
+        
+        void OnMouseDrag()
+        {
+            if (Vector3.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) >= 0.2f)
+            {
+                if (orderMarket[0].SprRenderer[0].color != Color.white) ColorS(1f, 1f, 1f, 1f);
             }
         }
     }

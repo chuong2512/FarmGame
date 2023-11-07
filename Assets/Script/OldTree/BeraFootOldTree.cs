@@ -8,12 +8,14 @@ namespace NongTrai
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == "BeraFoot") oldTree.onTriggerStay2D();
+            if (other.tag != "BeraFoot") return;
+            oldTree.onTriggerStay2D();
         }
 
         void OnTriggerExit2D(Collider2D other)
         {
-            if (other.tag == "BeraFoot") oldTree.onTriggerExit2D();
+            if (other.tag != "BeraFoot") return;
+            oldTree.onTriggerExit2D();
         }
     }
 }

@@ -10,27 +10,12 @@ namespace NongTrai
 
         void Start()
         {
-            if (ManagerGuide.Instance.GuideClickCutting == 0)
-            {
-                Vector3 target = new Vector3(transform.position.x - 0.7f, transform.position.y + 1f, 0);
-                ManagerGuide.Instance.CallArrowDown(target);
-            }
+            if (ManagerGuide.Instance.GuideClickCutting != 0) return;
+            Vector3 target = new Vector3(transform.position.x - 0.7f, transform.position.y + 1f, 0);
+            ManagerGuide.Instance.CallArrowDown(target);
         }
 
-        void OnMouseDown()
-        {
-            isClick = true;
-            MainCamera.instance.lockCam();
-            oldPos = transform.position;
-            transform.position = new Vector3(oldPos.x, oldPos.y + 0.1f, oldPos.z);
-            camfirstPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (ManagerGuide.Instance.GuideClickCutting == 0)
-            {
-                ManagerGuide.Instance.DoneGuide();
-                ManagerGuide.Instance.GuideClickCutting = 1;
-            }
-        }
-
+        
         void OnMouseDrag()
         {
             if (dragging == false)
@@ -45,7 +30,7 @@ namespace NongTrai
                 }
             }
 
-            if (dragging == true)
+            if (dragging != true) return;
             {
                 Vector2 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 obj.transform.position = target;
@@ -72,6 +57,19 @@ namespace NongTrai
                     ManagerTool.instance.checkCollider = false;
                     ManagerTool.instance.CloseHarvesrCrop();
                 }
+            }
+        }
+        void OnMouseDown()
+        {
+            isClick = true;
+            MainCamera.instance.lockCam();
+            oldPos = transform.position;
+            transform.position = new Vector3(oldPos.x, oldPos.y + 0.1f, oldPos.z);
+            camfirstPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (ManagerGuide.Instance.GuideClickCutting == 0)
+            {
+                ManagerGuide.Instance.DoneGuide();
+                ManagerGuide.Instance.GuideClickCutting = 1;
             }
         }
 

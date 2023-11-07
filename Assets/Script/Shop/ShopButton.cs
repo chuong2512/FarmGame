@@ -7,12 +7,7 @@ namespace NongTrai
     public class ShopButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         [SerializeField] Image imageButton;
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            imageButton.color = new Color(0.6f, 0.6f, 0.6f, 1f);
-        }
-
+        
         public void OnPointerUp(PointerEventData eventData)
         {
             imageButton.color = new Color(1f, 1f, 1f, 1f);
@@ -23,5 +18,11 @@ namespace NongTrai
                 ManagerGuide.Instance.DoneArrowShop();
             }
         }
+        
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            imageButton.color = new Color(0.6f, 0.6f, 0.6f, 1f);
+        }
+
     }
 }

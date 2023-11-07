@@ -36,6 +36,16 @@ namespace NongTrai
             pointerKho = Experience.Instance.PoiterDepot;
         }
 
+        void DrawQuadraticCurveExp()
+        {
+            for (int i = 1; i < numberPointsExp + 1; i++)
+            {
+                float t = i / (float) numberPointsExp;
+                positionExp[i - 1] =
+                    CalculateQuadraticBezierPoint(t, transform.position, pointerLeft.position, pointerExp.position);
+            }
+        }
+        
         void Start()
         {
             positionExp = new Vector3[numberPointsExp];
@@ -47,15 +57,7 @@ namespace NongTrai
             StartCoroutine(waitRun());
         }
 
-        void DrawQuadraticCurveExp()
-        {
-            for (int i = 1; i < numberPointsExp + 1; i++)
-            {
-                float t = i / (float) numberPointsExp;
-                positionExp[i - 1] =
-                    CalculateQuadraticBezierPoint(t, transform.position, pointerLeft.position, pointerExp.position);
-            }
-        }
+        
 
         void DrawQuadraticCurveItem()
         {
@@ -65,6 +67,24 @@ namespace NongTrai
                 positionItem[i - 1] =
                     CalculateQuadraticBezierPoint(t, transform.position, pointerRight.position, pointerKho.position);
             }
+        }
+        
+        void ItemFly()
+        {
+            DrawQuadraticCurveItem();
+            if (Vector3.Distance(Item.transform.position, positionItem[indexArrayItem]) < 0.1f)
+            {
+                if (indexArrayItem < positionItem.Length - 1) indexArrayItem = indexArrayItem + 1;
+            }
+
+            if (Vector3.Distance(Item.transform.position, positionItem[numberPointsItem - 1]) < 0.1f)
+            {
+                Item.SetActive(false);
+                PointedItem = true;
+            }
+
+            Item.transform.position = Vector3.MoveTowards(Item.transform.position, positionItem[indexArrayItem],
+                Time.deltaTime * speed);
         }
 
         Vector3 CalculateQuadraticBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
@@ -117,23 +137,7 @@ namespace NongTrai
                 positionExp[indexArrayExp], Time.deltaTime * speed);
         }
 
-        void ItemFly()
-        {
-            DrawQuadraticCurveItem();
-            if (Vector3.Distance(Item.transform.position, positionItem[indexArrayItem]) < 0.1f)
-            {
-                if (indexArrayItem < positionItem.Length - 1) indexArrayItem = indexArrayItem + 1;
-            }
-
-            if (Vector3.Distance(Item.transform.position, positionItem[numberPointsItem - 1]) < 0.1f)
-            {
-                Item.SetActive(false);
-                PointedItem = true;
-            }
-
-            Item.transform.position = Vector3.MoveTowards(Item.transform.position, positionItem[indexArrayItem],
-                Time.deltaTime * speed);
-        }
+        
 
         void Update()
         {

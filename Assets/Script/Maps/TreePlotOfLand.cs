@@ -30,9 +30,9 @@ namespace NongTrai
             float order = transform.position.y * (-100);
             for (int i = 0; i < OrderTree.Length; i++)
             {
-                for (int k = 0; k < OrderTree[i].SprRenderer.Length; k++)
+                foreach (var af in OrderTree[i].SprRenderer)
                 {
-                    OrderTree[i].SprRenderer[k].sortingOrder = (int) order + OrderTree[i].order;
+                    af.sortingOrder = (int) order + OrderTree[i].order;
                 }
             }
         }
@@ -54,24 +54,14 @@ namespace NongTrai
             ColorS(0.3f, 0.3f, 0.3f, 1f);
         }
 
-        void OnMouseDrag()
-        {
-            if (dragging == false)
-            {
-                if (Vector3.Distance(firstCamPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) > 0.1f)
-                {
-                    dragging = true;
-                    ColorS(1f, 1f, 1f, 1f);
-                }
-            }
-        }
+        
 
         void OnMouseUp()
         {
             if (dragging == false)
             {
                 ColorS(1f, 1f, 1f, 1f);
-                switch (ManagerMaps.ins.GetStatusPOL(idPOL))
+                switch (ManagerMaps.ins.GetStatusPol(idPOL))
                 {
                     case 0:
                         string str;
@@ -97,26 +87,36 @@ namespace NongTrai
             }
             else dragging = false;
         }
+        
+        void OnMouseDrag()
+        {
+            if (dragging == false)
+            {
+                if (Vector3.Distance(firstCamPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) > 0.1f)
+                {
+                    dragging = true;
+                    ColorS(1f, 1f, 1f, 1f);
+                }
+            }
+        }
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == "ToolDecorate" && ManagerTool.instance.dragging == true && status == 0
-                && idPOL == ManagerTool.instance.idPOL
-                && idSeri == ManagerTool.instance.idDecoratePOL
-                && idDecorate == ManagerTool.instance.idDecorate)
+            if (other.tag != "ToolDecorate" || ManagerTool.instance.dragging != true || status != 0
+                || idPOL != ManagerTool.instance.idPOL
+                || idSeri != ManagerTool.instance.idDecoratePOL
+                || idDecorate != ManagerTool.instance.idDecorate) return;
+            if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] > 0)
             {
-                if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] > 0)
-                {
-                    ManagerTool.instance.checkCollider = true;
-                    ManagerMarket.instance.MinusItem(5, idDecorate, 1);
-                    ConditionEnough();
-                }
-                else if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] == 0)
-                {
-                    ManagerTool.instance.checkCollider = true;
-                    int Purchase = ManagerData.instance.toolDecorate.Datas[idDecorate].Purchare;
-                    ManagerUseGem.Instance.ShowDialogUseDiamond(idDecorate, StypeUseGem.TreePOL, Purchase, gameObject);
-                }
+                ManagerTool.instance.checkCollider = true;
+                ManagerMarket.instance.MinusItem(5, idDecorate, 1);
+                ConditionEnough();
+            }
+            else if (ManagerMarket.instance.QuantityToolDecorate[idDecorate] == 0)
+            {
+                ManagerTool.instance.checkCollider = true;
+                int Purchase = ManagerData.instance.toolDecorate.Datas[idDecorate].Purchare;
+                ManagerUseGem.Instance.ShowDialogUseDiamond(idDecorate, StypeUseGem.TreePOL, Purchase, gameObject);
             }
         }
 
@@ -136,8 +136,7 @@ namespace NongTrai
             Destroy(obj);
             Ani.SetTrigger("isCut");
             yield return new WaitForSeconds(2f);
-            if (Experience.Instance.level < 7) Experience.Instance.registerExpSingle(1, transform.position);
-            else Experience.Instance.registerExpSingle(5, transform.position);
+            Experience.Instance.registerExpSingle(Experience.Instance.level < 7 ? 1 : 5, transform.position);
             ManagerMaps.ins.DestroyDone(idPOL);
             Destroy(gameObject);
         }

@@ -12,9 +12,9 @@ namespace NongTrai
             float order = transform.position.y * (-100);
             for (int i = 0; i < MyOrder.Length; i++)
             {
-                for (int k = 0; k < MyOrder[i].SprRenderer.Length; k++)
+                foreach (var sp in MyOrder[i].SprRenderer)
                 {
-                    MyOrder[i].SprRenderer[k].sortingOrder = (int) order + MyOrder[i].order;
+                    sp.sortingOrder = (int) order + MyOrder[i].order;
                 }
             }
         }

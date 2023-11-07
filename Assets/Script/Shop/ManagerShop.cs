@@ -352,7 +352,7 @@ namespace NongTrai
 
         void updatePet(int id)
         {
-            if (infoPet.info[id].total == 0) ManagerItem.instance.UpdateItem(1, id);
+            if (infoPet.info[id].total == 0) ManagerItem.Instance.UpdateItem(1, id);
             infoPet.info[id].status = 1;
             PlayerPrefs.SetInt("statusPetStore" + id, infoPet.info[id].status);
             if (Application.systemLanguage == SystemLanguage.Vietnamese)
@@ -470,7 +470,7 @@ namespace NongTrai
 
         void updateTree(int id)
         {
-            if (inforTree.info[id].total == 0) ManagerItem.instance.UpdateItem(3, id);
+            if (inforTree.info[id].total == 0) ManagerItem.Instance.UpdateItem(3, id);
             inforTree.info[id].status = 1;
             PlayerPrefs.SetInt("statusTreeStore" + id, inforTree.info[id].status);
             if (Application.systemLanguage == SystemLanguage.Vietnamese)
@@ -503,7 +503,7 @@ namespace NongTrai
             infoItemFactory.info[id].status = 1;
             PlayerPrefs.SetInt("updateItemFactory" + id, 1);
             infoItemFactory.info[id].sprRenderer.sprite = ManagerData.instance.facetoryItems.FacetoryItemDatas[id].item;
-            ManagerItem.instance.UpdateItem(2, id);
+            ManagerItem.Instance.UpdateItem(2, id);
             ManagerMarket.instance.ReciveItem(2, id, ManagerData.instance.facetoryItems.FacetoryItemDatas[id].donate,
                 false);
         }
@@ -515,7 +515,7 @@ namespace NongTrai
             infoSeeds.info[id].quantity.SetActive(true);
             infoSeeds.info[id].sprRenderer.sprite = ManagerData.instance.seeds.SeedDatas[id].iconStore;
             ManagerMarket.instance.ReciveItem(0, id, ManagerData.instance.seeds.SeedDatas[id].quantityOpen, false);
-            ManagerItem.instance.UpdateItem(0, id);
+            ManagerItem.Instance.UpdateItem(0, id);
             Experience.Instance.registerItemOpen(ManagerData.instance.seeds.SeedDatas[id].iconStore);
         }
 
@@ -527,7 +527,7 @@ namespace NongTrai
             infoSeeds.info[id].quantity.SetActive(true);
             infoSeeds.info[id].sprRenderer.sprite = ManagerData.instance.seeds.SeedDatas[id].iconStore;
             ManagerMarket.instance.ReciveItem(0, id, ManagerData.instance.seeds.SeedDatas[id].quantityOpen, false);
-            ManagerItem.instance.UpdateItem(0, id);
+            ManagerItem.Instance.UpdateItem(0, id);
             Experience.Instance.registerItemOpen(ManagerData.instance.seeds.SeedDatas[id].iconStore);
         }
 
@@ -896,7 +896,7 @@ namespace NongTrai
                     PlayerPrefs.SetInt("purchasePet" + i, infoPet.info[i].goldPrice);
                     if (infoPet.info[i].levelOpen == 0)
                     {
-                        if (infoPet.info[i].total == 0) ManagerItem.instance.UpdateItem(1, i);
+                        if (infoPet.info[i].total == 0) ManagerItem.Instance.UpdateItem(1, i);
                         infoPet.info[i].status = 1;
                         infoPet.info[i].levelOpen = infoPet.info[i].levelOpen +
                                                     ManagerData.instance.petCollection.Pet[i].detailPet.distanceLvOpen;
@@ -1080,7 +1080,7 @@ namespace NongTrai
                         inforTree.info[i].txtGoldPrice.text = "" + inforTree.info[i].goldPrice;
                         inforTree.info[i].icon.sprite = ManagerData.instance.trees.data[i].Tree.iconStore;
                         PlayerPrefs.SetInt("iconTree" + i, 1);
-                        ManagerItem.instance.UpdateItem(3, i);
+                        ManagerItem.Instance.UpdateItem(3, i);
                     }
                     else if (inforTree.info[i].levelOpen != 0)
                     {
@@ -1194,7 +1194,7 @@ namespace NongTrai
                         PlayerPrefs.SetInt("updateSeeds" + i, infoSeeds.info[i].status);
                         infoSeeds.info[i].sprRenderer.sprite = ManagerData.instance.seeds.SeedDatas[i].iconStore;
                         infoSeeds.info[i].quantity.SetActive(true);
-                        ManagerItem.instance.UpdateItem(0, i);
+                        ManagerItem.Instance.UpdateItem(0, i);
                     }
                     else if (infoSeeds.info[i].status == 0) PlayerPrefs.SetInt("updateSeeds" + i, 0);
                 }
@@ -1245,7 +1245,7 @@ namespace NongTrai
                         PlayerPrefs.SetInt("updateItemFactory" + i, infoItemFactory.info[i].status);
                         infoItemFactory.info[i].sprRenderer.sprite =
                             ManagerData.instance.facetoryItems.FacetoryItemDatas[i].item;
-                        ManagerItem.instance.UpdateItem(2, i);
+                        ManagerItem.Instance.UpdateItem(2, i);
                     }
                     else if (ManagerData.instance.facetoryItems.FacetoryItemDatas[i].levelOpen !=
                              Experience.Instance.level)

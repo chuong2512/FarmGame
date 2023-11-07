@@ -10,12 +10,7 @@ namespace NongTrai
         [SerializeField] SpriteRenderer sprRenderer;
 
         // Use this for initialization
-        void Start()
-        {
-            Ani = this.GetComponent<Animator>();
-            float order = this.transform.position.y * (-100);
-            sprRenderer.sortingOrder = (int) order;
-        }
+        
 
         void OnMouseDown()
         {
@@ -25,19 +20,22 @@ namespace NongTrai
 
         void OnMouseDrag()
         {
-            if (Vector3.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) >= 0.2f)
-            {
-                sprRenderer.color = Color.white;
-            }
+            if (!(Vector3.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) >= 0.2f)) return;
+            sprRenderer.color = Color.white;
         }
 
         void OnMouseUp()
         {
-            if (Vector3.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) < 0.2f)
-            {
-                sprRenderer.color = Color.white;
-                ManagerMission.instance.OpenOrder();
-            }
+            if (!(Vector3.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) < 0.2f)) return;
+            sprRenderer.color = Color.white;
+            ManagerMission.instance.OpenOrder();
+        }
+        
+        void Start()
+        {
+            Ani = this.GetComponent<Animator>();
+            float order = this.transform.position.y * (-100);
+            sprRenderer.sortingOrder = (int) order;
         }
     }
 }

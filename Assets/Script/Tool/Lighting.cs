@@ -11,10 +11,7 @@ public class Lighting : MonoBehaviour
     [HideInInspector] public int quantityGem;
     [HideInInspector] public GameObject objUseGem;
     //-------------------------------------------------------
-    void OnMouseDown()
-    {
-        transform.localScale = new Vector3(0.7f, 0.8f, 1f);
-    }
+
 
     void OnMouseUp()
     {
@@ -57,5 +54,9 @@ public class Lighting : MonoBehaviour
                 }
                 break;
         }
+    }
+    void OnMouseDown()
+    {
+        transform.localScale = new Vector3(0.7f, 0.8f, 1f);
     }
 }

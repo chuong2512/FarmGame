@@ -19,13 +19,7 @@ namespace NongTrai
         [SerializeField] Transform mocUp;
 
         [SerializeField] Transform mocDown;
-
-        // Use this for initialization
-        void Start()
-        {
-        }
-
-        // Update is called once per frame
+        
         void Update()
         {
             if (MainCamera.instance.camLock == false)

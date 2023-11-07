@@ -21,35 +21,31 @@ namespace NongTrai
 
         void OnMouseDown()
         {
-            if (!EventSystem.current.IsPointerOverGameObject())
-            {
-                checkClick = true;
-                sprRenderer.color = new Color(0.3f, 0.3f, 0.3f, 1f);
-            }
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+            checkClick = true;
+            sprRenderer.color = new Color(0.3f, 0.3f, 0.3f, 1f);
         }
 
         void OnMouseUp()
         {
-            if (checkClick == true)
+            if (checkClick != true) return;
+            checkClick = false;
+            sprRenderer.color = Color.white;
+            if (dem < objChange.Length - 1)
             {
-                checkClick = false;
-                sprRenderer.color = Color.white;
-                if (dem < objChange.Length - 1)
-                {
-                    Dot[dem].sprite = DotBlack;
-                    objChange[dem].SetActive(false);
-                    dem += 1;
-                    Dot[dem].sprite = DotYellow;
-                    objChange[dem].SetActive(true);
-                }
-                else if (dem == objChange.Length - 1)
-                {
-                    Dot[dem].sprite = DotBlack;
-                    objChange[dem].SetActive(false);
-                    dem = 0;
-                    Dot[dem].sprite = DotYellow;
-                    objChange[dem].SetActive(true);
-                }
+                Dot[dem].sprite = DotBlack;
+                objChange[dem].SetActive(false);
+                dem += 1;
+                Dot[dem].sprite = DotYellow;
+                objChange[dem].SetActive(true);
+            }
+            else if (dem == objChange.Length - 1)
+            {
+                Dot[dem].sprite = DotBlack;
+                objChange[dem].SetActive(false);
+                dem = 0;
+                Dot[dem].sprite = DotYellow;
+                objChange[dem].SetActive(true);
             }
         }
     }

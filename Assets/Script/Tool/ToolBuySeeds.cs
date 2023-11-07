@@ -28,37 +28,46 @@ namespace NongTrai
 
         private void OnMouseUp()
         {
-            if (dragging == false)
+            switch (dragging)
             {
-                transform.localScale = new Vector3(1f, 1f, 1f);
-                if (ManagerTool.instance.ClickUseGemBuySeed == 0)
+                case false:
                 {
-                    ManagerTool.instance.ClickUseGemBuySeed += 1;
-                    string txtString = Application.systemLanguage == SystemLanguage.Vietnamese
-                        ? "Nhấn thêm một lần nữa để xác nhận?"
-                        : "Press one more to confirm?";
-                    Notification.Instance.dialogBelow(txtString);
-                }
-                else if (ManagerTool.instance.ClickUseGemBuySeed == 1)
-                {
-                    if (ManagerGem.Instance.GemLive >= 2)
+                    transform.localScale = new Vector3(1f, 1f, 1f);
+                    switch (ManagerTool.instance.ClickUseGemBuySeed)
                     {
-                        ManagerGem.Instance.MunisGem(2);
-                        ManagerTool.instance.ClickUseGemBuySeed = 0;
-                        Vector3 target = new Vector3(transform.position.x, transform.position.y, 0);
-                        ManagerMarket.instance.BuySeeds(idSeed, target);
+                        case 0:
+                        {
+                            ManagerTool.instance.ClickUseGemBuySeed += 1;
+                            string txtString = Application.systemLanguage == SystemLanguage.Vietnamese
+                                ? "Nhấn thêm một lần nữa để xác nhận?"
+                                : "Press one more to confirm?";
+                            Notification.Instance.dialogBelow(txtString);
+                            break;
+                        }
+                        case 1 when ManagerGem.Instance.GemLive >= 2:
+                        {
+                            ManagerGem.Instance.MunisGem(2);
+                            ManagerTool.instance.ClickUseGemBuySeed = 0;
+                            Vector3 target = new Vector3(transform.position.x, transform.position.y, 0);
+                            ManagerMarket.instance.BuySeeds(idSeed, target);
+                            break;
+                        }
+                        case 1:
+                        {
+                            string txtString = Application.systemLanguage == SystemLanguage.Vietnamese
+                                ? "Bạn không đủ kim cương!"
+                                : "You haven't enough diamonds!";
+                            Notification.Instance.dialogBelow(txtString);
+                            break;
+                        }
                     }
-                    else
-                    {
-                        string txtString = Application.systemLanguage == SystemLanguage.Vietnamese
-                            ? "Bạn không đủ kim cương!"
-                            : "You haven't enough diamonds!";
-                        Notification.Instance.dialogBelow(txtString);
-                    }
+
+                    break;
                 }
+                case true:
+                    dragging = false;
+                    break;
             }
-            else if (dragging)
-                dragging = false;
         }
     }
 }

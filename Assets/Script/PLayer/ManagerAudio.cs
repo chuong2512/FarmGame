@@ -50,6 +50,14 @@ namespace NongTrai
             }
         }
 
+        public void ChangeValueSound(float value)
+        {
+            foreach (var v in Sound)
+            {
+                v.volume = value;
+            }
+        }
+        
         public void PlayAudio(Audio audio)
         {
             Sound[(int) audio].Play();
@@ -60,12 +68,6 @@ namespace NongTrai
             Music.volume = value;
         }
 
-        public void ChangeValueSound(float value)
-        {
-            for (int i = 0; i < Sound.Length; i++)
-            {
-                Sound[i].volume = value;
-            }
-        }
+       
     }
 }

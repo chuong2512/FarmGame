@@ -82,8 +82,8 @@ namespace NongTrai
             SuggestText.text = Application.systemLanguage == SystemLanguage.Vietnamese
                 ? "Chọn một vào một đơn hàng bên trái"
                 : "Select an order from the left";
-            idItemNow = new int[ManagerItem.instance.totalItem.Length - 1];
-            idStypeNow = new int[ManagerItem.instance.totalItem.Length - 1];
+            idItemNow = new int[ManagerItem.Instance.totalItem.Length - 1];
+            idStypeNow = new int[ManagerItem.Instance.totalItem.Length - 1];
             Invoke("InitData", 3f);
         }
 
@@ -462,7 +462,7 @@ namespace NongTrai
                     bool condition = false;
                     for (int i = 0; i < itemUse.Length; i++)
                     {
-                        if (itemUse[i] < ManagerItem.instance.totalItem[i])
+                        if (itemUse[i] < ManagerItem.Instance.totalItem[i])
                         {
                             condition = true;
                             StypeItem = i;
@@ -477,23 +477,23 @@ namespace NongTrai
                     {
                         Debug.Log("Condition :" + condition);
                         int dem = 0;
-                        for (int i = 0; i < ManagerItem.instance.totalItem.Length; i++)
+                        for (int i = 0; i < ManagerItem.Instance.totalItem.Length; i++)
                         {
-                            if (ManagerItem.instance.totalItem[i] > 0) dem += 1;
+                            if (ManagerItem.Instance.totalItem[i] > 0) dem += 1;
                         }
 
                         mission[idOrder].metarial = new Metarial[dem];
                         PlayerPrefs.SetInt("NumberItem" + idOrder, mission[idOrder].metarial.Length);
                         int couter = 0;
-                        for (int i = 0; i < ManagerItem.instance.totalItem.Length; i++)
+                        for (int i = 0; i < ManagerItem.Instance.totalItem.Length; i++)
                         {
-                            if (ManagerItem.instance.totalItem[i] > 0)
+                            if (ManagerItem.Instance.totalItem[i] > 0)
                             {
                                 mission[idOrder].metarial[couter].stypeIDYC = i;
                                 PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + couter,
                                     mission[idOrder].metarial[couter].stypeIDYC);
                                 mission[idOrder].metarial[couter].IdYc =
-                                    ManagerItem.instance.idItemUnlock[i].IdItem[idItemNow[i]];
+                                    ManagerItem.Instance.idItemUnlock[i].IdItem[idItemNow[i]];
                                 PlayerPrefs.SetInt("IdItem" + idOrder + "" + couter,
                                     mission[idOrder].metarial[couter].IdYc);
                                 mission[idOrder].metarial[couter].Amount = 3 + 2 * NumberFinal;
@@ -513,13 +513,13 @@ namespace NongTrai
                     {
                         Debug.Log("Condition :" + condition);
                         int dem = 0;
-                        for (int i = 0; i < ManagerItem.instance.totalItem.Length; i++)
+                        for (int i = 0; i < ManagerItem.Instance.totalItem.Length; i++)
                         {
                             if (i != StypeItem)
                             {
                                 idStypeNow[dem] = i;
                                 PlayerPrefs.SetInt("IdStypeNow" + dem, idStypeNow[dem]);
-                                idItemNow[dem] = ManagerItem.instance.idItemUnlock[i].IdItem[itemUse[i]];
+                                idItemNow[dem] = ManagerItem.Instance.idItemUnlock[i].IdItem[itemUse[i]];
                                 PlayerPrefs.SetInt("IdItemNow" + dem, idItemNow[dem]);
                                 dem += 1;
                             }
@@ -560,11 +560,11 @@ namespace NongTrai
                     bool CheckCondiotion = false;
                     for (int j = NumberCombination[i]; j < idItemNow.Length; j++)
                     {
-                        if (ManagerItem.instance.totalItem[idStypeNow[j]] <= 0)
+                        if (ManagerItem.Instance.totalItem[idStypeNow[j]] <= 0)
                         {
                             NumberCombination[i] += 1;
                         }
-                        else if (ManagerItem.instance.totalItem[idStypeNow[j]] > 0)
+                        else if (ManagerItem.Instance.totalItem[idStypeNow[j]] > 0)
                         {
                             CheckCondiotion = true;
                             mission[idOrder].metarial = new Metarial[2];
@@ -573,7 +573,7 @@ namespace NongTrai
                             PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 0,
                                 mission[idOrder].metarial[0].stypeIDYC);
                             mission[idOrder].metarial[0].IdYc =
-                                ManagerItem.instance.idItemUnlock[StypeItem].IdItem[itemUse[StypeItem]];
+                                ManagerItem.Instance.idItemUnlock[StypeItem].IdItem[itemUse[StypeItem]];
                             PlayerPrefs.SetInt("IdItem" + idOrder + "" + 0, mission[idOrder].metarial[0].IdYc);
                             mission[idOrder].metarial[0].Amount = 3;
                             PlayerPrefs.SetInt("QuantityItem" + idOrder + "" + 1, mission[idOrder].metarial[0].Amount);
@@ -603,12 +603,12 @@ namespace NongTrai
                     {
                         if (j + 1 < idItemNow.Length)
                         {
-                            if (ManagerItem.instance.totalItem[j] <= 0 || ManagerItem.instance.totalItem[j + 1] <= 0)
+                            if (ManagerItem.Instance.totalItem[j] <= 0 || ManagerItem.Instance.totalItem[j + 1] <= 0)
                             {
                                 NumberCombination[i] += 1;
                             }
-                            else if (ManagerItem.instance.totalItem[idStypeNow[j]] > 0 &&
-                                     ManagerItem.instance.totalItem[idStypeNow[j + 1]] > 0)
+                            else if (ManagerItem.Instance.totalItem[idStypeNow[j]] > 0 &&
+                                     ManagerItem.Instance.totalItem[idStypeNow[j + 1]] > 0)
                             {
                                 CheckCondition = true;
                                 mission[idOrder].metarial = new Metarial[3];
@@ -616,7 +616,7 @@ namespace NongTrai
                                 mission[idOrder].metarial[0].stypeIDYC = StypeItem;
                                 PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 0,
                                     mission[idOrder].metarial[0].stypeIDYC);
-                                mission[idOrder].metarial[0].IdYc = ManagerItem.instance.idItemUnlock[StypeItem]
+                                mission[idOrder].metarial[0].IdYc = ManagerItem.Instance.idItemUnlock[StypeItem]
                                     .IdItem[itemUse[StypeItem]];
                                 PlayerPrefs.SetInt("IdItem" + idOrder + "" + 0, mission[idOrder].metarial[0].IdYc);
                                 mission[idOrder].metarial[0].Amount = 3;
@@ -647,12 +647,12 @@ namespace NongTrai
                         }
                         else if (i + 1 >= idItemNow.Length)
                         {
-                            if (ManagerItem.instance.totalItem[idStypeNow[j]] <= 0 ||
-                                ManagerItem.instance.totalItem[idStypeNow[j + 1 - 3]] <= 0)
+                            if (ManagerItem.Instance.totalItem[idStypeNow[j]] <= 0 ||
+                                ManagerItem.Instance.totalItem[idStypeNow[j + 1 - 3]] <= 0)
                             {
                                 NumberCombination[i] += 1;
                             }
-                            else if (ManagerItem.instance.totalItem[j] > 0 && ManagerItem.instance.totalItem[j + 1] > 0)
+                            else if (ManagerItem.Instance.totalItem[j] > 0 && ManagerItem.Instance.totalItem[j + 1] > 0)
                             {
                                 CheckCondition = true;
                                 mission[idOrder].metarial = new Metarial[3];
@@ -660,7 +660,7 @@ namespace NongTrai
                                 mission[idOrder].metarial[0].stypeIDYC = StypeItem;
                                 PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 0,
                                     mission[idOrder].metarial[0].stypeIDYC);
-                                mission[idOrder].metarial[0].IdYc = ManagerItem.instance.idItemUnlock[StypeItem]
+                                mission[idOrder].metarial[0].IdYc = ManagerItem.Instance.idItemUnlock[StypeItem]
                                     .IdItem[itemUse[StypeItem]];
                                 PlayerPrefs.SetInt("IdItem" + idOrder + "" + 0, mission[idOrder].metarial[0].IdYc);
                                 mission[idOrder].metarial[0].Amount = 3;
@@ -700,7 +700,7 @@ namespace NongTrai
                     bool kt = true;
                     for (int j = 0; j < idStypeNow.Length; j++)
                     {
-                        if (ManagerItem.instance.totalItem[idStypeNow[j]] <= 0)
+                        if (ManagerItem.Instance.totalItem[idStypeNow[j]] <= 0)
                         {
                             kt = false;
                             break;
@@ -728,7 +728,7 @@ namespace NongTrai
                         mission[idOrder].metarial[0].stypeIDYC = StypeItem;
                         PlayerPrefs.SetInt("IdStypeItem" + idOrder + "" + 0, mission[idOrder].metarial[0].stypeIDYC);
                         mission[idOrder].metarial[0].IdYc =
-                            ManagerItem.instance.idItemUnlock[StypeItem].IdItem[itemUse[StypeItem]];
+                            ManagerItem.Instance.idItemUnlock[StypeItem].IdItem[itemUse[StypeItem]];
                         PlayerPrefs.SetInt("IdItem" + idOrder + "" + 0, mission[idOrder].metarial[0].IdYc);
                         mission[idOrder].metarial[0].Amount = 3;
                         PlayerPrefs.SetInt("QuantityItem" + idOrder + "" + 0, mission[idOrder].metarial[0].Amount);

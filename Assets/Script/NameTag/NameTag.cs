@@ -21,15 +21,18 @@ namespace NongTrai
             _canvas.sortingOrder = (int) (Order + 1);
         }
 
-        [Button]
-        protected override void OpenPopup()
-        {
-            NameTagManager.Instance.OpenPopup();
-        }
+        
 
         public void SetName()
         {
             _nameText.text = PlayerPrefs.GetString("NameTag", "NameTag");
+        }
+        
+        
+        [Button]
+        protected override void OpenPopup()
+        {
+            NameTagManager.Instance.OpenPopup();
         }
     }
 }

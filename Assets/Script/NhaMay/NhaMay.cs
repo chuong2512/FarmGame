@@ -208,8 +208,8 @@ namespace NongTrai
                             MainCamera.instance.DisableAll();
                             int quantiy = ManagerData.instance.facetoryItems
                                 .FacetoryItemDatas[idItemDone[CountDone - 1]].quantity;
-                            if ((ManagerMarket.instance.QuantityItemDepot + quantiy) <=
-                                ManagerMarket.instance.QuantityTotalItemDepot)
+                            if ((ManagerMarket.instance.quantityItemDepot + quantiy) <=
+                                ManagerMarket.instance.quantityTotalItemDepot)
                             {
                                 if (CountDone > 1)
                                 {
@@ -270,8 +270,8 @@ namespace NongTrai
                                     IconItemDone[CountDone].gameObject.SetActive(false);
                                 }
                             }
-                            else if ((ManagerMarket.instance.QuantityItemDepot + quantiy) >
-                                     ManagerMarket.instance.QuantityTotalItemDepot)
+                            else if ((ManagerMarket.instance.quantityItemDepot + quantiy) >
+                                     ManagerMarket.instance.quantityTotalItemDepot)
                             {
                                 string str;
                                 if (Application.systemLanguage == SystemLanguage.Vietnamese)

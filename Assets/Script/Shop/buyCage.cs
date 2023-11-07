@@ -29,6 +29,11 @@
             distanceY = ManagerGame.Instance.DistaneY;
         }
 
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            if (dragging == false || status == 3) ManagerShop.instance.scrollRectCage.OnEndDrag(eventData);
+        }
+        
         public void OnPointerDown(PointerEventData eventData)
         {
             if (ManagerShop.instance.infoCage.info[idCage].status == 1)
@@ -99,75 +104,70 @@
             else if (dragging == false) ManagerShop.instance.scrollRectCage.OnDrag(eventData);
         }
 
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            if (dragging == false || status == 3) ManagerShop.instance.scrollRectCage.OnEndDrag(eventData);
-        }
+        
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (dragging == true)
+            if (dragging != true) return;
+            dragging = false;
+            switch (status)
             {
-                dragging = false;
-                switch (status)
-                {
-                    case 0:
-                        transform.localScale = new Vector3(1f, 1f, 1f);
-                        break;
-                    case 1:
-                        status = 0;
-                        img.color = Color.white;
+                case 0:
+                    transform.localScale = new Vector3(1f, 1f, 1f);
+                    break;
+                case 1:
+                    status = 0;
+                    img.color = Color.white;
+                    Destroy(obj);
+                    break;
+                case 2:
+                    status = 0;
+                    img.color = Color.white;
+                    ManagerShop.instance.isBuying();
+                    if (ha.overlap == true)
+                    {
                         Destroy(obj);
-                        break;
-                    case 2:
-                        status = 0;
-                        img.color = Color.white;
-                        ManagerShop.instance.isBuying();
-                        if (ha.overlap == true)
+                        string str;
+                        if (Application.systemLanguage == SystemLanguage.Vietnamese)
+                            str = "Không còn khoảng trống, xin hãy thử lại!";
+                        else if (Application.systemLanguage == SystemLanguage.Indonesian)
+                            str = "Tidak ada lagi ruang, silakan coba lagi!";
+                        else str = "No space left, please try again!";
+                        Notification.Instance.dialogBelow(str);
+                    }
+                    else if (ha.overlap == false)
+                    {
+                        if (ManagerCoin.Instance.Coin >= ManagerShop.instance.infoCage.info[idCage].goldPrice)
+                        {
+                            ManagerShop.instance.buyCage(idCage);
+                            ha.DoneMove();
+                            ManagerBreads.Instance.UpdateNumberCage(idCage);
+                            PlayerPrefs.SetFloat(
+                                "PosCageX" + idCage + "" +
+                                ((int) ManagerShop.instance.infoCage.info[idCage].amount - 1),
+                                obj.transform.position.x);
+                            PlayerPrefs.SetFloat(
+                                "PosCageY" + idCage + "" +
+                                ((int) ManagerShop.instance.infoCage.info[idCage].amount - 1),
+                                obj.transform.position.y);
+                        }
+                        else if (ManagerCoin.Instance.Coin < ManagerShop.instance.infoCage.info[idCage].goldPrice)
                         {
                             Destroy(obj);
                             string str;
                             if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                                str = "Không còn khoảng trống, xin hãy thử lại!";
+                                str = "Bạn không đủ coin!";
                             else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                                str = "Tidak ada lagi ruang, silakan coba lagi!";
-                            else str = "No space left, please try again!";
+                                str = "Anda tidak memiliki cukup coin!";
+                            else str = "You haven't enough coin!";
                             Notification.Instance.dialogBelow(str);
                         }
-                        else if (ha.overlap == false)
-                        {
-                            if (ManagerCoin.Instance.Coin >= ManagerShop.instance.infoCage.info[idCage].goldPrice)
-                            {
-                                ManagerShop.instance.buyCage(idCage);
-                                ha.DoneMove();
-                                ManagerBreads.Instance.UpdateNumberCage(idCage);
-                                PlayerPrefs.SetFloat(
-                                    "PosCageX" + idCage + "" +
-                                    ((int) ManagerShop.instance.infoCage.info[idCage].amount - 1),
-                                    obj.transform.position.x);
-                                PlayerPrefs.SetFloat(
-                                    "PosCageY" + idCage + "" +
-                                    ((int) ManagerShop.instance.infoCage.info[idCage].amount - 1),
-                                    obj.transform.position.y);
-                            }
-                            else if (ManagerCoin.Instance.Coin < ManagerShop.instance.infoCage.info[idCage].goldPrice)
-                            {
-                                Destroy(obj);
-                                string str;
-                                if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                                    str = "Bạn không đủ coin!";
-                                else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                                    str = "Anda tidak memiliki cukup coin!";
-                                else str = "You haven't enough coin!";
-                                Notification.Instance.dialogBelow(str);
-                            }
-                        }
+                    }
 
-                        break;
-                    case 3:
-                        status = 0;
-                        break;
-                }
+                    break;
+                case 3:
+                    status = 0;
+                    break;
             }
         }
     }

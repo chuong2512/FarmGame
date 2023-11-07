@@ -40,7 +40,7 @@ namespace NongTrai
                 }
             }
 
-            if (dragging == true)
+            if (dragging != true) return;
             {
                 Vector2 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 obj.transform.position = target;

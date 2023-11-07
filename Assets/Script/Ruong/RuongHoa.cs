@@ -78,29 +78,7 @@ namespace NongTrai
             sprRendererCrop.sortingOrder = order + 1;
         }
 
-        private void ColorS(float r, float g, float b, float a)
-        {
-            sprRenderer.color = new Color(r, g, b, a);
-            sprRendererCrop.color = new Color(r, g, b, a);
-        }
 
-        void OnMouseDown()
-        {
-            camfirstPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            ColorS(0.3f, 0.3f, 0.3f, 1f);
-        }
-
-        void OnMouseDrag()
-        {
-            if (dragging == false)
-            {
-                if (Vector3.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) >= 0.2f)
-                {
-                    dragging = true;
-                    ColorS(1f, 1f, 1f, 1f);
-                }
-            }
-        }
 
         void OnMouseUp()
         {
@@ -171,12 +149,12 @@ namespace NongTrai
                 if (idRuongHoa == ManagerTool.instance.idRuongHoa && idPOL == ManagerTool.instance.idPOL)
                 {
                     int quantity = ManagerData.instance.flowers.Data[idFlower].detailFlower.quantity;
-                    if (ManagerMarket.instance.QuantityItemTower + quantity <=
+                    if (ManagerMarket.instance.quantityItemTower + quantity <=
                         ManagerMarket.instance.QuantityTotalItemTower)
                     {
                         Harvest();
                     }
-                    else if (ManagerMarket.instance.QuantityItemTower + quantity >
+                    else if (ManagerMarket.instance.quantityItemTower + quantity >
                              ManagerMarket.instance.QuantityTotalItemTower)
                     {
                         string str;
@@ -193,12 +171,12 @@ namespace NongTrai
                 if (ManagerTool.instance.checkCollider == true)
                 {
                     int quantity = ManagerData.instance.flowers.Data[idFlower].detailFlower.quantity;
-                    if (ManagerMarket.instance.QuantityItemTower + quantity <=
+                    if (ManagerMarket.instance.quantityItemTower + quantity <=
                         ManagerMarket.instance.QuantityTotalItemTower)
                     {
                         Harvest();
                     }
-                    else if (ManagerMarket.instance.QuantityItemTower + quantity >
+                    else if (ManagerMarket.instance.quantityItemTower + quantity >
                              ManagerMarket.instance.QuantityTotalItemTower)
                     {
                         string str;
@@ -236,6 +214,31 @@ namespace NongTrai
             }
         }
 
+        
+        private void ColorS(float r, float g, float b, float a)
+        {
+            sprRenderer.color = new Color(r, g, b, a);
+            sprRendererCrop.color = new Color(r, g, b, a);
+        }
+
+        void OnMouseDown()
+        {
+            camfirstPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            ColorS(0.3f, 0.3f, 0.3f, 1f);
+        }
+
+        void OnMouseDrag()
+        {
+            if (dragging == false)
+            {
+                if (Vector3.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) >= 0.2f)
+                {
+                    dragging = true;
+                    ColorS(1f, 1f, 1f, 1f);
+                }
+            }
+        }
+        
         private void Harvest()
         {
             status = 0;

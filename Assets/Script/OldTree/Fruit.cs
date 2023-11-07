@@ -11,10 +11,8 @@ namespace NongTrai
         // Use this for initialization
         void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.tag == "HarvestOldTree" && ManagerTool.instance.dragging == true)
-            {
-                oldTree.HarvestFruit(idFruit);
-            }
+            if (collision.tag != "HarvestOldTree" || ManagerTool.instance.dragging != true) return;
+            oldTree.HarvestFruit(idFruit);
         }
     }
 }

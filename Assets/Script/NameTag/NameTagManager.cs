@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using NongTrai;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class NameTagManager : Singleton<NameTagManager>
 {
-    [SerializeField] private GameObject _open;
-    [SerializeField] private InputField _inputField;
+    [FormerlySerializedAs("_open")] [SerializeField] private GameObject open;
+    [FormerlySerializedAs("_inputField")] [SerializeField] private InputField inputField;
 
     private void Start()
     {
@@ -19,18 +20,18 @@ public class NameTagManager : Singleton<NameTagManager>
     [Button]
     public void OpenPopup()
     {
-        _open.SetActive(true);
+        open.SetActive(true);
         ShowName();
-    }
-
-    private void ShowName()
-    {
-        _inputField.text = PlayerPrefs.GetString("NameTag", "NameTag");
     }
 
     public void SetName()
     {
-        PlayerPrefs.SetString("NameTag", _inputField.text);
-        _open.SetActive(false);
+        PlayerPrefs.SetString("NameTag", inputField.text);
+        open.SetActive(false);
+    }
+    
+    private void ShowName()
+    {
+        inputField.text = PlayerPrefs.GetString("NameTag", "NameTag");
     }
 }

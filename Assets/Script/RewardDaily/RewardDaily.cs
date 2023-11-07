@@ -50,6 +50,18 @@ namespace NongTrai
                 TitleText.text = "Daily Gift";
             }
         }
+        
+        public void ButtonRewardDaily()
+        {
+            ManagerAudio.Instance.PlayAudio(Audio.Click);
+            Reward.SetActive(true);
+        }
+
+        public void BackButton()
+        {
+            ManagerAudio.Instance.PlayAudio(Audio.Click);
+            Reward.SetActive(false);
+        }
 
         public void ButtonComfirm()
         {
@@ -69,16 +81,6 @@ namespace NongTrai
             DayGotDailyLast = System.DateTime.Now.Day;
         }
 
-        public void ButtonRewardDaily()
-        {
-            ManagerAudio.Instance.PlayAudio(Audio.Click);
-            Reward.SetActive(true);
-        }
-
-        public void BackButton()
-        {
-            ManagerAudio.Instance.PlayAudio(Audio.Click);
-            Reward.SetActive(false);
-        }
+       
     }
 }

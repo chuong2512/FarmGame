@@ -14,13 +14,13 @@ namespace NongTrai
         public void dialogTower()
         {
             if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                txtDialogTower.text = "Sức Chứa Nông Sản " + ManagerMarket.instance.QuantityItemTower + "/" +
+                txtDialogTower.text = "Sức Chứa Nông Sản " + ManagerMarket.instance.quantityItemTower + "/" +
                                       ManagerMarket.instance.QuantityTotalItemTower;
             else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                txtDialogTower.text = "Penyimpanan Silo " + ManagerMarket.instance.QuantityItemTower + "/" +
+                txtDialogTower.text = "Penyimpanan Silo " + ManagerMarket.instance.quantityItemTower + "/" +
                                       ManagerMarket.instance.QuantityTotalItemTower;
             else
-                txtDialogTower.text = "Capacity Farm " + ManagerMarket.instance.QuantityItemTower + "/" +
+                txtDialogTower.text = "Capacity Farm " + ManagerMarket.instance.quantityItemTower + "/" +
                                       ManagerMarket.instance.QuantityTotalItemTower;
 
             if (_checkTower == false)
@@ -70,14 +70,14 @@ namespace NongTrai
         public void dialogDepot()
         {
             if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                txtDialogDepot.text = "Sức Chứa Vật Phẩm " + ManagerMarket.instance.QuantityItemDepot + "/" +
-                                      ManagerMarket.instance.QuantityTotalItemDepot;
+                txtDialogDepot.text = "Sức Chứa Vật Phẩm " + ManagerMarket.instance.quantityItemDepot + "/" +
+                                      ManagerMarket.instance.quantityTotalItemDepot;
             else if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                txtDialogDepot.text = "Penyimpanan Lumbung " + ManagerMarket.instance.QuantityItemDepot + "/" +
-                                      ManagerMarket.instance.QuantityTotalItemDepot;
+                txtDialogDepot.text = "Penyimpanan Lumbung " + ManagerMarket.instance.quantityItemDepot + "/" +
+                                      ManagerMarket.instance.quantityTotalItemDepot;
             else
-                txtDialogDepot.text = "Capacity Depot Item " + ManagerMarket.instance.QuantityItemDepot + "/" +
-                                      ManagerMarket.instance.QuantityTotalItemDepot;
+                txtDialogDepot.text = "Capacity Depot Item " + ManagerMarket.instance.quantityItemDepot + "/" +
+                                      ManagerMarket.instance.quantityTotalItemDepot;
 
             if (_checkDepot == false)
             {

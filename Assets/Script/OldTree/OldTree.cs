@@ -61,11 +61,9 @@ namespace NongTrai
                     for (int i = 0; i < Fruit.Length; i++)
                     {
                         int statusFruit = PlayerPrefs.GetInt("StatusFruit" + idOldTree + "" + idAmountOldTree + "" + i);
-                        if (statusFruit == 0)
-                        {
-                            Fruit[i].SetActive(true);
-                            ColliderFruit[i].SetActive(true);
-                        }
+                        if (statusFruit != 0) continue;
+                        Fruit[i].SetActive(true);
+                        ColliderFruit[i].SetActive(true);
                     }
                 }
                 else if (status == 2)
@@ -92,17 +90,7 @@ namespace NongTrai
             Order();
         }
 
-        public void Order()
-        {
-            int order = (int) (transform.position.y * (-100));
-            for (int i = 0; i < sprOldTree.Length; i++)
-            {
-                for (int k = 0; k < sprOldTree[i].SprRenderer.Length; k++)
-                {
-                    sprOldTree[i].SprRenderer[k].sortingOrder = (int) order + sprOldTree[i].order;
-                }
-            }
-        }
+        
 
         public void StartMove()
         {
@@ -176,6 +164,18 @@ namespace NongTrai
                     StopCoroutine(onDrag);
                     ColorS(1f, 1f, 1f, 1f);
                     ManagerTool.instance.CloseTimeMove();
+                }
+            }
+        }
+        
+        public void Order()
+        {
+            int order = (int) (transform.position.y * (-100));
+            for (int i = 0; i < sprOldTree.Length; i++)
+            {
+                for (int k = 0; k < sprOldTree[i].SprRenderer.Length; k++)
+                {
+                    sprOldTree[i].SprRenderer[k].sortingOrder = (int) order + sprOldTree[i].order;
                 }
             }
         }
@@ -320,7 +320,7 @@ namespace NongTrai
         {
             if (status == 1 && idOldTree == ManagerTool.instance.idOldTree)
             {
-                if (ManagerMarket.instance.QuantityItemTower < ManagerMarket.instance.QuantityTotalItemTower)
+                if (ManagerMarket.instance.quantityItemTower < ManagerMarket.instance.QuantityTotalItemTower)
                 {
                     if (isHarvest == true)
                     {

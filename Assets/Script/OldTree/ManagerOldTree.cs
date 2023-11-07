@@ -17,17 +17,15 @@ namespace NongTrai
         {
             for (int i = 0; i < ManagerShop.instance.Tree.Length; i++)
             {
-                if (PlayerPrefs.GetInt("amountTree" + i) > 0)
+                if (PlayerPrefs.GetInt("amountTree" + i) <= 0) continue;
+                var amount = PlayerPrefs.GetInt("amountTree" + i);
+                for (int j = 0; j < amount; j++)
                 {
-                    int amount = PlayerPrefs.GetInt("amountTree" + i);
-                    for (int j = 0; j < amount; j++)
-                    {
-                        Vector3 target = new Vector3(PlayerPrefs.GetFloat("PosTreeX" + i + "" + j),
-                            PlayerPrefs.GetFloat("PosTreeY" + i + "" + j), (-0.5f));
-                        GameObject obj = Instantiate(ManagerShop.instance.Tree[i], target, Quaternion.identity,
-                            ManagerShop.instance.parentTree[i]);
-                        obj.GetComponent<OldTree>().idAmountOldTree = j;
-                    }
+                    Vector3 target = new Vector3(PlayerPrefs.GetFloat("PosTreeX" + i + "" + j),
+                        PlayerPrefs.GetFloat("PosTreeY" + i + "" + j), (-0.5f));
+                    GameObject obj = Instantiate(ManagerShop.instance.Tree[i], target, Quaternion.identity,
+                        ManagerShop.instance.parentTree[i]);
+                    obj.GetComponent<OldTree>().idAmountOldTree = j;
                 }
             }
         }

@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using NongTrai;
+using UnityEngine.Serialization;
 
 namespace NongTrai
 {
@@ -11,14 +12,14 @@ namespace NongTrai
         private int NumberPOL = 18;
         private int idPOLNow;
         private GameObject[] Purchase;
-        [SerializeField] Text TitleExplaneText;
-        [SerializeField] Text DescritionText;
-        [SerializeField] Transform ContentBuy;
-        [SerializeField] GameObject Unlock;
-        [SerializeField] GameObject PurchaseCoin;
-        [SerializeField] GameObject PurchaseGem;
-        [SerializeField] GameObject ConfirmBuy;
-        [SerializeField] FieldPOL[] POLs;
+        [FormerlySerializedAs("TitleExplaneText")] [SerializeField] Text titleExplaneText;
+        [FormerlySerializedAs("DescritionText")] [SerializeField] Text descritionText;
+        [FormerlySerializedAs("ContentBuy")] [SerializeField] Transform contentBuy;
+        [FormerlySerializedAs("Unlock")] [SerializeField] GameObject unlock;
+        [FormerlySerializedAs("PurchaseCoin")] [SerializeField] GameObject purchaseCoin;
+        [FormerlySerializedAs("PurchaseGem")] [SerializeField] GameObject purchaseGem;
+        [FormerlySerializedAs("ConfirmBuy")] [SerializeField] GameObject confirmBuy;
+        [FormerlySerializedAs("POLs")] [SerializeField] FieldPOL[] poLs;
 
         private void Awake()
         {
@@ -26,30 +27,9 @@ namespace NongTrai
             else if (ins != this) Destroy(gameObject);
         }
 
-        private void Start()
-        {
-            InitData();
-            if (Application.systemLanguage == SystemLanguage.Vietnamese)
-            {
-                TitleExplaneText.text = "MỞ RỘNG TRANG TRẠI CỦA BẠN!";
-                DescritionText.text = "Thêm diện tích đất trồng hoa!";
-            }
-            else if (Application.systemLanguage == SystemLanguage.Indonesian)
-            {
-                TitleExplaneText.text = "PERLUAS PERTANIANMU!";
-                DescritionText.text = "Lebih banyak area untuk bangunanmu!";
-            }
-            else
-            {
-                TitleExplaneText.text = "EXPLAND YOUR FARM!";
-                DescritionText.text = "More area for your building!";
-            }
-        }
+        
 
-        public int GetStatusPOL(int idPOL)
-        {
-            return POLs[idPOL].StatusPOL;
-        }
+        
 
         public void RegisterExpland(int idPOL)
         {
@@ -60,7 +40,7 @@ namespace NongTrai
             {
                 if (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem == false)
                 {
-                    Purchase[i] = Instantiate(PurchaseCoin, ContentBuy);
+                    Purchase[i] = Instantiate(purchaseCoin, contentBuy);
                     Text NumberCoin = Purchase[i].transform.GetChild(0).GetComponent<Text>();
                     NumberCoin.text = ManagerCoin.Instance.Coin + "/" +
                                       ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase;
@@ -70,7 +50,7 @@ namespace NongTrai
                 }
                 else if (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem == true)
                 {
-                    Purchase[i] = Instantiate(PurchaseGem, ContentBuy);
+                    Purchase[i] = Instantiate(purchaseGem, contentBuy);
                     Text NumberGem = Purchase[i].transform.GetChild(0).GetComponent<Text>();
                     NumberGem.text = ManagerGem.Instance.GemLive + "/" +
                                      ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase;
@@ -80,9 +60,15 @@ namespace NongTrai
                 }
             }
 
-            ConfirmBuy.SetActive(true);
+            confirmBuy.SetActive(true);
         }
 
+        
+        public int GetStatusPol(int idPOL)
+        {
+            return poLs[idPOL].StatusPOL;
+        }
+        
         public void ButtonConfirm()
         {
             if (CheckCondition() == false)
@@ -95,14 +81,14 @@ namespace NongTrai
                 else str = "You are not eligible to upgrade!";
                 Notification.Instance.dialogBelow(str);
             }
-            else if (CheckCondition() == true)
+            else if (CheckCondition())
             {
-                POLs[idPOLNow].StatusPOL = 2;
-                PlayerPrefs.SetInt("StatusPOL" + idPOLNow, POLs[idPOLNow].StatusPOL);
-                ConfirmBuy.SetActive(false);
+                poLs[idPOLNow].StatusPOL = 2;
+                PlayerPrefs.SetInt("StatusPOL" + idPOLNow, poLs[idPOLNow].StatusPOL);
+                confirmBuy.SetActive(false);
                 for (int i = 0; i < Purchase.Length; i++) Destroy(Purchase[i]);
                 Purchase = new GameObject[0];
-                POLs[idPOLNow].sprPOL.color = new Color(1f, 1f, 1f, 0f);
+                poLs[idPOLNow].sprPOL.color = new Color(1f, 1f, 1f, 0f);
                 int numberRequest = ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy.Length;
                 for (int i = 0; i < numberRequest; i++)
                 {
@@ -124,61 +110,59 @@ namespace NongTrai
 
         private IEnumerator CreateEffectUnlock()
         {
-            for (int i = 0; i < POLs[idPOLNow].field.Length; i++)
+            for (int i = 0; i < poLs[idPOLNow].field.Length; i++)
             {
-                Vector3 target = POLs[idPOLNow].field[i].transform.position;
-                Instantiate(Unlock, target, Quaternion.identity);
+                Vector3 target = poLs[idPOLNow].field[i].transform.position;
+                Instantiate(unlock, target, Quaternion.identity);
                 yield return new WaitForSeconds(0.2f);
             }
         }
 
         public void ButtonExit()
         {
-            ConfirmBuy.SetActive(false);
-            for (int i = 0; i < Purchase.Length; i++) Destroy(Purchase[i]);
+            confirmBuy.SetActive(false);
+            foreach (var pur in Purchase)
+                Destroy(pur);
+
             Purchase = new GameObject[0];
         }
 
         public void RegisterDestroyDecorate(int POL)
         {
-            POLs[POL].NumberDCRDestroy += 1;
-            PlayerPrefs.SetInt("NumberDCRDestroyPOL" + POL, POLs[POL].NumberDCRDestroy);
-            if (POLs[POL].NumberDCRDestroy == POLs[POL].NumberDecoratePOL)
+            poLs[POL].NumberDCRDestroy += 1;
+            PlayerPrefs.SetInt("NumberDCRDestroyPOL" + POL, poLs[POL].NumberDCRDestroy);
+            if (poLs[POL].NumberDCRDestroy == poLs[POL].NumberDecoratePOL)
             {
-                POLs[POL].StatusPOL = 3;
-                PlayerPrefs.SetInt("StatusPOL" + POL, POLs[POL].StatusPOL);
+                poLs[POL].StatusPOL = 3;
+                PlayerPrefs.SetInt("StatusPOL" + POL, poLs[POL].StatusPOL);
             }
         }
 
         public void DestroyDone(int idPOL)
         {
-            if (POLs[idPOL].StatusPOL == 3) StartCoroutine(CreateField(idPOL));
+            if (poLs[idPOL].StatusPOL == 3) StartCoroutine(CreateField(idPOL));
         }
 
         private IEnumerator CreateField(int idPOL)
         {
-            for (int i = 0; i < POLs[idPOL].field.Length; i++)
+            foreach (var fi in poLs[idPOL].field)
             {
-                POLs[idPOL].field[i].SetActive(true);
-                Vector3 target = POLs[idPOL].field[i].transform.position;
-                Instantiate(Unlock, target, Quaternion.identity);
+                fi.SetActive(true);
+                Vector3 target = fi.transform.position;
+                Instantiate(unlock, target, Quaternion.identity);
                 yield return new WaitForSeconds(0.2f);
             }
         }
 
         public void RegisterUpdate(int level)
         {
-            for (int i = 0; i < POLs.Length; i++)
+            for (int i = 0; i < poLs.Length; i++)
             {
-                if (POLs[i].StatusPOL == 0)
-                {
-                    if (ManagerData.instance.plotOfLands.Datas[i].LevelUnlock == level)
-                    {
-                        POLs[i].StatusPOL = 1;
-                        PlayerPrefs.SetInt("StatusPOL" + i, POLs[i].StatusPOL);
-                        PlayerPrefs.SetInt("NumberDCRDestroyPOL" + i, POLs[i].NumberDCRDestroy);
-                    }
-                }
+                if (poLs[i].StatusPOL != 0) continue;
+                if (ManagerData.instance.plotOfLands.Datas[i].LevelUnlock != level) continue;
+                poLs[i].StatusPOL = 1;
+                PlayerPrefs.SetInt("StatusPOL" + i, poLs[i].StatusPOL);
+                PlayerPrefs.SetInt("NumberDCRDestroyPOL" + i, poLs[i].NumberDCRDestroy);
             }
         }
 
@@ -187,17 +171,22 @@ namespace NongTrai
             bool isCheck = true;
             for (int i = 0; i < ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy.Length; i++)
             {
-                if (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem == false)
+                switch (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem)
                 {
-                    if (ManagerCoin.Instance.Coin <
-                        ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase)
-                        isCheck = false;
-                }
-                else if (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem == true)
-                {
-                    if (ManagerGem.Instance.GemLive <
-                        ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase)
-                        isCheck = false;
+                    case false:
+                    {
+                        if (ManagerCoin.Instance.Coin <
+                            ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase)
+                            isCheck = false;
+                        break;
+                    }
+                    case true:
+                    {
+                        if (ManagerGem.Instance.GemLive <
+                            ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase)
+                            isCheck = false;
+                        break;
+                    }
                 }
             }
 
@@ -206,36 +195,59 @@ namespace NongTrai
 
         private void InitData()
         {
-            for (int i = 0; i < POLs.Length; i++)
+            for (int i = 0; i < poLs.Length; i++)
             {
                 if (PlayerPrefs.HasKey("StatusPOL" + i) == false)
                 {
                     if (ManagerData.instance.plotOfLands.Datas[i].LevelUnlock == 0)
                     {
-                        POLs[i].StatusPOL = 1;
-                        PlayerPrefs.SetInt("StatusPOL" + i, POLs[i].StatusPOL);
-                        PlayerPrefs.SetInt("NumberDCRDestroyPOL" + i, POLs[i].NumberDCRDestroy);
+                        poLs[i].StatusPOL = 1;
+                        PlayerPrefs.SetInt("StatusPOL" + i, poLs[i].StatusPOL);
+                        PlayerPrefs.SetInt("NumberDCRDestroyPOL" + i, poLs[i].NumberDCRDestroy);
                     }
                     else if (ManagerData.instance.plotOfLands.Datas[i].LevelUnlock != 0)
                     {
-                        PlayerPrefs.SetInt("StatusPOL" + i, POLs[i].StatusPOL);
+                        PlayerPrefs.SetInt("StatusPOL" + i, poLs[i].StatusPOL);
                     }
                 }
                 else if (PlayerPrefs.HasKey("StatusPOL" + i) == true)
                 {
-                    POLs[i].StatusPOL = PlayerPrefs.GetInt("StatusPOL" + i);
-                    if (POLs[i].StatusPOL == 2)
+                    poLs[i].StatusPOL = PlayerPrefs.GetInt("StatusPOL" + i);
+                    switch (poLs[i].StatusPOL)
                     {
-                        POLs[i].sprPOL.color = new Color(1f, 1f, 1f, 0f);
-                        POLs[i].NumberDCRDestroy = PlayerPrefs.GetInt("NumberDCRDestroyPOL" + i);
-                    }
-                    else if (POLs[i].StatusPOL == 3)
-                    {
-                        Destroy(POLs[i].POL);
-                        for (int k = 0; k < POLs[i].field.Length; k++)
-                            POLs[i].field[k].SetActive(true);
+                        case 2:
+                            poLs[i].sprPOL.color = new Color(1f, 1f, 1f, 0f);
+                            poLs[i].NumberDCRDestroy = PlayerPrefs.GetInt("NumberDCRDestroyPOL" + i);
+                            break;
+                        case 3:
+                        {
+                            Destroy(poLs[i].POL);
+                            for (int k = 0; k < poLs[i].field.Length; k++)
+                                poLs[i].field[k].SetActive(true);
+                            break;
+                        }
                     }
                 }
+            }
+        }
+        
+        private void Start()
+        {
+            InitData();
+            if (Application.systemLanguage == SystemLanguage.Vietnamese)
+            {
+                titleExplaneText.text = "MỞ RỘNG TRANG TRẠI CỦA BẠN!";
+                descritionText.text = "Thêm diện tích đất trồng hoa!";
+            }
+            else if (Application.systemLanguage == SystemLanguage.Indonesian)
+            {
+                titleExplaneText.text = "PERLUAS PERTANIANMU!";
+                descritionText.text = "Lebih banyak area untuk bangunanmu!";
+            }
+            else
+            {
+                titleExplaneText.text = "EXPLAND YOUR FARM!";
+                descritionText.text = "More area for your building!";
             }
         }
 

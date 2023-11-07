@@ -27,20 +27,7 @@ namespace NongTrai
             distanceY = ManagerGame.Instance.DistaneY;
         }
 
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            if (ManagerShop.instance.inforTree.info[idTree].status == 1)
-            {
-                camOldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                transform.localScale = new Vector3(1f, 1.1f, 1f);
-                dragging = true;
-            }
-        }
-
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            if (dragging == false) ManagerShop.instance.scrollRectOldTree.OnBeginDrag(eventData);
-        }
+        
 
         public void OnDrag(PointerEventData eventData)
         {
@@ -103,6 +90,19 @@ namespace NongTrai
             if (dragging == false || status == 3) ManagerShop.instance.scrollRectOldTree.OnEndDrag(eventData);
         }
 
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (ManagerShop.instance.inforTree.info[idTree].status != 1) return;
+            camOldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.localScale = new Vector3(1f, 1.1f, 1f);
+            dragging = true;
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            if (dragging == false) ManagerShop.instance.scrollRectOldTree.OnBeginDrag(eventData);
+        }
+        
         public void OnPointerUp(PointerEventData eventData)
         {
             if (dragging == true)

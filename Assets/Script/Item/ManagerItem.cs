@@ -2,23 +2,12 @@
 
 namespace NongTrai
 {
-    public class ManagerItem : MonoBehaviour
+    public class ManagerItem : Singleton<ManagerItem>
     {
-        public static ManagerItem instance = null;
+
         private int status;
         public int[] totalItem = new int[4];
         public idItemUnlock[] idItemUnlock = new idItemUnlock[4];
-
-        private void Awake()
-        {
-            InitData();
-            if (instance == null) instance = this;
-            else if (instance != this) Destroy(gameObject);
-        }
-
-        private void Start()
-        {
-        }
 
         public void UpdateItem(int stype, int id)
         {

@@ -45,12 +45,10 @@ namespace NongTrai
                 }
             }
 
-            if (dragging == true)
-            {
-                Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                target.z = oldPos.z;
-                transform.position = target;
-            }
+            if (dragging != true) return;
+            Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            target.z = oldPos.z;
+            transform.position = target;
         }
 
         void OnMouseUp()

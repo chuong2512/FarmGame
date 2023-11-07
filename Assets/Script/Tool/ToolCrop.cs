@@ -40,32 +40,35 @@ public class ToolCrop : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (unlock == true)
+        if (unlock != true) return;
+        switch (dragging)
         {
-            if (dragging == false)
+            case false when !(Vector2.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) >
+                              0.1f):
+                return;
+            case false:
             {
-                if (Vector2.Distance(camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) > 0.1f)
-                {
-                    dragging = true;
-                    obj = Instantiate(gameObject, transform.position, Quaternion.identity);
-                    Rigidbody2D rgb2D = obj.AddComponent<Rigidbody2D>();
-                    rgb2D.bodyType = RigidbodyType2D.Kinematic;
-                    ManagerTool.instance.ObjSeedsCrop(obj.transform.GetChild(1).gameObject);
-                    transform.position = oldPos;
-                    Quantity.transform.position = oldAmoutPos;
-                    ManagerTool.instance.HideToolCrop();
-                    ManagerTool.instance.dragging = true;
-                }
+                dragging = true;
+                obj = Instantiate(gameObject, transform.position, Quaternion.identity);
+                Rigidbody2D rgb2D = obj.AddComponent<Rigidbody2D>();
+                rgb2D.bodyType = RigidbodyType2D.Kinematic;
+                ManagerTool.instance.ObjSeedsCrop(obj.transform.GetChild(1).gameObject);
+                transform.position = oldPos;
+                Quantity.transform.position = oldAmoutPos;
+                ManagerTool.instance.HideToolCrop();
+                ManagerTool.instance.dragging = true;
+                break;
             }
-            else if (dragging == true)
+            case true when ManagerUseGem.Instance.checkUseGem == false:
             {
-                if (ManagerUseGem.Instance.checkUseGem == false)
-                {
-                    Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    target.z = oldPos.z;
-                    obj.transform.position = target;
-                }
-                else if (ManagerUseGem.Instance.checkUseGem == true)
+                Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                target.z = oldPos.z;
+                obj.transform.position = target;
+                break;
+            }
+            case true:
+            {
+                if (ManagerUseGem.Instance.checkUseGem == true)
                 {
                     Destroy(obj);
                     dragging = false;
@@ -73,6 +76,8 @@ public class ToolCrop : MonoBehaviour
                     ManagerTool.instance.dragging = false;
                     ManagerTool.instance.CloseToolCrop();
                 }
+
+                break;
             }
         }
 
@@ -80,28 +85,31 @@ public class ToolCrop : MonoBehaviour
 
     void OnMouseUp()
     {
-        if (unlock == true)
+        if (unlock != true) return;
+        unlock = false;
+        MainCamera.instance.unLockCam();
+        switch (dragging)
         {
-            unlock = false;
-            MainCamera.instance.unLockCam();
-            if (dragging == false)
+            case false:
             {
                 transform.position = oldPos;
                 Quantity.transform.position = oldAmoutPos;
                 if (ManagerGuide.Instance.GuideClickSeeds == 0) ManagerGuide.Instance.CallArowSeedsRice();
+                break;
             }
-            else if (dragging == true)
+            case true when ManagerTool.instance.checkCollider == false:
             {
-                if (ManagerTool.instance.checkCollider == false)
-                {
-                    Destroy(obj);
-                    dragging = false;
-                    ManagerTool.instance.ShowToolCrop();
-                    ManagerTool.instance.dragging = false;
-                    ManagerTool.instance.ShowToolCrop();
-                    if (ManagerGuide.Instance.GuideClickSeeds == 0) ManagerGuide.Instance.CallArowSeedsRice();
-                }
-                else if (ManagerTool.instance.checkCollider == true)
+                Destroy(obj);
+                dragging = false;
+                ManagerTool.instance.ShowToolCrop();
+                ManagerTool.instance.dragging = false;
+                ManagerTool.instance.ShowToolCrop();
+                if (ManagerGuide.Instance.GuideClickSeeds == 0) ManagerGuide.Instance.CallArowSeedsRice();
+                break;
+            }
+            case true:
+            {
+                if (ManagerTool.instance.checkCollider == true)
                 {
                     Destroy(obj);
                     dragging = false;
@@ -111,6 +119,8 @@ public class ToolCrop : MonoBehaviour
                     ManagerTool.instance.CloseToolCrop();
                     if (ManagerGuide.Instance.MoveCameraCageChicken == 0 && ManagerGuide.Instance.GuideClickSeeds == 1) ManagerGuide.Instance.CallMoveCameraCageChicken();
                 }
+
+                break;
             }
         }
     }

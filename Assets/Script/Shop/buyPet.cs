@@ -26,19 +26,15 @@ namespace NongTrai
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (ManagerShop.instance.infoPet.info[idPet].status == 1)
-            {
-                dragging = true;
-                ManagerShop.instance.idPet = idPet;
-                ManagerShop.instance.buyingPet = true;
-                camOldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                transform.localScale = new Vector3(1.1f, 1.1f, 1f);
-                if (idPet == 0 && ManagerGuide.Instance.GuideClickPetsBuyChicken == 0)
-                {
-                    ManagerGuide.Instance.DoneArrowPetChicken();
-                    ManagerGuide.Instance.CallArrowCageChicken();
-                }
-            }
+            if (ManagerShop.instance.infoPet.info[idPet].status != 1) return;
+            dragging = true;
+            ManagerShop.instance.idPet = idPet;
+            ManagerShop.instance.buyingPet = true;
+            camOldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.localScale = new Vector3(1.1f, 1.1f, 1f);
+            if (idPet != 0 || ManagerGuide.Instance.GuideClickPetsBuyChicken != 0) return;
+            ManagerGuide.Instance.DoneArrowPetChicken();
+            ManagerGuide.Instance.CallArrowCageChicken();
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -132,14 +128,10 @@ namespace NongTrai
                 }
             }
 
-            if (idPet == 0 && ManagerGuide.Instance.GuideClickPetsBuyChicken == 0)
-            {
-                if (idPet == 0 && ManagerGuide.Instance.GuideClickPetsBuyChicken == 0)
-                {
-                    ManagerGuide.Instance.CallArrowPetChicken();
-                    ManagerGuide.Instance.DoneGuide();
-                }
-            }
+            if (idPet != 0 || ManagerGuide.Instance.GuideClickPetsBuyChicken != 0) return;
+            if (idPet != 0 || ManagerGuide.Instance.GuideClickPetsBuyChicken != 0) return;
+            ManagerGuide.Instance.CallArrowPetChicken();
+            ManagerGuide.Instance.DoneGuide();
         }
     }
 }

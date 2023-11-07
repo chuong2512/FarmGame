@@ -406,18 +406,18 @@ namespace NongTrai
         {
             for (var i = 0; i < stypeItem.Length; i++)
             {
-                var randomStype = Random.Range(0, ManagerItem.instance.idItemUnlock.Length);
-                var randomIdItem = Random.Range(0, ManagerItem.instance.totalItem[randomStype]);
+                var randomStype = Random.Range(0, ManagerItem.Instance.idItemUnlock.Length);
+                var randomIdItem = Random.Range(0, ManagerItem.Instance.totalItem[randomStype]);
 
                 while (CheckSame(i, randomStype, randomIdItem))
                 {
-                    randomStype = Random.Range(0, ManagerItem.instance.idItemUnlock.Length);
-                    randomIdItem = Random.Range(0, ManagerItem.instance.totalItem[randomStype]);
+                    randomStype = Random.Range(0, ManagerItem.Instance.idItemUnlock.Length);
+                    randomIdItem = Random.Range(0, ManagerItem.Instance.totalItem[randomStype]);
                 }
 
                 stypeItem[i] = randomStype;
                 PlayerPrefs.SetInt("StypeItemShip" + i, stypeItem[i]);
-                idItem[i] = ManagerItem.instance.idItemUnlock[stypeItem[i]].IdItem[randomIdItem];
+                idItem[i] = ManagerItem.Instance.idItemUnlock[stypeItem[i]].IdItem[randomIdItem];
                 PlayerPrefs.SetInt("IdItemShip" + i, idItem[i]);
                 amountItemRequire[i] = Random.Range(minAmountRequire[i], maxAmountRequire[i]);
                 PlayerPrefs.SetInt("AmountItemRequire" + i, amountItemRequire[i]);

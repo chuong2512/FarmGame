@@ -40,60 +40,62 @@ namespace NongTrai
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (dragging == true)
+            switch (dragging)
             {
-                switch (status)
-                {
-                    case 0:
-                        if (Camera.main.ScreenToWorldPoint(Input.mousePosition).y - camOldPos.y > 0.05f)
-                        {
-                            status = 1;
-                            transform.localScale = new Vector3(1f, 1f, 1f);
-                            Vector2 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                            obj = Instantiate(ManagerShop.instance.obj, target, Quaternion.identity);
-                            obj.GetComponent<SpriteRenderer>().sprite = img.sprite;
-                            img.color = new Color(1, 1, 1, 0);
-                        }
+                case true:
+                    switch (status)
+                    {
+                        case 0:
+                            if (Camera.main.ScreenToWorldPoint(Input.mousePosition).y - camOldPos.y > 0.05f)
+                            {
+                                status = 1;
+                                transform.localScale = new Vector3(1f, 1f, 1f);
+                                Vector2 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                                obj = Instantiate(ManagerShop.instance.obj, target, Quaternion.identity);
+                                obj.GetComponent<SpriteRenderer>().sprite = img.sprite;
+                                img.color = new Color(1, 1, 1, 0);
+                            }
 
-                        if (Camera.main.ScreenToWorldPoint(Input.mousePosition).y - camOldPos.y <= 0)
-                        {
-                            status = 3;
-                            transform.localScale = new Vector3(1f, 1f, 1f);
-                            ManagerShop.instance.scrollRectDecorate.OnBeginDrag(eventData);
-                        }
+                            if (Camera.main.ScreenToWorldPoint(Input.mousePosition).y - camOldPos.y <= 0)
+                            {
+                                status = 3;
+                                transform.localScale = new Vector3(1f, 1f, 1f);
+                                ManagerShop.instance.scrollRectDecorate.OnBeginDrag(eventData);
+                            }
 
-                        break;
-                    case 1:
-                        Vector2 targetOne = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                        obj.transform.position = targetOne;
-                        if (eventData.pointerEnter == null)
-                        {
-                            status = 2;
-                            Destroy(obj);
-                            obj = Instantiate(ManagerShop.instance.Decorate[idDecorate], targetOne, Quaternion.identity,
-                                ManagerShop.instance.parentDCR[idDecorate]);
-                            dcr = obj.GetComponent<Decorate>();
-                            dcr.idSerial = ManagerShop.instance.inforDecorate.info[idDecorate].amount;
-                            dcr.StartMove();
-                            ManagerShop.instance.isBuying();
-                        }
+                            break;
+                        case 1:
+                            Vector2 targetOne = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                            obj.transform.position = targetOne;
+                            if (eventData.pointerEnter == null)
+                            {
+                                status = 2;
+                                Destroy(obj);
+                                obj = Instantiate(ManagerShop.instance.Decorate[idDecorate], targetOne, Quaternion.identity,
+                                    ManagerShop.instance.parentDCR[idDecorate]);
+                                dcr = obj.GetComponent<Decorate>();
+                                dcr.idSerial = ManagerShop.instance.inforDecorate.info[idDecorate].amount;
+                                dcr.StartMove();
+                                ManagerShop.instance.isBuying();
+                            }
 
-                        break;
-                    case 2:
-                        Vector2 PosCam = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                        Vector2 targetTwo = new Vector2(((int) (PosCam.x / distanceX)) * distanceX,
-                            ((int) (PosCam.y / distanceY)) * distanceY);
-                        obj.transform.position = targetTwo;
-                        dcr.Order();
-                        break;
-                    case 3:
-                        ManagerShop.instance.scrollRectDecorate.OnDrag(eventData);
-                        break;
-                }
-            }
-            else if (dragging == false)
-            {
-                ManagerShop.instance.scrollRectDecorate.OnDrag(eventData);
+                            break;
+                        case 2:
+                            Vector2 PosCam = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                            Vector2 targetTwo = new Vector2(((int) (PosCam.x / distanceX)) * distanceX,
+                                ((int) (PosCam.y / distanceY)) * distanceY);
+                            obj.transform.position = targetTwo;
+                            dcr.Order();
+                            break;
+                        case 3:
+                            ManagerShop.instance.scrollRectDecorate.OnDrag(eventData);
+                            break;
+                    }
+
+                    break;
+                case false:
+                    ManagerShop.instance.scrollRectDecorate.OnDrag(eventData);
+                    break;
             }
         }
 
