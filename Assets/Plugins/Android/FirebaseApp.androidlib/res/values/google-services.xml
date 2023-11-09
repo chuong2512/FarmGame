@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id">
-  <string name="gcm_defaultSenderId" translatable="false">1072072248008</string>
-  <string name="google_storage_bucket" translatable="false">green-farm-24c73.appspot.com</string>
-  <string name="project_id" translatable="false">green-farm-24c73</string>
-  <string name="google_api_key" translatable="false">AIzaSyCYllx0xEwIR6tEnQJY_BvHVwMBYimUpmk</string>
-  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCYllx0xEwIR6tEnQJY_BvHVwMBYimUpmk</string>
-  <string name="google_app_id" translatable="false">1:1072072248008:android:650c1eb579f1dcd267b3fd</string>
+  <string name="gcm_defaultSenderId" translatable="false">714002356741</string>
+  <string name="google_storage_bucket" translatable="false">green-farm-farming--building.appspot.com</string>
+  <string name="project_id" translatable="false">green-farm-farming--building</string>
+  <string name="google_api_key" translatable="false">AIzaSyB2lSHUNI5iheleUsWcDu30DtVWAa9NU4E</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyB2lSHUNI5iheleUsWcDu30DtVWAa9NU4E</string>
+  <string name="google_app_id" translatable="false">1:714002356741:android:d4f4f51fd809e8e8cb1a6c</string>
 </resources>
