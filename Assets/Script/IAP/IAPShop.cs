@@ -1,3 +1,4 @@
+using NongTrai;
 using Script.IAP;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class IAPShop : MonoBehaviour
         /*_blur.gameObject.SetActive(true);
         _gemShop.gameObject.SetActive(true);
         _coinShop.gameObject.SetActive(false);*/
+        Notification.Instance.dialogBelow("Coming soon!");
     }
 
     public void OpenCoinShop()
@@ -20,6 +22,7 @@ public class IAPShop : MonoBehaviour
         /*_blur.gameObject.SetActive(true);
         _coinShop.gameObject.SetActive(true);
         _gemShop.gameObject.SetActive(false);*/
+        Notification.Instance.dialogBelow("Coming soon!");
     }
     
     public void Close()
