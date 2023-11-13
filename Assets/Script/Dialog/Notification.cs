@@ -8,34 +8,23 @@ namespace NongTrai
     {
         private bool _checkOn, _checkBetween, _checkBelow, _checkTower, _checkDepot;
         [SerializeField] Text txtOn, txtBetween, txtBelow, txtDialogTower, txtDialogDepot, txtDialog;
-        IEnumerator _ieBelow, _ieBetween, _ieOn, _ieTower, _ieDepot;
 
 
         public void dialogTower()
         {
-            /*if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                txtDialogTower.text = "Sức Chứa Nông Sản " + ManagerMarket.instance.quantityItemTower + "/" +
-                                      ManagerMarket.instance.QuantityTotalItemTower;
+            string textShow;
+            
+            if (Application.systemLanguage == SystemLanguage.Vietnamese)
+                textShow = "Sức Chứa Nông Sản " + ManagerMarket.instance.quantityItemTower + "/" +
+                           ManagerMarket.instance.QuantityTotalItemTower;
             else if (Application.systemLanguage == SystemLanguage.Indonesian)
-                txtDialogTower.text = "Penyimpanan Silo " + ManagerMarket.instance.quantityItemTower + "/" +
-                                      ManagerMarket.instance.QuantityTotalItemTower;
+                textShow = "Penyimpanan Silo " + ManagerMarket.instance.quantityItemTower + "/" +
+                           ManagerMarket.instance.QuantityTotalItemTower;
             else
-                txtDialogTower.text = "Capacity Farm " + ManagerMarket.instance.quantityItemTower + "/" +
-                                      ManagerMarket.instance.QuantityTotalItemTower;
+                textShow = "Capacity Farm " + ManagerMarket.instance.quantityItemTower + "/" +
+                           ManagerMarket.instance.QuantityTotalItemTower;
 
-            if (_checkTower == false)
-            {
-                _ieTower = showDialogTower();
-                StartCoroutine(_ieTower);
-            }
-            else if (_checkTower == true)
-            {
-                _checkTower = false;
-                txtDialogTower.gameObject.SetActive(false);
-                StopCoroutine(_ieTower);
-                _ieTower = showDialogTower();
-                StartCoroutine(_ieTower);
-            }*/
+            ToastManager.Instance.Show(textShow);
         }
 
         public void dialogComingSoon()
@@ -45,6 +34,8 @@ namespace NongTrai
 
         public void dialog(string text)
         {
+            ToastManager.Instance.Show(text);
+            
             /*txtDialog.text = text;
 
             txtDialog.gameObject.SetActive(false);
@@ -69,29 +60,19 @@ namespace NongTrai
 
         public void dialogDepot()
         {
-            /*if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                txtDialogDepot.text = "Sức Chứa Vật Phẩm " + ManagerMarket.instance.quantityItemDepot + "/" +
-                                      ManagerMarket.instance.quantityTotalItemDepot;
-            else if (Application.systemLanguage == SystemLanguage.Vietnamese)
-                txtDialogDepot.text = "Penyimpanan Lumbung " + ManagerMarket.instance.quantityItemDepot + "/" +
-                                      ManagerMarket.instance.quantityTotalItemDepot;
-            else
-                txtDialogDepot.text = "Capacity Depot Item " + ManagerMarket.instance.quantityItemDepot + "/" +
-                                      ManagerMarket.instance.quantityTotalItemDepot;
+            string textShow;
 
-            if (_checkDepot == false)
-            {
-                _ieDepot = showDialogDepot();
-                StartCoroutine(_ieDepot);
-            }
-            else if (_checkDepot == true)
-            {
-                _checkDepot = false;
-                txtDialogDepot.gameObject.SetActive(false);
-                StopCoroutine(_ieDepot);
-                _ieDepot = showDialogDepot();
-                StartCoroutine(_ieDepot);
-            }*/
+            if (Application.systemLanguage == SystemLanguage.Vietnamese)
+                textShow = "Sức Chứa Vật Phẩm " + ManagerMarket.instance.quantityItemDepot + "/" +
+                           ManagerMarket.instance.quantityTotalItemDepot;
+            else if (Application.systemLanguage == SystemLanguage.Vietnamese)
+                textShow = "Penyimpanan Lumbung " + ManagerMarket.instance.quantityItemDepot + "/" +
+                           ManagerMarket.instance.quantityTotalItemDepot;
+            else
+                textShow = "Capacity Depot Item " + ManagerMarket.instance.quantityItemDepot + "/" +
+                           ManagerMarket.instance.quantityTotalItemDepot;
+
+            ToastManager.Instance.Show(textShow);
         }
 
         /*IEnumerator showDialogDepot()
@@ -105,6 +86,7 @@ namespace NongTrai
 
         public void dialogOn(string textShow)
         {
+            ToastManager.Instance.Show(textShow);
             /*txtOn.text = textShow;
             if (_checkOn == false)
             {
@@ -132,6 +114,7 @@ namespace NongTrai
 
         public void dialogBetween(string textShow)
         {
+            ToastManager.Instance.Show(textShow);
             /*txtBetween.text = textShow;
             if (_checkBetween == false)
             {
@@ -159,6 +142,7 @@ namespace NongTrai
 
         public void dialogBelow(string textShow)
         {
+            ToastManager.Instance.Show(textShow);
             /*txtBelow.text = textShow;
             if (_checkBelow == false)
             {
