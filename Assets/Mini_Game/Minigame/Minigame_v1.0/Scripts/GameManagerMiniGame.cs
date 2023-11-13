@@ -317,7 +317,7 @@ public class GameManagerMiniGame : MonoBehaviour
             tempLevel = UnityEngine.Random.Range(0, levels.Length);
         }
         //this.PostEvent((int)EventID.OnMG3Replay);
-        Loading.Instance.LoadScene(1);
+        Loading.instance.LoadScene(1);
     }
     void NextVersionMinigame()
     {
