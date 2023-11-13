@@ -13,7 +13,7 @@ namespace NongTrai
 
         public void dialogTower()
         {
-            if (Application.systemLanguage == SystemLanguage.Vietnamese)
+            /*if (Application.systemLanguage == SystemLanguage.Vietnamese)
                 txtDialogTower.text = "Sức Chứa Nông Sản " + ManagerMarket.instance.quantityItemTower + "/" +
                                       ManagerMarket.instance.QuantityTotalItemTower;
             else if (Application.systemLanguage == SystemLanguage.Indonesian)
@@ -35,7 +35,7 @@ namespace NongTrai
                 StopCoroutine(_ieTower);
                 _ieTower = showDialogTower();
                 StartCoroutine(_ieTower);
-            }
+            }*/
         }
 
         public void dialogComingSoon()
@@ -45,7 +45,7 @@ namespace NongTrai
 
         public void dialog(string text)
         {
-            txtDialog.text = text;
+            /*txtDialog.text = text;
 
             txtDialog.gameObject.SetActive(false);
             StartCoroutine(showDialog());
@@ -55,21 +55,21 @@ namespace NongTrai
                 txtDialog.gameObject.SetActive(true);
                 yield return new WaitForSeconds(2f);
                 txtDialog.gameObject.SetActive(false);
-            }
+            }*/
         }
 
-        IEnumerator showDialogTower()
+        /*IEnumerator showDialogTower()
         {
             _checkTower = true;
             txtDialogTower.gameObject.SetActive(true);
             yield return new WaitForSeconds(2f);
             txtDialogTower.gameObject.SetActive(false);
             _checkTower = false;
-        }
+        }*/
 
         public void dialogDepot()
         {
-            if (Application.systemLanguage == SystemLanguage.Vietnamese)
+            /*if (Application.systemLanguage == SystemLanguage.Vietnamese)
                 txtDialogDepot.text = "Sức Chứa Vật Phẩm " + ManagerMarket.instance.quantityItemDepot + "/" +
                                       ManagerMarket.instance.quantityTotalItemDepot;
             else if (Application.systemLanguage == SystemLanguage.Vietnamese)
@@ -91,21 +91,21 @@ namespace NongTrai
                 StopCoroutine(_ieDepot);
                 _ieDepot = showDialogDepot();
                 StartCoroutine(_ieDepot);
-            }
+            }*/
         }
 
-        IEnumerator showDialogDepot()
+        /*IEnumerator showDialogDepot()
         {
             _checkDepot = true;
             txtDialogDepot.gameObject.SetActive(true);
             yield return new WaitForSeconds(2f);
             txtDialogDepot.gameObject.SetActive(false);
             _checkDepot = false;
-        }
+        }*/
 
         public void dialogOn(string textShow)
         {
-            txtOn.text = textShow;
+            /*txtOn.text = textShow;
             if (_checkOn == false)
             {
                 _ieOn = showDialogOn();
@@ -118,21 +118,21 @@ namespace NongTrai
                 StopCoroutine(_ieOn);
                 _ieOn = showDialogOn();
                 StartCoroutine(_ieOn);
-            }
+            }*/
         }
 
-        IEnumerator showDialogOn()
+        /*IEnumerator showDialogOn()
         {
             _checkOn = true;
             txtOn.gameObject.SetActive(true);
             yield return new WaitForSeconds(2f);
             txtOn.gameObject.SetActive(false);
             _checkOn = false;
-        }
+        }*/
 
         public void dialogBetween(string textShow)
         {
-            txtBetween.text = textShow;
+            /*txtBetween.text = textShow;
             if (_checkBetween == false)
             {
                 _ieBetween = showDialogBetween();
@@ -145,21 +145,21 @@ namespace NongTrai
                 StopCoroutine(_ieBetween);
                 _ieBetween = showDialogBetween();
                 StartCoroutine(_ieBetween);
-            }
+            }*/
         }
 
-        IEnumerator showDialogBetween()
+        /*IEnumerator showDialogBetween()
         {
             _checkBetween = true;
             txtBetween.gameObject.SetActive(true);
             yield return new WaitForSeconds(2f);
             txtBetween.gameObject.SetActive(false);
             _checkBetween = false;
-        }
+        }*/
 
         public void dialogBelow(string textShow)
         {
-            txtBelow.text = textShow;
+            /*txtBelow.text = textShow;
             if (_checkBelow == false)
             {
                 _ieBelow = ShowDialogBelow();
@@ -172,16 +172,16 @@ namespace NongTrai
                 StopCoroutine(_ieBelow);
                 _ieBelow = ShowDialogBelow();
                 StartCoroutine(_ieBelow);
-            }
+            }*/
         }
 
-        IEnumerator ShowDialogBelow()
+        /*IEnumerator ShowDialogBelow()
         {
             _checkBelow = true;
             txtBelow.gameObject.SetActive(true);
             yield return new WaitForSeconds(2f);
             txtBelow.gameObject.SetActive(false);
             _checkBelow = false;
-        }
+        }*/
     }
 }
