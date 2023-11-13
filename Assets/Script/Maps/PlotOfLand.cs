@@ -40,13 +40,13 @@ namespace NongTrai
                             string str = Application.systemLanguage switch
                             {
                                 SystemLanguage.Vietnamese => "Ô đất được mở khóa khi bạn đạt cấp độ " +
-                                                             (ManagerData.instance.plotOfLands.Datas[idPOL]
+                                                             (ManagerData.instance.plotOfLands.Data[idPOL]
                                                                  .LevelUnlock + 1),
                                 SystemLanguage.Indonesian => "Tanah terbuka di level " +
-                                                             (ManagerData.instance.plotOfLands.Datas[idPOL]
+                                                             (ManagerData.instance.plotOfLands.Data[idPOL]
                                                                  .LevelUnlock + 1),
                                 _ => "Land is unlocked when you reach the level " +
-                                     (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1)
+                                     (ManagerData.instance.plotOfLands.Data[idPOL].LevelUnlock + 1)
                             };
                             Notification.Instance.dialogBelow(str);
                             break;

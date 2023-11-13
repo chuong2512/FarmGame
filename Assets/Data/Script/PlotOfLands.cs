@@ -1,25 +1,20 @@
-﻿using System;
+﻿using UnityEngine;
 
-namespace NongTrai
+public class PlotOfLands : ScriptableObject
 {
-    using UnityEngine;
+    public DetailPlotOfLand[] Data;
+}
 
-    public class PlotOfLands : ScriptableObject
-    {
-        public DetailPlotOfLand[] Datas;
-    }
+[System.Serializable]
+public struct DetailPlotOfLand
+{
+    public int LevelUnlock;
+    public DetailBuy[] InforBuy;
+}
 
-    [Serializable]
-    public struct DetailPlotOfLand
-    {
-        public int LevelUnlock;
-        public DetailBuy[] InforBuy;
-    }
-
-    [Serializable]
-    public struct DetailBuy
-    {
-        public bool isGem;
-        public int Purchase;
-    }
+[System.Serializable]
+public struct DetailBuy
+{
+    public bool isGem;
+    public int Purchase;
 }

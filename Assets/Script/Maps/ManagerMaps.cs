@@ -34,28 +34,28 @@ namespace NongTrai
         public void RegisterExpland(int idPOL)
         {
             idPOLNow = idPOL;
-            int numberRequest = ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy.Length;
+            int numberRequest = ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy.Length;
             Purchase = new GameObject[numberRequest];
             for (int i = 0; i < numberRequest; i++)
             {
-                if (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem == false)
+                if (ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].isGem == false)
                 {
                     Purchase[i] = Instantiate(purchaseCoin, contentBuy);
                     Text NumberCoin = Purchase[i].transform.GetChild(0).GetComponent<Text>();
                     NumberCoin.text = ManagerCoin.Instance.Coin + "/" +
-                                      ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase;
+                                      ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase;
                     if (ManagerCoin.Instance.Coin <
-                        ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase)
+                        ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase)
                         NumberCoin.color = new Color(1f, 127f / 255, 127f / 255, 1f);
                 }
-                else if (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem == true)
+                else if (ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].isGem == true)
                 {
                     Purchase[i] = Instantiate(purchaseGem, contentBuy);
                     Text NumberGem = Purchase[i].transform.GetChild(0).GetComponent<Text>();
                     NumberGem.text = ManagerGem.Instance.GemLive + "/" +
-                                     ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase;
+                                     ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase;
                     if (ManagerCoin.Instance.Coin <
-                        ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase)
+                        ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase)
                         NumberGem.color = new Color(1f, 127f / 255, 127f / 255, 1f);
                 }
             }
@@ -89,17 +89,17 @@ namespace NongTrai
                 for (int i = 0; i < Purchase.Length; i++) Destroy(Purchase[i]);
                 Purchase = new GameObject[0];
                 poLs[idPOLNow].sprPOL.color = new Color(1f, 1f, 1f, 0f);
-                int numberRequest = ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy.Length;
+                int numberRequest = ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy.Length;
                 for (int i = 0; i < numberRequest; i++)
                 {
-                    if (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem == false)
+                    if (ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].isGem == false)
                     {
-                        int numberCoinPurchase = ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase;
+                        int numberCoinPurchase = ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase;
                         ManagerCoin.Instance.MunisGold(numberCoinPurchase);
                     }
-                    else if (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem == true)
+                    else if (ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].isGem == true)
                     {
-                        int numberGemPurchase = ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase;
+                        int numberGemPurchase = ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase;
                         ManagerGem.Instance.MunisGem(numberGemPurchase);
                     }
                 }
@@ -159,7 +159,7 @@ namespace NongTrai
             for (int i = 0; i < poLs.Length; i++)
             {
                 if (poLs[i].StatusPOL != 0) continue;
-                if (ManagerData.instance.plotOfLands.Datas[i].LevelUnlock != level) continue;
+                if (ManagerData.instance.plotOfLands.Data[i].LevelUnlock != level) continue;
                 poLs[i].StatusPOL = 1;
                 PlayerPrefs.SetInt("StatusPOL" + i, poLs[i].StatusPOL);
                 PlayerPrefs.SetInt("NumberDCRDestroyPOL" + i, poLs[i].NumberDCRDestroy);
@@ -169,21 +169,21 @@ namespace NongTrai
         private bool CheckCondition()
         {
             bool isCheck = true;
-            for (int i = 0; i < ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy.Length; i++)
+            for (int i = 0; i < ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy.Length; i++)
             {
-                switch (ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].isGem)
+                switch (ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].isGem)
                 {
                     case false:
                     {
                         if (ManagerCoin.Instance.Coin <
-                            ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase)
+                            ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase)
                             isCheck = false;
                         break;
                     }
                     case true:
                     {
                         if (ManagerGem.Instance.GemLive <
-                            ManagerData.instance.plotOfLands.Datas[idPOLNow].InforBuy[i].Purchase)
+                            ManagerData.instance.plotOfLands.Data[idPOLNow].InforBuy[i].Purchase)
                             isCheck = false;
                         break;
                     }
@@ -199,13 +199,13 @@ namespace NongTrai
             {
                 if (PlayerPrefs.HasKey("StatusPOL" + i) == false)
                 {
-                    if (ManagerData.instance.plotOfLands.Datas[i].LevelUnlock == 0)
+                    if (ManagerData.instance.plotOfLands.Data[i].LevelUnlock == 0)
                     {
                         poLs[i].StatusPOL = 1;
                         PlayerPrefs.SetInt("StatusPOL" + i, poLs[i].StatusPOL);
                         PlayerPrefs.SetInt("NumberDCRDestroyPOL" + i, poLs[i].NumberDCRDestroy);
                     }
-                    else if (ManagerData.instance.plotOfLands.Datas[i].LevelUnlock != 0)
+                    else if (ManagerData.instance.plotOfLands.Data[i].LevelUnlock != 0)
                     {
                         PlayerPrefs.SetInt("StatusPOL" + i, poLs[i].StatusPOL);
                     }

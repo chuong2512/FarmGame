@@ -67,13 +67,13 @@ namespace NongTrai
                         string str;
                         if (Application.systemLanguage == SystemLanguage.Vietnamese)
                             str = "Ô đất được mở khóa khi bạn đạt cấp độ " +
-                                  (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
+                                  (ManagerData.instance.plotOfLands.Data[idPOL].LevelUnlock + 1);
                         else if (Application.systemLanguage == SystemLanguage.Indonesian)
                             str = "Tanah terbuka di level " +
-                                  (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
+                                  (ManagerData.instance.plotOfLands.Data[idPOL].LevelUnlock + 1);
                         else
                             str = "Land is unlocked when you reach the level " +
-                                  (ManagerData.instance.plotOfLands.Datas[idPOL].LevelUnlock + 1);
+                                  (ManagerData.instance.plotOfLands.Data[idPOL].LevelUnlock + 1);
                         Notification.Instance.dialogBelow(str);
                         break;
                     case 1:
