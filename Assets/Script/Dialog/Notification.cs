@@ -12,7 +12,7 @@ namespace NongTrai
 
         public void dialogTower()
         {
-            string textShow;
+            /*string textShow;
             
             if (Application.systemLanguage == SystemLanguage.Vietnamese)
                 textShow = "Sức Chứa Nông Sản " + ManagerMarket.instance.quantityItemTower + "/" +
@@ -24,7 +24,7 @@ namespace NongTrai
                 textShow = "Capacity Farm " + ManagerMarket.instance.quantityItemTower + "/" +
                            ManagerMarket.instance.QuantityTotalItemTower;
 
-            ToastManager.Instance.Show(textShow);
+            ToastManager.Instance.Show(textShow);*/
         }
 
         public void dialogComingSoon()

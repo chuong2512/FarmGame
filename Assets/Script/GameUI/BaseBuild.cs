@@ -9,7 +9,6 @@ namespace NongTrai
 
         private bool _overlap;
         protected bool dragging;
-        protected Vector3 oldPos;
         private Vector3 _camfirstPos;
         protected Rigidbody2D rgb2D;
         protected SpriteRenderer _sprRenderer;
@@ -17,10 +16,9 @@ namespace NongTrai
         [FormerlySerializedAs("Store")] [SerializeField]
         protected GameObject store;
 
-        public BaseBuild(bool isRunIE, bool dragging, Vector3 oldPos, Rigidbody2D rgb2D)
+        public BaseBuild(bool isRunIE, bool dragging, Rigidbody2D rgb2D)
         {
             this.dragging = dragging;
-            this.oldPos = oldPos;
             this.rgb2D = rgb2D;
         }
 

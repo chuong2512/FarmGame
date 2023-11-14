@@ -10,7 +10,6 @@ namespace NongTrai
         private bool isRunIE;
         private bool _overlap;
         private bool dragging;
-        private Vector3 oldPos;
         private Vector3 _camfirstPos;
         private Animator _ani;
         private Rigidbody2D rgb2D;
@@ -25,11 +24,10 @@ namespace NongTrai
 
         private static readonly int IsClick = Animator.StringToHash("isClick");
 
-        public ComingSoonHouse(bool isRunIE, bool dragging, Vector3 oldPos, Rigidbody2D rgb2D)
+        public ComingSoonHouse(bool isRunIE, bool dragging, Rigidbody2D rgb2D)
         {
             this.isRunIE = isRunIE;
             this.dragging = dragging;
-            this.oldPos = oldPos;
             this.rgb2D = rgb2D;
         }
 
@@ -71,24 +69,6 @@ namespace NongTrai
                 str = "Segera akan datang!";
             else str = "Coming soon!";
             Notification.Instance.dialogBelow(str);
-        }
-
-        public void onTriggerStay2D()
-        {
-            if (dragging)
-            {
-                _overlap = true;
-                _sprRenderer.color = new Color(1f, 0f, 0f, 1f);
-            }
-        }
-
-        public void onTriggerExit2D()
-        {
-            if (dragging == true)
-            {
-                _overlap = false;
-                _sprRenderer.color = Color.white;
-            }
         }
     }
 }
