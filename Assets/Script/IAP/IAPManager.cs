@@ -7,18 +7,22 @@ using UnityEngine.Purchasing.Security;
 
 public class IAPKey
 {
-    public const string PACK1 = "pack_dragon_cards_1";
-    public const string PACK2 = "pack_dragon_cards_2";
-    public const string PACK3 = "pack_dragon_cards_3";
-    public const string PACK4 = "pack_dragon_cards_4";
-    public const string PACK5 = "pack_dragon_cards_5";
-    public const string PACK6 = "pack_dragon_cards_6";
-
-    public const string PACK1_REGISTER = "pack_register_dragon_cards_1";
-    public const string PACK2_REGISTER = "pack_register_dragon_cards_2";
-    public const string PACK3_REGISTER = "pack_register_dragon_cards_3";
-    public const string PACK4_REGISTER = "pack_register_dragon_cards_4";
-    public const string PACK5_REGISTER = "pack_register_dragon_cards_5";
+    public const string PACK1 = "pack_coin_100";
+    public const string PACK2 = "pack_coin_200";
+    public const string PACK3 = "pack_coin_500";
+    public const string PACK4 = "pack_coin_1000";
+    public const string PACK5 = "pack_coin_1500";
+    public const string PACK6 = "pack_coin_2000";
+    public const string PACK7 = "pack_coin_bonus_10_do";
+    public const string PACK8 = "pack_coin_bonus_20_do";
+    public const string PACK9 = "pack_gem_10";
+    public const string PACK10 = "pack_gem_20";
+    public const string PACK11 = "pack_gem_50";
+    public const string PACK12 = "pack_gem_100";
+    public const string PACK13 = "pack_gem_150";
+    public const string PACK14 = "pack_gem_200";
+    public const string PACK15 = "pack_gem_bonus_10_do";
+    public const string PACK16 = "pack_gem_bonus_20_do";
 }
 
 public class IAPManager : PersistentSingleton<IAPManager>, IStoreListener
@@ -57,12 +61,17 @@ public class IAPManager : PersistentSingleton<IAPManager>, IStoreListener
         builder.AddProduct(IAPKey.PACK4, ProductType.Consumable);
         builder.AddProduct(IAPKey.PACK5, ProductType.Consumable);
         builder.AddProduct(IAPKey.PACK6, ProductType.Consumable);
+        builder.AddProduct(IAPKey.PACK7, ProductType.Consumable);
+        builder.AddProduct(IAPKey.PACK8, ProductType.Consumable);
+        builder.AddProduct(IAPKey.PACK9, ProductType.Consumable);
+        builder.AddProduct(IAPKey.PACK10, ProductType.Consumable);
+        builder.AddProduct(IAPKey.PACK11, ProductType.Consumable);
+        builder.AddProduct(IAPKey.PACK12, ProductType.Consumable);
+        builder.AddProduct(IAPKey.PACK13, ProductType.Consumable);
+        builder.AddProduct(IAPKey.PACK14, ProductType.Consumable);
+        builder.AddProduct(IAPKey.PACK15, ProductType.Consumable);
+        builder.AddProduct(IAPKey.PACK16, ProductType.Consumable);
 
-        builder.AddProduct(IAPKey.PACK1_REGISTER, ProductType.Subscription);
-        builder.AddProduct(IAPKey.PACK2_REGISTER, ProductType.Subscription);
-        builder.AddProduct(IAPKey.PACK3_REGISTER, ProductType.Subscription);
-        builder.AddProduct(IAPKey.PACK4_REGISTER, ProductType.Subscription);
-        builder.AddProduct(IAPKey.PACK5_REGISTER, ProductType.Subscription);
         UnityPurchasing.Initialize(this, builder);
     }
 
