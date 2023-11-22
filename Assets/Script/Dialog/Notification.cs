@@ -7,8 +7,6 @@ namespace NongTrai
     public class Notification : Singleton<Notification>
     {
         private bool _checkOn, _checkBetween, _checkBelow, _checkTower, _checkDepot;
-        [SerializeField] Text txtOn, txtBetween, txtBelow, txtDialogTower, txtDialogDepot, txtDialog;
-
 
         public void dialogTower()
         {
@@ -35,7 +33,7 @@ namespace NongTrai
         public void dialog(string text)
         {
             ToastManager.Instance.Show(text);
-            
+
             /*txtDialog.text = text;
 
             txtDialog.gameObject.SetActive(false);
@@ -60,7 +58,7 @@ namespace NongTrai
 
         public void dialogDepot()
         {
-            string textShow;
+            /*string textShow;
 
             if (Application.systemLanguage == SystemLanguage.Vietnamese)
                 textShow = "Sức Chứa Vật Phẩm " + ManagerMarket.instance.quantityItemDepot + "/" +
@@ -72,7 +70,7 @@ namespace NongTrai
                 textShow = "Capacity Depot Item " + ManagerMarket.instance.quantityItemDepot + "/" +
                            ManagerMarket.instance.quantityTotalItemDepot;
 
-            ToastManager.Instance.Show(textShow);
+            ToastManager.Instance.Show(textShow);*/
         }
 
         /*IEnumerator showDialogDepot()

@@ -44,8 +44,6 @@ namespace NongTrai
 
         void OnMouseUp()
         {
-            Debug.LogError("Choose ho cai");
-            
             if (Camera.main == null ||
                 !(Vector3.Distance(_camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) < 0.2f)) return;
 
