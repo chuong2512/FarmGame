@@ -16,11 +16,15 @@ namespace NongTrai
         [SerializeField] Text ExitText;
         [SerializeField] GameObject Setting;
         [SerializeField] GameObject ExitGame;
+        
+        [SerializeField] Button RateBtn;
 
         [SerializeField] GameObject ThankYou;
 
         void Start()
         {
+            RateBtn.onClick.AddListener(Rate);
+            
             if (Application.systemLanguage == SystemLanguage.Vietnamese)
             {
                 NameSettingText.text = "Cài Đặt";
@@ -64,6 +68,11 @@ namespace NongTrai
                 Sound.value = PlayerPrefs.GetFloat("ValueSound");
                 ManagerAudio.Instance.ChangeValueSound(Sound.value);
             }
+        }
+
+        private void Rate()
+        {
+            Application.OpenURL("market://details?id=" + Application.identifier);
         }
 
         public void OpenSetting()

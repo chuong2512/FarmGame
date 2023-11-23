@@ -17,7 +17,6 @@ namespace NongTrai
 
         void OnMouseDown()
         {
-            Debug.LogError("Choose ");
             _sprRenderer.color = new Color(0.3f, 0.3f, 0.3f, 1f);
             if (Camera.main != null) _camfirstPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
@@ -31,7 +30,6 @@ namespace NongTrai
 
         void OnMouseUp()
         {
-            Debug.LogError("Choose ho cai");
             if (Vector3.Distance(_camfirstPos, Camera.main.ScreenToWorldPoint(Input.mousePosition)) < 0.2f)
             {
                 _sprRenderer.color = Color.white;
