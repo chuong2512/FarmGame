@@ -13,6 +13,7 @@ public class LoginReward : MonoBehaviour
     private bool _isReceived = true;
 
     [SerializeField] private Image[] dayImages;
+    [SerializeField] private GameObject[] _ticks;
     [SerializeField] private Sprite _chooseImg, _unChooseImg;
     [SerializeField] private Button _collectBtn, _openBtn;
     [SerializeField] private GameObject _loginObj;
@@ -25,7 +26,7 @@ public class LoginReward : MonoBehaviour
         SetBtn();
 
         SetActive(false);
-        
+
         _collectBtn.onClick.AddListener(ClickCollect);
     }
 
@@ -91,6 +92,12 @@ public class LoginReward : MonoBehaviour
     public void SetActive(bool b)
     {
         _loginObj.SetActive(b);
+
+        if (b)
+        {
+            SetImages();
+            SetBtn();
+        }
     }
 
     private void SetBtn()
@@ -103,6 +110,8 @@ public class LoginReward : MonoBehaviour
         for (int i = 0; i < max_day; i++)
         {
             dayImages[i].sprite = (i == _currentDay - 1) ? _chooseImg : _unChooseImg;
+
+            _ticks[i].SetActive(i < _currentDay - 1 || ((i == _currentDay - 1) && _isReceived));
         }
     }
 
