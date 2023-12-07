@@ -1,3 +1,9 @@
+#if UNITY_IOS
+using Unity.Notifications.iOS;
+using UnityEngine;
+using UnityEngine.iOS;
+#endif
+
 #if UNITY_ANDROID
 using Unity.Notifications.Android;
 using UnityEngine;
@@ -6,7 +12,7 @@ using UnityEngine.Android;
 
 public class AndroidNotificationManager : INotificationManager
 {
-#if UNITY_ANDROID    
+#if UNITY_ANDROID
     private const string LAST_TIME_CHANNEL_ID = "lastTime";
 
     public void RequestAuthorization()
@@ -50,6 +56,24 @@ public class AndroidNotificationManager : INotificationManager
     public void ClearAllNotifications()
     {
         AndroidNotificationCenter.CancelAllNotifications();
+    }
+#endif
+#if UNITY_IOS
+
+    public void RequestAuthorization()
+    {
+    }
+
+    public void RegisterNotificationChannel()
+    {
+    }
+
+    public void SendNotification(string title, string text, string icon, float fireTimeInDays)
+    {
+    }
+
+    public void ClearAllNotifications()
+    {
     }
 #endif
 }
