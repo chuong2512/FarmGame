@@ -41,8 +41,7 @@ public class LoginReward : MonoBehaviour
         {
             _isReceived = false;
             _currentDay++;
-            PlayerPrefs.SetInt("LoginDay", _currentDay);
-            PlayerPrefs.SetFloat("TimeLogin", DateTime.Now.DayOfYear);
+            
         }
     }
 
@@ -50,6 +49,9 @@ public class LoginReward : MonoBehaviour
     {
         if (!_isReceived)
         {
+            PlayerPrefs.SetInt("LoginDay", _currentDay);
+            PlayerPrefs.SetFloat("TimeLogin", DateTime.Now.DayOfYear);
+            
             ToastManager.Instance.Show("Receive Successfully!");
 
             switch (_currentDay)
