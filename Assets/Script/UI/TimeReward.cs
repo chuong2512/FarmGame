@@ -36,6 +36,7 @@ public class TimeReward : MonoBehaviour
     {
         if (!_isReceived)
         {
+            PlayerPrefs.SetFloat("RewardTimeCount", TimeToReceive);
             PlayerPrefs.SetFloat("LastTimeReward", DateTime.Now.DayOfYear);
 
             var random = Random.Range(0, 4);
@@ -76,10 +77,8 @@ public class TimeReward : MonoBehaviour
 
         if (currentTime > lastTime)
         {
-            PlayerPrefs.SetFloat("RewardTimeCount", TimeToReceive);
-            _timeCount = TimeToReceive;
-
             _isReceived = false;
+            PlayerPrefs.SetFloat("RewardTimeCount", TimeToReceive);
         }
     }
 
@@ -115,7 +114,14 @@ public class TimeReward : MonoBehaviour
 
     private void OnDisable()
     {
-        PlayerPrefs.SetFloat("RewardTimeCount", _timeCount);
+        if (_isReceived)
+        {
+            PlayerPrefs.SetFloat("RewardTimeCount", TimeToReceive);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("RewardTimeCount", _timeCount);
+        }
     }
 
     private void BuyCoin(int amount)

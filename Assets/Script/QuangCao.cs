@@ -42,7 +42,7 @@ public class QuangCao : PersistentSingleton<QuangCao>, IUnityAdsLoadListener
     public void ShowReAds(Action action = null)
     {
         Advertisement.Load(radUnitIdAndroid, this);
-        var optionsadsShowListener =  new CallbackRW(action);
+        var optionsadsShowListener = new CallbackRW(action);
         Advertisement.Show(radUnitIdAndroid, null, optionsadsShowListener);
         loadRewardAds = false;
     }
@@ -155,7 +155,7 @@ public class CallbackRW : IUnityAdsShowListener
     {
         this.action = action;
     }
-    
+
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
     {
     }
