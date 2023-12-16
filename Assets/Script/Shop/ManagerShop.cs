@@ -562,6 +562,12 @@ namespace NongTrai
         {
             ManagerMarket.instance.ReciveItem(5, id, amount, true);
         }
+        
+        [Button]
+        public void AddSeeds(int id, int amount)
+        {
+            ManagerMarket.instance.ReciveItem(0, id, amount, true);
+        }
 
         public void buyDecorate(int id)
         {
