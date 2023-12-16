@@ -1,160 +1,57 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using NongTrai;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 public class Ads20TimeReward : MonoBehaviour
 {
-    public GameObject reward;
+    public RewardBtn[] RewardBtns;
+
     public GameObject popup;
-    public GameObject[] rewards;
-    public Button receiveBtn;
-    public GameObject openBtn;
-
-    public TextMeshProUGUI timeTMP;
-
-    private bool _isReceived = true;
-
-    public float _timeCount;
-    private static float TimeToReceive = 30 * 60;
+    public Image slider;
+    public Button watchAdsBtn;
+    public float[] fillAmounts;
 
     private void Start()
     {
-        ResetData();
+        watchAdsBtn.onClick.AddListener(OnClickBtnAds);
 
-        receiveBtn.onClick.AddListener(OnClickReceive);
-
-        receiveBtn.gameObject.SetActive(false);
+        ReloadData();
     }
 
-    private void OnClickReceive()
+    private void OnClickBtnAds()
     {
-        if (!_isReceived)
+        QuangCao.Instance.ShowReAds(() =>
         {
-            PlayerPrefs.SetFloat("RewardTimeCount", TimeToReceive);
-            PlayerPrefs.SetFloat("LastTimeReward", DateTime.Now.DayOfYear);
-
-            var random = Random.Range(0, 4);
-
-            for (int i = 0; i < rewards.Length; i++)
-            {
-                rewards[i].SetActive(i == random);
-            }
-
-            switch (random)
-            {
-                case 0:
-                    BuyCoin(100);
-                    break;
-                case 1:
-                    BuyGem(20);
-                    break;
-                case 2:
-                    BuyCua(5);
-                    break;
-                case 3:
-                    BuyMin(5);
-                    break;
-            }
-
-            _isReceived = true;
-
-            reward.SetActive(false);
-        }
+            var time = PlayerPrefs.GetInt($"WatchAdsTimes", 0);
+            PlayerPrefs.SetInt($"WatchAdsTimes", time + 1);
+            ReloadData();
+            RefreshButtons();
+        });
     }
 
-    private void ResetData()
+    private void ReloadData()
     {
-        _timeCount = PlayerPrefs.GetFloat("RewardTimeCount", TimeToReceive);
+        var time = PlayerPrefs.GetInt($"WatchAdsTimes", 0);
 
-        var lastTime = PlayerPrefs.GetFloat("LastTimeReward", 0);
-        var currentTime = DateTime.Now.DayOfYear;
+        var index = Mathf.Min(time, fillAmounts.Length - 1);
 
-        if (currentTime > lastTime)
-        {
-            _isReceived = false;
-            PlayerPrefs.SetFloat("RewardTimeCount", TimeToReceive);
-        }
+        slider.fillAmount = fillAmounts[index];
     }
 
     public void SetActive(bool b)
     {
         popup.SetActive(b);
-    }
 
-    void Update()
-    {
-        SetTime();
-    }
-
-    private void SetTime()
-    {
-        openBtn.SetActive(!_isReceived);
-
-        receiveBtn.gameObject.SetActive(_timeCount <= 0);
-
-        if (_timeCount > 0)
+        if (b)
         {
-            _timeCount -= Time.deltaTime;
-
-            var timeSpan = TimeSpan.FromSeconds(_timeCount);
-
-            timeTMP.SetText(timeSpan.ToString(@"mm\:ss"));
-        }
-        else
-        {
-            timeTMP.SetText("--:--");
+            RefreshButtons();
         }
     }
 
-    private void OnDisable()
+    public void RefreshButtons()
     {
-        if (_isReceived)
+        for (int i = 0; i < RewardBtns.Length; i++)
         {
-            PlayerPrefs.SetFloat("RewardTimeCount", TimeToReceive);
+            RewardBtns[i].SetInfo(i, PlayerPrefs.GetInt($"ReceiveAds{i}", 0) == 1);
         }
-        else
-        {
-            PlayerPrefs.SetFloat("RewardTimeCount", _timeCount);
-        }
-    }
-
-    private void BuyCoin(int amount)
-    {
-        ManagerCoin.Instance.ReciveGold(amount);
-    }
-
-    private void BuyGem(int amount)
-    {
-        ManagerGem.Instance.ReciveGem(amount);
-    }
-
-    private void BuyCua(int amount)
-    {
-        ManagerShop.instance.AddToolDecorate(0, amount);
-    }
-
-    private void BuyMin(int amount)
-    {
-        ManagerShop.instance.AddToolDecorate(1, amount);
-    }
-
-    private void BuyLua(int amount)
-    {
-        ManagerShop.instance.AddSeeds(1, amount);
-    }
-
-    private void BuyNgo(int amount)
-    {
-        ManagerShop.instance.AddSeeds(1, amount);
-    }
-
-    private void BuyCaRot(int amount)
-    {
-        ManagerShop.instance.AddSeeds(1, amount);
     }
 }
