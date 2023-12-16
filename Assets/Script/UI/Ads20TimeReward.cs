@@ -19,13 +19,18 @@ public class Ads20TimeReward : MonoBehaviour
 
     private void OnClickBtnAds()
     {
-        QuangCao.Instance.ShowReAds(() =>
+        if (QuangCao.Instance.CanShowAds() && Application.internetReachability != NetworkReachability.NotReachable)
         {
-            var time = PlayerPrefs.GetInt($"WatchAdsTimes", 0);
-            PlayerPrefs.SetInt($"WatchAdsTimes", time + 1);
-            ReloadData();
-            RefreshButtons();
-        });
+            Debug.Log("Show Ads");
+                
+            QuangCao.Instance.ShowReAds(() =>
+            {
+                var time = PlayerPrefs.GetInt($"WatchAdsTimes", 0);
+                PlayerPrefs.SetInt($"WatchAdsTimes", time + 1);
+                ReloadData();
+                RefreshButtons();
+            });
+        }
     }
 
     private void ReloadData()
