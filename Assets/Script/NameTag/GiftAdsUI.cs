@@ -29,7 +29,7 @@ public class GiftAdsUI : Singleton<GiftAdsUI>
     
     private void ShowAds()
     {
-        if (QuangCao.Instance.CanShowAds() && Application.internetReachability != NetworkReachability.NotReachable)
+        /*if (QuangCao.Instance.CanShowAds() && Application.internetReachability != NetworkReachability.NotReachable)
         {
             Debug.Log("Show Ads");
                 
@@ -40,7 +40,7 @@ public class GiftAdsUI : Singleton<GiftAdsUI>
                 open.SetActive(false);
             });
         }
-        else
+        else*/
         {
             fail.SetActive(true);
         }
