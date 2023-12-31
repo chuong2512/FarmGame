@@ -56,9 +56,6 @@ android {
     ignoreAssetsPattern = "!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~"
 }
 
-gradle.projectsEvaluated {
-    apply from: 'GoogleMobileAdsPlugin.androidlib/validate_dependencies.gradle'
-}
 **PACKAGING_OPTIONS**
 }**REPOSITORIES****SOURCE_BUILD_SETUP**
 **EXTERNAL_SOURCES**

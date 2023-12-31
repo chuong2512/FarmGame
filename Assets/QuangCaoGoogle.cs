@@ -41,7 +41,7 @@ public class QuangCaoGoogle : PersistentSingleton<QuangCaoGoogle>
         }
     }
 
-    private RewardedAd rewardedAd;
+    private RewardedAd _rewardedAd;
 
     private InterstitialAd interstitialAd;
 
@@ -89,16 +89,16 @@ public class QuangCaoGoogle : PersistentSingleton<QuangCaoGoogle>
     public void LoadRewardedAd()
     {
         // Clean up the old ad before loading a new one.
-        if (rewardedAd != null)
+        if (_rewardedAd != null)
         {
-            rewardedAd.Destroy();
-            rewardedAd = null;
+            _rewardedAd.Destroy();
+            _rewardedAd = null;
         }
 
         Debug.Log("Loading the rewarded ad.");
 
         // create our request used to load the ad.
-        var adRequest = new AdRequest.Builder().Build();
+        var adRequest = new AdRequest();
 
         // send the request to load the ad.
         RewardedAd.Load(RAD_UNIT_ID, adRequest,
@@ -115,7 +115,7 @@ public class QuangCaoGoogle : PersistentSingleton<QuangCaoGoogle>
                 Debug.Log("Rewarded ad loaded with response : "
                           + ad.GetResponseInfo());
 
-                rewardedAd = ad;
+                _rewardedAd = ad;
             });
     }
 
@@ -237,14 +237,22 @@ public class QuangCaoGoogle : PersistentSingleton<QuangCaoGoogle>
         const string rewardMsg =
             "Rewarded ad rewarded the user. Type: {0}, amount: {1}.";
 
-        if (rewardedAd != null && rewardedAd.CanShowAd())
+        LoadRewardedAd();
+
+        if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
-            rewardedAd.Show((Reward reward) =>
+            _rewardedAd.Show((Reward reward) =>
             {
                 // TODO: Reward the user.
                 action?.Invoke();
                 Debug.Log(String.Format(rewardMsg, reward.Type, reward.Amount));
             });
         }
+        else
+        {
+            LoadRewardedAd();
+        }
     }
+    
+    
 }
