@@ -19,7 +19,7 @@ public class Ads20TimeReward : MonoBehaviour
 
     private void OnClickBtnAds()
     {
-        if (QuangCao.Instance.CanShowAds() && Application.internetReachability != NetworkReachability.NotReachable)
+        /*if (QuangCao.Instance.CanShowAds() && Application.internetReachability != NetworkReachability.NotReachable)
         {
             Debug.Log("Show Ads");
                 
@@ -30,7 +30,7 @@ public class Ads20TimeReward : MonoBehaviour
                 ReloadData();
                 RefreshButtons();
             });
-        }
+        }*/
     }
 
     private void ReloadData()

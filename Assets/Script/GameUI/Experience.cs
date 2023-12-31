@@ -148,6 +148,8 @@ namespace NongTrai
             upLevel.SetActive(true);
             ManagerAudio.Instance.PlayAudio(Audio.Uplevel);
             MainCamera.instance.LockCamLevelUp();
+            
+            QuangCaoGoogle.Instance.ShowInterAds();
         }
 
         public void closeUpLevel()

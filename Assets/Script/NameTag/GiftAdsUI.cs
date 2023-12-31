@@ -29,11 +29,11 @@ public class GiftAdsUI : Singleton<GiftAdsUI>
     
     private void ShowAds()
     {
-        if (QuangCao.Instance.CanShowAds() && Application.internetReachability != NetworkReachability.NotReachable)
+        if (Application.internetReachability != NetworkReachability.NotReachable)
         {
             Debug.Log("Show Ads");
                 
-            QuangCao.Instance.ShowReAds(() =>
+            QuangCaoGoogle.Instance.ShowRewardedAds(() =>
             {
                 Debug.Log("Get Gem");
                 ManagerGem.Instance.ReciveGem(2);
