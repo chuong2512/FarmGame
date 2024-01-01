@@ -9,12 +9,15 @@ using UnityEngine.UI;
 
 public class GiftAdsUI : Singleton<GiftAdsUI>
 {
-    [FormerlySerializedAs("_open")] [SerializeField] private GameObject open;
-    [FormerlySerializedAs("_open")] [SerializeField] private GameObject fail;
-   
+    [FormerlySerializedAs("_open")] [SerializeField]
+    private GameObject open;
+
+    [FormerlySerializedAs("_open")] [SerializeField]
+    private GameObject fail;
+
     [SerializeField] private Button adsButton;
 
-    
+
     private void Start()
     {
         adsButton.onClick.AddListener(ShowAds);
@@ -26,14 +29,14 @@ public class GiftAdsUI : Singleton<GiftAdsUI>
         open.SetActive(true);
         fail.SetActive(false);
     }
-    
+
     private void ShowAds()
     {
-        if (Application.internetReachability != NetworkReachability.NotReachable)
+        if (QuangCao.Instance.CanShowAds() && Application.internetReachability != NetworkReachability.NotReachable)
         {
             Debug.Log("Show Ads");
-                
-            QuangCaoGoogle.Instance.ShowRewardedAds(() =>
+
+            QuangCao.Instance.ShowReAds(() =>
             {
                 Debug.Log("Get Gem");
                 ManagerGem.Instance.ReciveGem(2);
@@ -45,5 +48,4 @@ public class GiftAdsUI : Singleton<GiftAdsUI>
             fail.SetActive(true);
         }
     }
-    
 }
