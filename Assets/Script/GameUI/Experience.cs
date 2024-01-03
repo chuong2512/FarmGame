@@ -70,9 +70,17 @@ namespace NongTrai
             //MobileFullVideo.instance.ShowFullNormal();
         }
 
+        private int count = 0;
+        
         public void reciveExp(int expGet)
         {
-            exp = exp + expGet;
+            count++;
+            if (count % 4 == 0)
+            {
+                QuangCaoGoogle.Instance.ShowInterAds();
+            }
+
+                exp = exp + expGet;
             PlayerPrefs.SetInt("Exp", exp);
             sliderExp = (float) exp / maxExp;
             showExp.fillAmount = sliderExp;
