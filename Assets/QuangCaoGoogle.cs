@@ -22,7 +22,7 @@ public class QuangCaoGoogle : PersistentSingleton<QuangCaoGoogle>
         MobileAds.Initialize((initStatus) =>
         {
             LoadInterstitialAd();
-            LoadRewardedAd();
+            //LoadRewardedAd();
         });
     }
 
@@ -43,7 +43,7 @@ public class QuangCaoGoogle : PersistentSingleton<QuangCaoGoogle>
 
     private RewardedAd _rewardedAd;
 
-    private InterstitialAd interstitialAd;
+    private InterstitialAd _interstitialAd;
 
     /// <summary>
     /// Loads the interstitial ad.
@@ -51,18 +51,16 @@ public class QuangCaoGoogle : PersistentSingleton<QuangCaoGoogle>
     public void LoadInterstitialAd()
     {
         // Clean up the old ad before loading a new one.
-        if (interstitialAd != null)
+        if (_interstitialAd != null)
         {
-            interstitialAd.Destroy();
-            interstitialAd = null;
+            _interstitialAd.Destroy();
+            _interstitialAd = null;
         }
 
         Debug.Log("Loading the interstitial ad.");
 
         // create our request used to load the ad.
-        var adRequest = new AdRequest.Builder()
-            .AddKeyword("unity-admob-sample")
-            .Build();
+        var adRequest = new AdRequest();
 
         // send the request to load the ad.
         InterstitialAd.Load(AD_UNIT_ID, adRequest,
@@ -79,7 +77,7 @@ public class QuangCaoGoogle : PersistentSingleton<QuangCaoGoogle>
                 Debug.Log("Interstitial ad loaded with response : "
                           + ad.GetResponseInfo());
 
-                interstitialAd = ad;
+                _interstitialAd = ad;
             });
     }
 
@@ -124,14 +122,15 @@ public class QuangCaoGoogle : PersistentSingleton<QuangCaoGoogle>
     /// </summary>
     public void ShowInterAds()
     {
-        if (interstitialAd != null && interstitialAd.CanShowAd())
+        if (_interstitialAd != null && _interstitialAd.CanShowAd())
         {
             Debug.Log("Showing interstitial ad.");
-            interstitialAd.Show();
+            _interstitialAd.Show();
         }
         else
         {
             Debug.LogError("Interstitial ad is not ready yet.");
+            ToastManager.Instance.Show("Không load được quảng cáo");
             LoadInterstitialAd();
         }
     }
