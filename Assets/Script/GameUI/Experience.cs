@@ -77,7 +77,7 @@ namespace NongTrai
             count++;
             if (count % 4 == 0)
             {
-                QuangCaoGoogle.Instance.ShowInterAds();
+               // QuangCaoGoogle.Instance.ShowInterAds();
             }
 
                 exp = exp + expGet;

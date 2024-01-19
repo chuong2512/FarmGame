@@ -33,7 +33,7 @@ public class AutoAds : MonoBehaviour
     {
         if (_timeClick % 35 == 0)
         {
-            QuangCaoGoogle.Instance.ShowInterAds();
+            //QuangCaoGoogle.Instance.ShowInterAds();
         }
     }
 }
