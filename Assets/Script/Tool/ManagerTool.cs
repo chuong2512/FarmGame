@@ -10,6 +10,7 @@ public class ManagerTool : MonoBehaviour
 
     private Clock clock;
     private Lighting lighting;
+    public CompAds compAds;
     private DetailItemNhaMay detailItemNhaMay;
     private int idTree, idNumberTree;
     private IEnumerator runTimeLive;
@@ -539,8 +540,10 @@ public class ManagerTool : MonoBehaviour
             showClock.CheckStype[stype] = true;
             clock.name.text = name;
             lighting.idStype = stype;
+            compAds.idStype = stype;
             lighting.status = 0;
             lighting.objUseGem = obj;
+            compAds.objUseGem = obj;
             Clock.transform.position = target;
             if (objLighting.activeSelf == false) objLighting.SetActive(true);
             Clock.SetActive(true);
@@ -555,8 +558,10 @@ public class ManagerTool : MonoBehaviour
             showClock.CheckStype[stype] = true;
             clock.name.text = name;
             lighting.idStype = stype;
+            compAds.idStype = stype;
             lighting.status = 0;
             lighting.objUseGem = obj;
+            compAds.objUseGem = obj;
             Clock.transform.position = target;
             if (objLighting.activeSelf == false) objLighting.SetActive(true);
             Clock.SetActive(true);
